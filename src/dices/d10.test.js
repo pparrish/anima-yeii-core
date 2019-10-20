@@ -11,4 +11,15 @@ describe('d10', () => {
     const results = d10.roll(10)
     expect(results).toHaveLength(10)
   })
+  test('when i role with a rule of "if the result is less than 4 repeat" i have one value betwen 4 and 10', () => {
+    const ifLessThanFourRepeat = result => {
+      return {
+        result,
+        repeat: result < 4
+      }
+    }
+    const results = d10.rollWidthRule(ifLessThanFourRepeat)
+    const valueGreaterThanTree = results.filter(value => value > 3)
+    expect(valueGreaterThanTree).toHaveLength(1)
+  })
 })

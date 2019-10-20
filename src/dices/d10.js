@@ -14,6 +14,18 @@ class D10 {
     }
     return results
   }
+
+  rollWidthRule (rule) {
+    let results = []
+    let reroll = true
+    while (reroll) {
+      const rollValue = this.generator.next().value
+      const {repeat, result} = rule(rollValue)
+      reroll = repeat
+      results.push(result)
+    }
+    return results
+  }
 }
 
 module.exports = D10
