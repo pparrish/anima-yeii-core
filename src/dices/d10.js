@@ -16,11 +16,11 @@ class D10 {
   }
 
   rollWidthRule (rule) {
-    let results = []
+    const results = []
     let reroll = true
     while (reroll) {
       const rollValue = this.generator.next().value
-      const {repeat, result} = rule(rollValue)
+      const { repeat, result } = rule(rollValue)
       reroll = repeat
       results.push(result)
     }
