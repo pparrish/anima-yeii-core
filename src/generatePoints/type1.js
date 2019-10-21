@@ -4,14 +4,6 @@ const dice = new Dice()
 const generatePointsWith = require('./generatePointsWith')
 
 module.exports = (numberOfCharacteristics) => {
-  /* const points = []
-  const history = []
-  for (let i = 0; i < numberOfCharacteristics; i++) {
-    const result = dice.rollWidthRule(type1RollRule)
-    points.push(result[result.length - 1])
-    history.push(result)
-  } */
-
   const { points, history } = generatePointsWith(dice, type1RollRule, numberOfCharacteristics)
 
   // replace the minimun value width 9
