@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "yarn standard",
     "fix": "yarn lint --fix",
-    "test": "yarn fix && jest"
+    "test": "yarn fix && jest --coverage"
   },
   "husky": {
     "hooks": {
