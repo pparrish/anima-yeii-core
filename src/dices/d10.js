@@ -20,7 +20,7 @@ class D10 {
     let reroll = true
     while (reroll) {
       const rollValue = this.generator.next().value
-      const { repeat, result } = rule(rollValue)
+      const { repeat, result } = rule(rollValue, results)
       reroll = repeat
       results.push(result)
     }
