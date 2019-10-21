@@ -18,4 +18,8 @@ describe('type 1 generator', () => {
     const { points } = type1(8)
     points.map(point => expect(point).toBeGreaterThan(3))
   })
+  test('when generate a 8 points alwais have value of 9', () => {
+    const { points } = type1(8)
+    expect(points).toContain(9)
+  })
 })
