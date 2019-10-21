@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "yarn standard",
-    "test": "jest"
+    "fix": "yarn lint --fix",
+    "test": "yarn fix && jest"
   },
   "husky": {
     "hooks": {
@@ -14,7 +15,7 @@
   },
   "lint-staged": {
     "./**/*.{js}": [
-      "yarn lint --fix",
+      "yarn lint",
       "jest --bail --coverage --findRelatedTests"
     ]
   },
