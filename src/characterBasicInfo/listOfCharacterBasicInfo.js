@@ -4,5 +4,7 @@ module.exports = [
   'personality',
   'lore',
   'body type',
-  'age'
+  'age',
+  'height',
+  'weight'
 ]
