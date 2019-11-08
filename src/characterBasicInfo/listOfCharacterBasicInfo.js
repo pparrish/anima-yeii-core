@@ -5,6 +5,7 @@ module.exports = [
   'lore',
   'body type',
   'age',
+  'race',
   'height',
   'weight'
 ]
