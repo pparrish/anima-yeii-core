@@ -1,9 +1,12 @@
 const listOfCharacterBasicInfo = require('../characterBasicInfo/listOfCharacterBasicInfo')
+const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics')
+const generatePoints = require('../generatePoints')
 
 module.exports = class CharacterCreator {
   constructor () {
     this.basicInfoValues = []
     listOfCharacterBasicInfo.map(() => this.basicInfoValues.push(null))
+    this.generatedPointsResults = {}
   }
 
   _set (name, value, names, values) {
@@ -44,5 +47,24 @@ module.exports = class CharacterCreator {
 
   settedBasicInfo () {
     return this._settedValues(listOfCharacterBasicInfo, this.basicInfoValues)
+  }
+
+  generatePoints (typeNumber) {
+    const generatedTypes = Object.keys(generatePoints)
+    const generateName = generatedTypes[typeNumber - 1]
+    this.generatorSelected = generateName
+    if (generateName === 'type5') {
+      this.generatedPointsResults[generateName] = generatePoints[generateName](this.points)
+      return this.generatedPointsResults[generateName]
+    }
+    if (this.generatedPointsResults[generateName]) {
+      return this.generatedPointsResults[generateName]
+    }
+    this.generatedPointsResults[generateName] = generatePoints[generateName](listOfCharacteristics.length)
+    return this.generatedPointsResults[generateName]
+  }
+
+  setPoints (points) {
+    this.points = points
   }
 }
