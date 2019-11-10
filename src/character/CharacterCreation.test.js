@@ -51,4 +51,33 @@ describe('Creation of a character', () => {
     const secondPoints = characterCreator.generatePoints(3)
     expect(firstPoints).toEqual(secondPoints)
   })
+
+  test.todo('when i dont generate the point i cant select points '
+  )
+
+  test.todo('when i generate the points i can select points')
+
+  test.todo('when i generate type1 i get generate type "points"')
+  test.todo('when i generetate by type 4 i get type "values"'
+  )
+
+  test.todo('when i generate points type 1 i can get the type of generation type 1')
+
+  test.todo('when i not select any characteristic all non set characteristics is in notSetterCharacteristic')
+
+  test.todo('when i use select Greatest value to a characteristic i can see the selectec characteristic width the greather value of the values')
+
+  test.todo('when i select a value of a table this value is removed to remaind values')
+
+  test.todo('when i use select smallest value to a characteristic i can see the characteristic width the smlest value of the values')
+
+  test.todo('when i use the select value to a characteristic and the selected value is not in the characteristic twrow error'
+  )
+
+  test.todo('when i use select value to a characteristic i can see the value selecten in the characteristic')
+
+  test.todo('when i remove greatest value  i cant see the in rhe selectec characteristics')
+
+  test.todo('when i remove the smalest value i cant see it in the selected characteristics ')
+  test.todo('when i remove a value from a characteristic the  i can see the selected characteristic')
 })
