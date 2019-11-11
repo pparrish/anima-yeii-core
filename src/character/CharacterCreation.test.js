@@ -53,7 +53,12 @@ describe('Creation of a character', () => {
   })
 
   describe('points selection', () => {
-    test.todo('when i dont generate points pointAlreadyGenerathed must be false')
+    const newCreator = () => new CharacterCreator()
+
+    test('Given a new creator them pointAlreadyGenerathed must be false', () => {
+      const creator = newCreator()
+      expect(creator.isPoinsAlreadyGenerated()).toBe(false)
+    })
 
     test.todo('given a points already generated creator when i reset generate points then pointsAlrearyGenerated must be falae')
 
