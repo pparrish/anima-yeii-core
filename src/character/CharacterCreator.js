@@ -69,6 +69,19 @@ module.exports = class CharacterCreator {
   }
 
   isPoinsAlreadyGenerated () {
-    return (Object.keys(this.generatedPointsResults).lenght === 0)
+    console.log(Object.keys(this.generatedPointsResults).length)
+    return (Object.keys(this.generatedPointsResults).length !== 0)
+  }
+
+  generationType () {
+    if (!this.isPoinsAlreadyGenerated()) throw new Error('The points is not generated, use genetatePoints(type) before')
+    const generator = this.generatedPointsResults[this.generatorSelected].points
+    if (Array.isArray(generator)) {
+      return 'values'
+    }
+    if (typeof generator === 'number') {
+      return 'points'
+    }
+    throw new Error('The generator set of points generator is not a valid type')
   }
 }
