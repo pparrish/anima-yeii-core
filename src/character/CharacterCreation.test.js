@@ -55,18 +55,36 @@ describe('Creation of a character', () => {
   describe('points selection', () => {
     const newCreator = () => new CharacterCreator()
 
+    const newCreatorWithType = type => {
+      const creator = newCreator()
+      creator.generatePoints(type)
+      return creator
+    }
+
+    const creatorWithType1 = () => newCreatorWithType(1)
+
+    const creatorWithType4 = () => newCreatorWithType(4)
+
     test('Given a new creator them pointAlreadyGenerathed must be false', () => {
       const creator = newCreator()
       expect(creator.isPoinsAlreadyGenerated()).toBe(false)
     })
 
-    test.todo('given a points already generated creator when i reset generate points then pointsAlrearyGenerated must be falae')
+    test('Given a new creator Then access to generator type twow a error', () => {
+      const creator = newCreator()
+      expect(() => creator.generationType()).toThrow()
+    })
 
-    test.todo('when i dont generate the point i cant select points ')
-    test.todo('when i generate the points i can select points')
+    test('Given a creator width type1 generator then i get generate type "values"', () => {
+      const creator = creatorWithType1()
+      expect(creator.generationType()).toBe('values')
+    })
 
-    test.todo('when i generate type1 i get generate type "points"')
-    test.todo('when i generetate by type 4 i get type "values"')
+    test('Given a creator with type 4 generator Then i get generate type "points"', () => {
+      const creator = creatorWithType4()
+      expect(creator.generationType()).toBe('points')
+    })
+    test.todo('when i generetate by type 4 i get type "points"')
 
     test.todo('when i generate points type 1 i can get the type of generation type 1')
 
