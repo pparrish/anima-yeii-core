@@ -5,9 +5,11 @@ const generatePoints = require('../generatePoints')
 module.exports = class CharacterCreator {
   constructor () {
     this.basicInfoValues = []
-    listOfCharacterBasicInfo.map(() => this.basicInfoValues.push(null))
     this.generatedPointsResults = {}
+    this.generatorSelected = null
+    this.nonSettedValues = []
     this.characteristicsValues = []
+    listOfCharacterBasicInfo.map(() => this.basicInfoValues.push(null))
   }
 
   _set (name, value, names, values) {
