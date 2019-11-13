@@ -1,19 +1,30 @@
-const listOfCharacterBasicInfo = require('../characterBasicInfo/listOfCharacterBasicInfo')
-const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics')
+const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
+const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const generatePoints = require('../generatePoints')
 
 module.exports = class CharacterCreator {
   constructor () {
+    this._namesLists = {
+      basicInfo: basicInfoList.map(x => x),
+      characteristics: characteristicsList.map(x => x)
+    }
+
     this.basicInfoValues = []
     this.generatedPointsResults = {}
     this.generatorSelected = null
     this.nonSettedValues = []
     this.characteristicsValues = []
-    listOfCharacterBasicInfo.map(() => this.basicInfoValues.push(null))
+    this._getNames('basicInfo').map(() => this.basicInfoValues.push(null))
+  }
+
+  _getNames (type) {
+    const list = this._namesLists[type]
+    if (!list) throw new Error(`the ${type} list not exists`)
+    return list.map(x => x)
   }
 
   _set (name, value, names, values) {
-    const index = names.indexOf(name)
+    const index = this._getNames(names).indexOf(name)
     if (index === -1) return false
     values[index] = value
     return true
@@ -21,7 +32,7 @@ module.exports = class CharacterCreator {
 
   _nonSetValues (names, values) {
     const nonSet = []
-    names.map((name, index) => {
+    this._getNames(names).map((name, index) => {
       if (values[index] === undefined || values[index] === null) {
         nonSet.push(name)
       }
@@ -31,7 +42,7 @@ module.exports = class CharacterCreator {
 
   _settedValues (names, values) {
     const settedValues = {}
-    names.reduce((settedValues, name, index) => {
+    this._getNames(names).reduce((settedValues, name, index) => {
       if (values[index] !== undefined && values[index] !== null) {
         settedValues[name] = values[index]
       }
@@ -41,15 +52,15 @@ module.exports = class CharacterCreator {
   }
 
   setBasicInfo (name, value) {
-    return this._set(name, value, listOfCharacterBasicInfo, this.basicInfoValues)
+    return this._set(name, value, 'basicInfo', this.basicInfoValues)
   }
 
   nonSetBasicInfo () {
-    return this._nonSetValues(listOfCharacterBasicInfo, this.basicInfoValues)
+    return this._nonSetValues('basicInfo', this.basicInfoValues)
   }
 
   settedBasicInfo () {
-    return this._settedValues(listOfCharacterBasicInfo, this.basicInfoValues)
+    return this._settedValues('basicInfo', this.basicInfoValues)
   }
 
   generatePoints (typeNumber) {
@@ -66,7 +77,7 @@ module.exports = class CharacterCreator {
       this.nonSettedValues = this.generatedPointsResults[generateName].points
       return this.generatedPointsResults[generateName]
     }
-    this.generatedPointsResults[generateName] = generatePoints[generateName](listOfCharacteristics.length)
+    this.generatedPointsResults[generateName] = generatePoints[generateName](this._getNames('characteristics').length)
     this.nonSettedValues = this.generatedPointsResults[generateName].points
     return this.generatedPointsResults[generateName]
   }
@@ -92,7 +103,7 @@ module.exports = class CharacterCreator {
   }
 
   nonSetCharacteristics () {
-    return this._nonSetValues(listOfCharacteristics, this.characteristicsValues)
+    return this._nonSetValues('characteristics', this.characteristicsValues)
   }
 
   getGreatestNonSetValue () {
@@ -111,7 +122,7 @@ module.exports = class CharacterCreator {
   }
 
   indexOfCharacteristic (name) {
-    const index = this._getIndex(name, listOfCharacteristics)
+    const index = this._getIndex(name, this._getNames('characteristics'))
     if (index === -1) throw new Error('The characteristic is not in characteristics list')
     return index
   }
@@ -148,6 +159,6 @@ module.exports = class CharacterCreator {
   }
 
   settedCharacteristics () {
-    return this._settedValues(listOfCharacteristics, this.characteristicsValues)
+    return this._settedValues('characteristics', this.characteristicsValues)
   }
 }
