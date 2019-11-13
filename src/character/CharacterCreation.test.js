@@ -1,6 +1,7 @@
 /* eslint-env jest */
 const CharacterCreator = require('./CharacterCreator')
 const listOfBasicInfo = require('../characterBasicInfo/listOfCharacterBasicInfo')
+const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics')
 describe('Creation of a character', () => {
   const characterCreator = new CharacterCreator()
   test('when the creation begings all the basic info is not seted', () => {
@@ -84,26 +85,59 @@ describe('Creation of a character', () => {
       const creator = creatorWithType4()
       expect(creator.generationType()).toBe('points')
     })
-    test.todo('when i generetate by type 4 i get type "points"')
 
-    test.todo('when i generate points type 1 i can get the type of generation type 1')
+    test('Given a creator with type 1 generation And change to type 4 generation Then the generation type is points', () => {
+      const creator = creatorWithType1()
+      creator.generatePoints(4)
+      expect(creator.generationType()).toBe('points')
+    })
 
-    test.todo('when i not select any characteristic all non set characteristics is in notSetterCharacteristic')
+    test('Given a creator with type 4 generation And change to type 1 generation Then the generation type is values', () => {
+      const creator = creatorWithType4()
+      creator.generatePoints(1)
+      expect(creator.generationType()).toBe('values')
+    })
 
-    test.todo('when i use select Greatest value to a characteristic i can see the selectec characteristic width the greather value of the values')
+    test('Given a new creator Then the nonSettedCharacteristics contains all characteristics', () => {
+      const creator = newCreator()
+      expect(creator.nonSetCharacteristics()).toEqual(expect.arrayContaining(listOfCharacteristics))
+    })
 
-    test.todo('when i select a value of a table this value is removed to remaind values')
+    test('Given a creator with type 1 And select greatest value to dexterity Then i get the characteristic dexterity with the greatestValue', () => {
+      const creator = creatorWithType1()
+      const greatestValue = creator.getGreatestNonSetValue()
+      creator.selectGreatestValueTo('dexterity')
+      const { dexterity } = creator.settedCharacteristics()
+      expect(dexterity).toBe(greatestValue)
+    })
 
-    test.todo('when i use select smallest value to a characteristic i can see the characteristic width the smlest value of the values')
+    test('Given a creatpr with type 1 And select the smalest value to dexterity Then i get the characteristic of dexterity woth the smalest value', () => {
+      const creator = creatorWithType1()
+      const smalestValue = creator.getSmalestNonSetValue()
+      creator.selectSmalestValueTo('dexterity')
+      const { dexterity } = creator.settedCharacteristics()
+      expect(dexterity).toBe(smalestValue)
+    })
 
-    test.todo('when i use the select value to a characteristic and the selected value is not in the characteristic twrow error'
-    )
+    test('Given a creator with type1 And i select a value to dexterity Then the value is on dexterity', () => {
+      const creator = creatorWithType1()
+      const firstValue = creator.nonSetGenerationValues()[0]
+      creator.selectValueTo('dexterity', firstValue)
+      const { dexterity } = creator.settedCharacteristics()
+      expect(dexterity).toBe(firstValue)
+    })
 
-    test.todo('when i use select value to a characteristic i can see the value selecten in the characteristic')
+    test('Given a creator widrh type 1 And i selexta a value to dexterity that not is in notSetGenerationValues Then throw error', () => {
+      const creator = creatorWithType1()
+      expect(() => creator.selectValueTo('dexterity', 2000)).toThrow()
+    })
 
-    test.todo('when i remove greatest value  i cant see the in rhe selectec characteristics')
-
-    test.todo('when i remove the smalest value i cant see it in the selected characteristics ')
-    test.todo('when i remove a value from a characteristic the  i can see the selected characteristic')
+    test('Given a creator with type 1 And select a value to dexterity And i remove the value of the dexterity Then the value is in nonSetGeneratorValue', () => {
+      const creator = creatorWithType1()
+      const firstValue = creator.nonSetGenerationValues()[0]
+      creator.selectValueTo('dexterity', firstValue)
+      creator.removeValueTo('dexterity')
+      expect(creator.nonSetGenerationValues()).toEqual(expect.arrayContaining([firstValue]))
+    })
   })
 })
