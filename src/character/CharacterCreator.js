@@ -9,12 +9,14 @@ module.exports = class CharacterCreator {
       characteristics: characteristicsList.map(x => x)
     }
 
-    this.basicInfoValues = []
+    this._valuesLists = {
+      basicInfo: this._getNames('basicInfo').map(() => null),
+      characteristics: this._getNames('characteristics').map(() => null)
+    }
+
     this.generatedPointsResults = {}
     this.generatorSelected = null
     this.nonSettedValues = []
-    this.characteristicsValues = []
-    this._getNames('basicInfo').map(() => this.basicInfoValues.push(null))
   }
 
   _getNames (type) {
@@ -23,28 +25,28 @@ module.exports = class CharacterCreator {
     return list.map(x => x)
   }
 
-  _set (name, value, names, values) {
-    const index = this._getNames(names).indexOf(name)
+  _set (name, value, type) {
+    const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
-    values[index] = value
+    this._valuesLists[type][index] = value
     return true
   }
 
-  _nonSetValues (names, values) {
+  _nonSetValues (type) {
     const nonSet = []
-    this._getNames(names).map((name, index) => {
-      if (values[index] === undefined || values[index] === null) {
+    this._getNames(type).map((name, index) => {
+      if (this._valuesLists[type][index] === undefined || this._valuesLists[type][index] === null) {
         nonSet.push(name)
       }
     })
     return nonSet
   }
 
-  _settedValues (names, values) {
+  _settedValues (type) {
     const settedValues = {}
-    this._getNames(names).reduce((settedValues, name, index) => {
-      if (values[index] !== undefined && values[index] !== null) {
-        settedValues[name] = values[index]
+    this._getNames(type).reduce((settedValues, name, index) => {
+      if (this._valuesLists[type][index] !== undefined && this._valuesLists[type][index] !== null) {
+        settedValues[name] = this._valuesLists[type][index]
       }
       return settedValues
     }, settedValues)
@@ -52,32 +54,30 @@ module.exports = class CharacterCreator {
   }
 
   setBasicInfo (name, value) {
-    return this._set(name, value, 'basicInfo', this.basicInfoValues)
+    return this._set(name, value, 'basicInfo')
   }
 
   nonSetBasicInfo () {
-    return this._nonSetValues('basicInfo', this.basicInfoValues)
+    return this._nonSetValues('basicInfo')
   }
 
   settedBasicInfo () {
-    return this._settedValues('basicInfo', this.basicInfoValues)
+    return this._settedValues('basicInfo')
   }
 
   generatePoints (typeNumber) {
-    this.characteristicsValues = []
     const generatedTypes = Object.keys(generatePoints)
     const generateName = generatedTypes[typeNumber - 1]
+    this._valuesLists.characteristics = this._getNames('characteristics').map(x => null)
     this.generatorSelected = generateName
+
     if (generateName === 'type5') {
+      if (!this.points) throw new Error('Must select before the points to generate')
       this.generatedPointsResults[generateName] = generatePoints[generateName](this.points)
       this.remainerPoints = this.generatedPointsResults[generateName].point
-      return this.generatedPointsResults[generateName]
+    } else if (!this.generatedPointsResults[generateName]) {
+      this.generatedPointsResults[generateName] = generatePoints[generateName](this._getNames('characteristics').length)
     }
-    if (this.generatedPointsResults[generateName]) {
-      this.nonSettedValues = this.generatedPointsResults[generateName].points
-      return this.generatedPointsResults[generateName]
-    }
-    this.generatedPointsResults[generateName] = generatePoints[generateName](this._getNames('characteristics').length)
     this.nonSettedValues = this.generatedPointsResults[generateName].points
     return this.generatedPointsResults[generateName]
   }
@@ -103,7 +103,7 @@ module.exports = class CharacterCreator {
   }
 
   nonSetCharacteristics () {
-    return this._nonSetValues('characteristics', this.characteristicsValues)
+    return this._nonSetValues('characteristics')
   }
 
   getGreatestNonSetValue () {
@@ -131,7 +131,7 @@ module.exports = class CharacterCreator {
     const indexName = this.indexOfCharacteristic(name)
     const indexOfValue = this._getIndex(value, this.nonSettedValues)
     if (indexOfValue === -1) throw new Error('the value is not in nonSettedValues')
-    this.characteristicsValues[indexName] = value
+    this._valuesLists.characteristics[indexName] = value
     this.nonSettedValues.splice(indexOfValue)
     return this
   }
@@ -152,13 +152,13 @@ module.exports = class CharacterCreator {
 
   removeValueTo (name) {
     const index = this.indexOfCharacteristic(name)
-    const value = this.characteristicsValues[index]
-    delete this.characteristicsValues[index]
+    const value = this._valuesLists.characteristics[index]
+    this._valuesLists.characteristics[index] = null
     this.nonSettedValues.push(value)
     return this
   }
 
   settedCharacteristics () {
-    return this._settedValues('characteristics', this.characteristicsValues)
+    return this._settedValues('characteristics')
   }
 }
