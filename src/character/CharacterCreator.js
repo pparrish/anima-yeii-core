@@ -1,6 +1,6 @@
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
-const generatePoints = require('../generatePoints')
+const pointsGenerators = require('../generatePoints')
 
 module.exports = class CharacterCreator {
   constructor () {
@@ -14,9 +14,14 @@ module.exports = class CharacterCreator {
       characteristics: this._getNames('characteristics').map(() => null)
     }
 
-    this.generatedPointsResults = {}
-    this.generatorSelected = null
-    this.nonSettedValues = []
+    this._points = {
+      generators: pointsGenerators,
+      generatedResults: {},
+      generatorSelected: null,
+      nonSettedValues: [],
+      pointsToGenerate: null,
+      remainer: null
+    }
   }
 
   _getNames (type) {
@@ -53,6 +58,7 @@ module.exports = class CharacterCreator {
     return settedValues
   }
 
+  // BASICINFO
   setBasicInfo (name, value) {
     return this._set(name, value, 'basicInfo')
   }
@@ -65,34 +71,42 @@ module.exports = class CharacterCreator {
     return this._settedValues('basicInfo')
   }
 
+  // POINTS
   generatePoints (typeNumber) {
-    const generatedTypes = Object.keys(generatePoints)
+    const generatedTypes = Object.keys(this._points.generators)
     const generateName = generatedTypes[typeNumber - 1]
     this._valuesLists.characteristics = this._getNames('characteristics').map(x => null)
-    this.generatorSelected = generateName
-
+    this._points.remainer = null
+    this._points.generatorSelected = generateName
     if (generateName === 'type5') {
-      if (!this.points) throw new Error('Must select before the points to generate')
-      this.generatedPointsResults[generateName] = generatePoints[generateName](this.points)
-      this.remainerPoints = this.generatedPointsResults[generateName].point
-    } else if (!this.generatedPointsResults[generateName]) {
-      this.generatedPointsResults[generateName] = generatePoints[generateName](this._getNames('characteristics').length)
+      if (!this._points.pointsToGenerate) throw new Error('Must select before the points to generate')
+      this._points.generatedResults[generateName] = this._points.generators[generateName](this._points.pointsToGenerate)
+      this._points.remainer = this._points.generatedResults[generateName].points
+    } else if (generateName === 'type4') {
+      this._points.generatedResults[generateName] = this._points.generators[generateName](this._getNames('characteristics').length)
+      this._points.remainer = this._points.generatedResults[generateName].points
+    } else if (!this._points.generatedResults[generateName]) {
+      this._points.generatedResults[generateName] = this._points.generators[generateName](this._getNames('characteristics').length)
     }
-    this.nonSettedValues = this.generatedPointsResults[generateName].points
-    return this.generatedPointsResults[generateName]
+    this._points.nonSettedValues = this._points.generatedResults[generateName].points
+    return this
   }
 
   setPoints (points) {
-    this.points = points
+    this._points.pointsToGenerate = points
   }
 
   isPoinsAlreadyGenerated () {
-    return (Object.keys(this.generatedPointsResults).length !== 0)
+    return (Object.keys(this._points.generatedResults).length !== 0)
+  }
+
+  getGeneratedPointsResult () {
+    return { ...this._points.generatedResults[this._points.generationType] }
   }
 
   generationType () {
     if (!this.isPoinsAlreadyGenerated()) throw new Error('The points is not generated, use genetatePoints(type) before')
-    const generator = this.generatedPointsResults[this.generatorSelected].points
+    const generator = this._points.generatedResults[this._points.generatorSelected].points
     if (Array.isArray(generator)) {
       return 'values'
     }
@@ -102,19 +116,25 @@ module.exports = class CharacterCreator {
     throw new Error('The generator set of points generator is not a valid type')
   }
 
+  remainerPoints () {
+    if (this._points.remainer === null) throw new Error('points is not generated')
+    return this._points.remainer
+  }
+
+  // Characteristic
   nonSetCharacteristics () {
     return this._nonSetValues('characteristics')
   }
 
   getGreatestNonSetValue () {
     if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
-    const greatest = this.nonSettedValues.reduce((greatest, actual) => greatest > actual ? greatest : actual, -Infinity)
+    const greatest = this._points.nonSettedValues.reduce((greatest, actual) => greatest > actual ? greatest : actual, -Infinity)
     return greatest
   }
 
   getSmalestNonSetValue () {
     if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
-    return this.nonSettedValues.reduce((smalest, actual) => smalest < actual ? smalest : actual, Infinity)
+    return this._points.nonSettedValues.reduce((smalest, actual) => smalest < actual ? smalest : actual, Infinity)
   }
 
   _getIndex (value, array) {
@@ -129,10 +149,10 @@ module.exports = class CharacterCreator {
 
   selectValueTo (name, value) {
     const indexName = this.indexOfCharacteristic(name)
-    const indexOfValue = this._getIndex(value, this.nonSettedValues)
+    const indexOfValue = this._getIndex(value, this._points.nonSettedValues)
     if (indexOfValue === -1) throw new Error('the value is not in nonSettedValues')
     this._valuesLists.characteristics[indexName] = value
-    this.nonSettedValues.splice(indexOfValue)
+    this._points.nonSettedValues.splice(indexOfValue)
     return this
   }
 
@@ -147,14 +167,14 @@ module.exports = class CharacterCreator {
   }
 
   nonSetGenerationValues () {
-    return this.nonSettedValues.map(x => x)
+    return this._points.nonSettedValues.map(x => x)
   }
 
   removeValueTo (name) {
     const index = this.indexOfCharacteristic(name)
     const value = this._valuesLists.characteristics[index]
     this._valuesLists.characteristics[index] = null
-    this.nonSettedValues.push(value)
+    this._points.nonSettedValues.push(value)
     return this
   }
 
