@@ -94,6 +94,7 @@ module.exports = class CharacterCreator {
 
   setPoints (points) {
     this._points.pointsToGenerate = points
+    return this
   }
 
   isPoinsAlreadyGenerated () {
