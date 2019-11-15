@@ -186,5 +186,10 @@ module.exports = class CharacterCreator {
   /** Add the amount of points to a characteristic and expend it from remainder points. Uses the rule path of "set/characteristics"
    * @param {string} characteristic - The characteristic to add value
    * @param {number} amount - The value to be added in characteristic and expended from remainder points.
+   * @returns this
    */
+  expendPointsTo (characteristic, amount) {
+    this._set(characteristic, amount, 'characteristics')
+    return this
+  }
 }
