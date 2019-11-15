@@ -153,7 +153,7 @@ describe('Creation of a character', () => {
       creator.expendPointsTo('dexterity', 5)
       expect(creator.settedCharacteristics().dexterity).toBe(5)
     })
-    test.skip(`Given a creator width type 4
+    test(`Given a creator width type 4
 And select 60 points
 And i expend 5 pointe to dexterity
 Then i have 55 points to expend`, () => {
