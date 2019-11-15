@@ -148,14 +148,25 @@ describe('Creation of a character', () => {
   })
 
   describe('Select points by points', () => {
-    test(`
-Given a creator width type 4
+    test('Given a creator width type 4 and select 60 points And i expend 5 points to dexterity then Dexterity have 5 points', () => {
+      const creator = creatorWithType5And60Points()
+      creator.expendPointsTo('dexterity', 5)
+      expect(creator.settedCharacteristics().dexterity).toBe(5)
+    })
+    test.skip(`Given a creator width type 4
 And select 60 points
 And i expend 5 pointe to dexterity
 Then i have 55 points to expend`, () => {
       const creator = creatorWithType5And60Points()
       creator.expendPointsTo('dexterity', 5)
       expect(creator.remainderPoints()).toBe(55)
+    })
+    test.skip('Given a creator with type 4 And select 5 to dexterity And Select 2 to dexterity Then dexterity is 7', () => {
+      const creator = creatorWithType5And60Points()
+      creator.expendPointsTo('dexterity', 5)
+      creator.expendPointsTo('dexterity', 2)
+      const { dexterity } = creator.settedCharacteristics()
+      expect(dexterity).toBe(4)
     })
     test.skip('Given a creator with type 4 and select 60 points And expend 10 points to dexterity Then i have 49 points remaind to expend', () => {
       const creator = creatorWithType5And60Points()
@@ -205,14 +216,6 @@ Then i have 55 points to expend`, () => {
       creator.disableRule('maximun is 10').expendPointsTo('dexterity', 11)
       const { dexterity } = creator.settedCharacteristics()
       expect(dexterity).toBe(11)
-    })
-
-    test.skip('Given a creator with type 4 And select 5 to dexterity And Select 2 to dexterity Then dexterity is 7', () => {
-      const creator = creatorWithType5And60Points()
-      creator.expendPointsTo('dexterity', 5)
-      creator.expendPointsTo('dexterity', 2)
-      const { dexterity } = creator.settedCharacteristics()
-      expect(dexterity).toBe(4)
     })
 
     test.skip('Given a creator with type 4 And select 5 to dexterity And remove 4 to dexterity Then i have 1 of dexterity And i have 59 points remaind', () => {
