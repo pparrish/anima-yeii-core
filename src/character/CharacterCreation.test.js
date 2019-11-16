@@ -207,9 +207,9 @@ describe('Creation of a character', () => {
       expect(creator.remainderPoints()).toBe(5)
     })
 
-    test.skip('Given a creator width type 4 and select 60 points And expend 11 points to dexterity Then i get a error', () => {
+    test('Given a creator width type 4 and select 60 points And expend 11 points to dexterity Then i get a error', () => {
       const creator = creatorWithType5And60Points()
-      expect(() => creator.expendPointsTo('dexterity', 11)).toThrow('Buy more than 10 points to a characteristic is froiben')
+      expect(() => creator.expendPointsTo('dexterity', 11)).toThrow('The limit of characteristics is 10')
     })
 
     test.skip('Given q creator with type 4 and select 60 points And disable rule of "maximun is 10" And add 11 to dexterity then i have 11 to dexterity', () => {

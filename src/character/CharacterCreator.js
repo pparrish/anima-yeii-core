@@ -31,6 +31,16 @@ module.exports = class CharacterCreator {
           spended = spended.map(x => x >= 10 ? x + 1 : x)
           return spended
         }
+      },
+      '10 limit': {
+        enabled: true,
+        path: 'characteristics/set',
+        rule: (characteristic) => {
+          if (characteristic > 10) {
+            throw new Error('The limit of characteristics is 10')
+          }
+          return characteristic
+        }
       }
     }
   }
@@ -84,7 +94,8 @@ module.exports = class CharacterCreator {
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
-    this._valuesLists[type][index] = value
+    const newValue = this.applyRules(`${type}/set`, value)
+    this._valuesLists[type][index] = newValue
     return true
   }
 
