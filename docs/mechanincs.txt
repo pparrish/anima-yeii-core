@@ -1,0 +1,597 @@
+
+/* eslint-env jest */
+describe('mechanics', () => {
+  describe('dices', () => {
+    describe('d10', () => {})
+
+    describe('d100', () => {})
+
+    describe('sheet', () => {})
+  })
+
+  describe('making throws', () => {
+    describe('characteristics controls', () => {
+      test('a control of characteristic is a d10 added to characteristic', () => {
+        test('if the value of the dice and characteristic is equal or greather than the dificulte is sucess', () => {})
+        test('if the value of the dice and characteristics is less than the dificulty is fail', () => {})
+        test('the default dificulty is 10', () => {})
+        test('simple is 6, normal is 10, complex is 15 and extreme dificulty is 20', () => {})
+        test('when i make a characteristic control without especify the dificulty and with characteristic of 7 and the d10 is 4 , the dificulty is 10 and success with 1', () => {})
+        test('when i make a characteristic control and i get 10 in the dice, the final result is added two', () => {})
+        describe('fonted characteristics control', () => {
+          test('when a fonted characteristic control ocurs and the firs characteristic resilt is greather than the second characteristic result make a success', () => {})
+          test('when a fonted characteristic control ocurs and the firs is equal to seconds make a tie', () => {})
+          test('when a fonted characteristic control ocurs and the forst is less to second make a fail', () => {})
+          test('when i make a fonted characteristic control and i habe 9 of characteristic and the contendent have 10 of characteristic, then i obtain 8 of d10 and the contendent have 5 then i obtain 17 and the contendent obtain a 15, then i success by 2', () => {})
+          test('when i make a fonted characteristic control and the diference is 4, then each poin of the diference is multiplyed by two', () => {})
+        })
+      })
+    })
+    describe('hability controls', () => {
+      test('a control of hability is a d100 added to a hability', () => {
+      })
+      test('a hability control can be dificulty or faced control')
+      describe('dificulty control', () => {
+        test('recibe a result value and a dificulty', () => {})
+        describe('can succes or fail', () => {
+          test('when the result is greather than dificulty the control is success', () => {})
+          test('when the result is equal or less than the dificulty the control is fail', () => {})
+        })
+      })
+      describe('faced control', () => {
+        test('recibe a first result and second result', () => {})
+        describe('succes or fail', () => {
+          test('when the first result is more than the second result success', () => {})
+          test('when the first result is less or equal to second result fail', () => {})
+        })
+      })
+    })
+  })
+  describe('open throw', () => {
+    test('only happends in d100 role', () => {
+    })
+    test('open throw happends when the result of d100 is 90 or superior', () => {
+    })
+    test('when a character gets a open throw it can roll the dice again', () => {})
+    test('when a character gets a open  throw the result is add to before result', () => {})
+    test('when a open throws hapens it can happens again', () => {})
+    test('a open throw happends width 90', () => {})
+    describe('Every time than a open throw happends the next throw must be more hard', () => {
+      test('first time the minimun value is 90', () => {})
+      test('second time the minimun value is 91', () => {})
+      test('the next times the minimun value is one more', () => {})
+      test('the maximum dificulty is 100', () => {})
+    })
+    test('a value of 100 is ever a open throw', () => {})
+    test('when the result of a d100 is 95 then throws again and the result is 90, then the final result is 185 (95+90)', () => {})
+  })
+  describe('the blunder', () => {
+    test('when the result of a d100 in a control is 1,2 or 3, then a blunder happends', () => {})
+    test('when the blunder happends then the blunder level must be calculated', () => {})
+    test('the blunder level is calculated with a d100', () => {})
+    test('in the blunder calculation the open throws is not admited', () => {})
+    test('when the result of a control is 1, i bunder and i must calculate the blunder level if the result is 90 then my blunder level is 90', () => {})
+    test('the initial blunder level is 3', () => {})
+  })
+  describe('the mastery', () => {
+    test('when a final hability is more than 200 then obtain the mastery in this hability', () => {})
+    test('when a do a control width mastery, then the blunder level is one less', () => {})
+    test('when do a control width hability is more than 200, and do a control with a result of 3, the blunder doesn not hapend', () => {})
+    describe('a character can have mastery in all secondary habilities, atack doge, esquiba and magic and psiquic proyection', () => {
+
+    })
+  })
+  describe('resistance control', () => {
+    test('when make a resistance control must throw a d100', () => {})
+    test('the result of d100 must be added to a resistance', () => {})
+    test('when the final resistance is greather than the resistance dificulty then is success', () => {})
+    test('when the final resistance is equal or less than the resistance dificulty is fail', () => {})
+    test('when the result of d100 is 100, its success', () => {})
+    test('there is not open throw in resistance control', () => {})
+    test('when the resistance is 20 points greather than the resistance dificulty it success', () => {})
+    test('must report thr lv of success or faulie', () => {})
+  })
+  describe('character', () => {
+    test('a character must have a name', () => {})
+    test('a character must have a personality', () => {})
+    test('a character must havr a lore', () => {})
+  })
+  describe('characteristics', () => {
+    describe('physics characteristics', () => {
+      test('fuerza (fue)', () => {})
+      test('destreza (des)', () => {})
+      test('agilidad (agi)', () => {})
+      test('constitucion (con)', () => {})
+    })
+    describe('psisics characteristics', () => {
+      test('inteligencia (int)', () => {})
+      test('poder (pod)', () => {})
+      test('voluntad (vol)', () => {})
+      test('percepcion (per)', () => {})
+    })
+    describe('generate characteristics', () => {
+      test('by default the max points is 60', () => {})
+      test('the points nedded to get a 10 in a characteristic is 11', () => {})
+    })
+    describe('bonus and aplication', () => {
+      test('a characteristic have a asociated bonus', () => {})
+      describe('table of bonus of characteristics', () => {})
+    })
+  })
+  describe('psysics capacities', () => {
+    test('type of movement', () => {})
+    test('fatigue', () => {})
+    test('the type of movement is equals to agility characteristic', () => {})
+    test('the fatigue is equals to constitucion characteristic', () => {})
+    test('when i have 10 of agility and 5 of constitucion, then my type of movement is 10 and my fatigue is 5', () => {})
+  })
+  describe('secondary characteristics', () => {
+    test('aparency', () => {})
+    test('size', () => {})
+    test('the default aparency is a random number 1 to teen', () => {})
+    test('i can chose the value of aparency', () => {})
+    test('the size is the (con) added by streng characteristics', () => {})
+    describe('heigth and width', () => {
+      describe('table of heigth and weigth', () => {})
+      test('the heigth and weigth must be in range of values in the table indexing with size', () => {})
+      test('if the character is wonen it can be in the range of the tables -1', () => {})
+    })
+  })
+  describe('race', () => {
+    test('by default the race is human', () => {})
+  })
+  describe('habilities', () => {
+    describe('primary habilities', () => {
+      describe('combat habilities', () => {
+        describe('atack hability', () => {})
+        describe('padara hability', () => {})
+        describe('dodge hability', () => {})
+        describe('weapon table', () => {})
+        describe('martial arts', () => {})
+        describe('suit armor', () => {})
+      })
+      describe('sobrenatural habilities', () => {
+        describe('zeon', () => {})
+        describe('magic acumulation (act)', () => {})
+        describe('magic proyection', () => {})
+        describe('summond', () => {})
+        describe('domaind', () => {})
+        describe('atar', () => {})
+        describe('unsomound', () => {})
+        describe('magic proyection tables', () => {})
+      })
+      describe('psysics habilities', () => {
+        describe('cv', () => {})
+        describe('psyquic proyection', () => {})
+        describe('psyquic proyection tablen', () => {})
+      })
+    })
+    describe('secondary habilities', () => {
+      test('a secondary hability depends of a characteristic', () => {})
+      test('a secondary hability is part of champ', () => {})
+      test('acrobatics is in the camp of atletics and depends of agility', () => {})
+      test('cience is in csmp of intelectual and depends of inteligence', () => {})
+      describe('atletics', () => {
+        test('arcobacies', () => {})
+        test('atletism', () => {})
+        test('ride', () => {})
+        test('jump', () => {})
+        test('swinm', () => {})
+        test('trepar', () => {})
+      })
+      describe('socials', () => {
+        test('style', () => {})
+        test('intimidating', () => {})
+        test('liderasgo', () => {})
+        test('persuasion', () => {})
+      })
+      describe('subterfugio', () => {
+        test('cerrajeria', () => {})
+        test('disfraz', () => {})
+        test('ocultarse', () => {})
+        test('robo', () => {})
+        test('sigilo', () => {})
+        test('tramperia', () => {})
+        test('venenos', () => {})
+      })
+      describe('perseptive', () => {
+        test('advertir', () => {})
+        test('buscar', () => {})
+        test('rastrear', () => {})
+      })
+      describe('intelectual', () => {
+        test('animals', () => {})
+        test('cience', () => {})
+        test('herbolaria', () => {})
+        test('history', () => {})
+        test('medicina', () => {})
+        test('memorizar', () => {})
+        test('navegacion', () => {})
+        test('ocultismo', () => {})
+        test('tasacion', () => {})
+        test('valoracion magica', () => {})
+      })
+      describe('vigor', () => {
+        test('frialdad', () => {})
+        test('prohesas de fuerza', () => {})
+        test('resistir el dolor', () => {})
+      })
+      describe('Creativas', () => {
+        test('arte', () => {})
+        test('baile', () => {})
+        test('forja', () => {})
+        test('musica', () => {})
+        test('trucos de manos', () => {})
+      })
+      test('the final hability is the hability base + characteristic bonus + esp bonus', () => {})
+      test('the controls uses the habilities to add a d100', () => {})
+      test('if a secondary hability is base 0 the secondary hability is undesarrolled', () => {})
+      test('a secondary hability undesarrolled value is -30 and not 0 to calculate the final value', () => {})
+      test('the secondary habilities can be build with pds', () => {})
+      test('if we have a 50 in hability base and the hability depends on acrobacy with bonus of 15, then my final value is 65', () => {})
+    })
+  })
+  describe('Category an archetips', () => {
+    describe('archetips', () => {
+      describe('luchador', () => {
+        test('wrarrior', () => {})
+        test('guerrero acrobata', () => {})
+        test('paladin', () => {})
+        test('paladin oscuro', () => {})
+        test('maestro en armas', () => {})
+        test('explorador', () => {})
+        test('tao', () => {})
+        test('guerrero mentalista', () => {})
+        test('guerrero conhurador', () => {})
+        test('sombra', () => {})
+        test('warlock', () => {})
+      })
+      describe('mistico', () => {
+        test('guerrero conjurador', () => {})
+        test('hechizero', () => {})
+        test('ilucionista', () => {})
+        test('warlock', () => {})
+        test('conjurador', () => {})
+        test('hechizero mentalista', () => {})
+      })
+      describe('psiquico', () => {
+        test('guerrero mentalista', () => {})
+        test('mentalista', () => {})
+        test('hechicero mentalista', () => {})
+      })
+      describe('Acechador', () => {
+        test('explorador', () => {})
+        test('ladron', () => {})
+        test('sombra', () => {})
+        test('ascesino', () => {})
+        test('ilucionista', () => {})
+      })
+      describe('domine', () => {
+        test('tao', () => {})
+        test('tecnisista', () => {})
+      })
+      describe('sin categoria', () => {
+        test('novel', () => {})
+      })
+    })
+    describe('categories', () => {})
+  })
+  describe('develop points (pd)', () => {
+    test('it have a value', () => {})
+    test('if expend the points the pd value derease', () => {})
+    test('it can be expendetd', () => {})
+    test('when i expend pd i need to know what is the development cost of the thing whant to expend', () => {})
+    test('if the development cost is 1, then buy 1 point cost 1 pd', () => {})
+    test('if the development cost is 5, then buy 1 point cost 5 pd', () => {})
+    test('if the development cost is 3, then buy 4 points cost 12 pd', () => {})
+    test('when a hability not have buy any pd, the first buy must be suficent to bui 5 point of the hability', () => {})
+    test('if i buy fpr first tyme a hability width development cost of 2 then to upload the hability i need expend 10 pd at least', () => {})
+    test('the default indice de subida of habilities is 1', () => {})
+    test('when a hability have indice de subida of 5 and expend cost of 1 and i expend 1 pd, the hability up 5 points', () => {})
+    describe('distribution points limit', () => {
+      test('there are a limit in the expendeable points for each category of primary habilities', () => {})
+      test('if i have 300 pd to expend and the limit of a category  is of 50% then i can expend maximun pd than i can expend in a category is 300', () => {})
+      test('the secondary habilities does not have a limit in pd', () => {})
+    })
+    describe('defencibe and ofencibe limits', () => {
+      test('the sum of atack hability, parada and doge canot be greather than the 50% of total pd', () => {})
+      test('the direcence of the hability defence (parada or doge) and atack canot be of 50', () => {})
+      // the same for viseversa for this two test
+      test('if the defence is not desarrollated the diference of atack and defence can be more than 50', () => {})
+      test('if the defence is not desarollated the player cant expend more than 25% of the total pd', () => {})
+    })
+    describe('magic an psyquic proyection limits', () => {
+      test('the proyecton psisiq and magin canot be more than 50% of the percentaje asigned to his chategory', () => {})
+      test('when i have 600 pd and my limit is 60% theb i can expend 360 in a catrgory, and the proyectíon maximun i can expend is 180 in proyections tan is 50% of 360', () => {})
+    })
+  })
+  describe('power level', () => {
+    test('the power level is equall to pd expendeable for a character', () => {})
+  })
+  describe('mejora inata', () => {
+    test('a hability can have mejora inata', () => {})
+    describe('mejora natural', () => {
+      test('the habilities can have a bonis of mejora natural', () => {})
+      describe('natural habilities', () => {
+        test('a character can have 5 habilities with natural hability bonus', () => {})
+        test('a the bonus of a natural hability is 10', () => {})
+      })
+      describe('natural bonificator', () => {
+        test('a natural bonus is linked to one characteristic of physics categorie and one of pshisix and one of psisics and the bpnus is aplied to two secondary habilities than depeands of this each characteristic', () => {})
+        test('only characteristic width positive bonus are elegible', () => {})
+        test('a secondary hability with natural bonus adds the bonus of characteristic to this hability', () => {})
+        test('the operation of natural bonificator can be do each level', () => {})
+        test('the bonus cant be more than 100', () => {})
+      })
+      describe('category bonus', () => {
+        test('each category have bonus aplied to habilities', () => {})
+        test('the bonus is added to a habilitie than have the bonus and be added for each level', () => {})
+      })
+    })
+  })
+  describe('life points', () => {
+    test('the life points is based on constitution', () => {})
+    test('the base of life point is 20', () => {})
+    test('to the base add the constitution multiplied by 10', () => {})
+    test('must be added the bonus of characteristics of bonus', () => {})
+    test('can be expends pd to add life points', () => {})
+    test('each point cost is related to categpry', () => {})
+    test('when expends the pd a mutiplied point is added', () => {})
+    test('each multiplied point adds the multiplied point * constitution characteristic', () => {})
+    test('table of life points', () => {})
+  })
+  describe('turn', () => {
+    test('the base turn is 20', () => {})
+    test('in the final turn the destresa y agilidad are added', () => {})
+    test('in the final turn the armor penalitation is substracted', () => {})
+    test('add or subtract the turn of the weapond of the character', () => {})
+    test('withouth weapon the turn is +20 bonus', () => {})
+    test('the cathegory have a inate bpnus of turn', () => {})
+  })
+  describe('precence', () => {
+    test('the precence is the totalpd/20', () => {})
+    test('tabke of base precence', () => {})
+  })
+  describe('resistances', () => {
+    test('the final resistance is the base precence addet to the bonus of characteristic', () => {})
+    test('the fisic resistance is based on constitution', () => {})
+    test('the resistance versus enfermedades is based on constitution', () => {})
+    test('the resistencia contra venenos esta basada en la constitucion', () => {})
+    test('resistencia magica is based on power', () => {})
+    test('the resistencia psiquica is based on voluntad', () => {})
+  })
+  describe('creation points', () => {
+    test('the creation points must have for buy advantages or disvantages', () => {})
+    test('by default 3 creation points have all characters', () => {})
+    test('buy a advantage reduce the creation points the cost of the advantage', () => {})
+    test('buy a disvantage add the cost to the creation points', () => {})
+    test('a disvantages can be only 3', () => {})
+    test('a unique advantage can ve build only once', () => {})
+    test('a muntiple advantage can be buy multiple times', () => {})
+  })
+  describe('common advantages', () => {
+    test('all characters can buy this', () => {})
+    describe('Repeat a characteristic throw', () => {
+      test('can replace a characteristic with another value', () => {})
+      test('the value must be random d10', () => {})
+      test('the value cant be less than the minimun value of the characteristics', () => {})
+      test('its a multiple advantage', () => {})
+      test('if the character has created with the 4rt methodht of generation ant buy this', () => {})
+      test('the cost is 1', () => {})
+    })
+    describe('add one to a characteristic', () => {
+      test('one characteristic is added by one', () => {})
+      test('the physics characteristics cant be morhe than 11 with this', () => {})
+      test('is multiple advantage', () => {})
+      test('the cost is 1', () => {})
+    })
+    describe('change a characteristic by 9', () => {
+      test('when buy and select a characteristic this charactwristic is equal to 9', () => {})
+      test('is multiple', () => {})
+      test('the cost is 2', () => {})
+    })
+    describe('exeptional resistance fisic', () => {
+      test('can be buyed two times', () => {})
+      test('when buy the first tyme add a bonus to fisic resistance, posion resistance and resitencia contra enfermedades of 25', () => {})
+      test('when buy the second time add the same bonus again', () => {})
+      test('the cost is 1', () => {})
+    })
+    describe('exeptional magic resistance ', () => {
+      test('can be buyed two times', () => {})
+      test('when is buy the first time add a bonus on magic resistance of 25', () => {})
+      test('then it buyed the second tyme  then add the same bonus again', () => {})
+      test('the cost is 1', () => {})
+    })
+    describe('exeptional physic resistance', () => {
+      test('can be buyed two times', () => {})
+      test('when is buy the first tyme add a bonus of 25 in mental resistance', () => {})
+      test('when is buyed again add the bonus again', () => {})
+      test('the cost is 1', () => {})
+    })
+    describe('access to one psysic disipline', () => {
+      test('when buid the character can buy one psiquic disipline and matricial powers', () => {})
+      test('unique', () => {})
+      test('cost 1', () => {})
+    })
+    describe('access to any psiciq disipline', () => {
+      test('when is buy the character can buy any psisic disipline', () => {})
+      test('unique', () => {})
+      test('cost 2', () => {})
+    })
+    describe('initial fondos', () => {
+      test('can buy 3 times', () => {})
+      test('first bui give 2000 of gold', () => {})
+      test('second buy gybe 5000 of gold', () => {})
+      test('thirty buy gybe 10000 of gold', () => {})
+      test('can change the initial amounts of gold', () => {})
+      test('multiple', () => {})
+      test('cost 1', () => {})
+    })
+    describe('regeneration basix advanced and mayor', () => {
+      test('can buy 3 times', () => {})
+      test('fist time add a bonus in regeneration of two levels width of basic regreneration ', () => {})
+      test('second time remove previus bonus of regeneration and add a advanced regeneration of four', () => {})
+      test('thirt tyme add a bonus of mayor regeneration od six and remove previus bonus', () => {})
+      test('cost 1', () => {})
+    })
+    describe('animal afinity', () => {
+      test('can buy 1', () => {})
+      test('add a contextual bonus of animal afinity', () => {})
+      test('cost 1', () => {})
+    })
+    describe('encanto', () => {
+      test('can be build 1 tyme', () => {})
+      test('when buy add a context bonus of encanto', () => {})
+      test('cost 1', () => {})
+    })
+    describe('ambidkestria', () => {
+      test('cna buy 1 time', () => {})
+      test('when buy, the character can atack wirh aditional weapon with a penalty of -10', () => {})
+      test('cost 1', () => {})
+    })
+    describe('nigth vision', () => {
+      test('can buy 1 time', () => {})
+      test('when buy, the character cant be a dark penalizator, exepct magic blind and absolute dark penalty than act to halv of the value', () => {})
+      test('cost 1', () => {})
+    })
+    describe('good lock', () => {
+      test('can buy once', () => {})
+      test('when buy the blunder level of this character is one less', () => {})
+      test('cost 1', () => {})
+    })
+    describe('inquietante', () => {
+      test('cna buy once', () => {})
+      test('when buy add a context bonus of inquitante', () => {})
+      test('cost 1', () => {})
+    })
+    describe('apto en un campo', () => {
+      test('can be buy one', () => {})
+      test('cost 2', () => {})
+      test('when buy the hability and select a camp o hability secondaries all development cost of this habilities is one point less', () => {})
+      test('a development cost cant be less than one', () => {})
+    })
+    describe('apto en una materua', () => {
+      test('can buy 3 times by hability', () => {})
+      test('cost 1', () => {})
+      test('when buy a secondary hability is one point less in development cost', () => {})
+      test('the development cost cant be less than one', () => {})
+    })
+    describe('sentidos agudos', () => {
+      test('coat 1', () => {})
+      test('can be buy onceq', () => {})
+      test('when buy and the character do a hability control of perception, then add one to characteristic, bonus of 50 to advertur and search', () => {})
+    })
+    describe('don', () => {
+      test('cost 2', () => {})
+      test('when buy the character can buy magic ', () => {})
+      test('when buy the magic resistance have a bonus of 10', () => {})
+    })
+    describe('aprendisaje inato', () => {
+      test('can buy two by hability', () => {})
+      test('when buy have a bonus of 10 in one secondary hability per level', () => {})
+      test('when buy another point fot the same hability the bonus is 20 per level', () => {})
+    })
+    describe('aprendizaje inato en un campo', () => {
+      test('can buy two tines by camp', () => {})
+      test('cost fitst level 2 and second 1', () => {})
+      test('when build all secondary habilities of a camp of hability have a bonus of +5 for level', () => {})
+      test('when build second tyne all habilities have a bonud of 10 insead of +5', () => {})
+    })
+    describe('conocedor de todas las materias', () => {
+      test('cost 2', () => {})
+      test('when buy the bonus of -30 fot a undevelop characteristic disapair and add a bonus to 10 to all seco dary habilities', () => {})
+    })
+    describe('sueño ligero', () => {
+      test('cost 1', () => {})
+      test('the character have a penalty of -20 in advertir insead when slep', () => {})
+    })
+    describe('reflejos rapidos', () => {
+      test('can be buy 3 times', () => {})
+      test('cost 1', () => {})
+      test('when buy adds +25 to turn', () => {})
+      test('when buy second ads +45', () => {})
+      test('when buy tree ads +60', () => {})
+    })
+    describe('imunity to dolor y cansancio', () => {
+      test('cost 1', () => {})
+      test('the penalti caused by dolor and cansancio is the half', () => {})
+    })
+    describe('tamaño no natural', () => {
+      test('cost 1', () => {})
+      test('the character can add or subtract 5 points in the range for chose the weihth an heigth of the character', () => {})
+    })
+    describe('afortunado', () => {
+      test('cost 1', () => {})
+      test('when buy the character have a context bonus of afortunado', () => {})
+    })
+    describe('natural armor', () => {
+      test('cost 1', () => {})
+      test('the character have a armor type of two when is ataqued from every no energy damage', () => {})
+    })
+    describe('mistic armor', () => {
+      test('the character have a armor type of 4 when is ataquet with energy', () => {})
+      test('cost 1', () => {})
+    })
+    describe('artifact', () => {
+      test('can buy 3 times', () => {})
+      test('cost of 1', () => {})
+      test('the character have a contextual bonus of artifact and can chose a name', () => {})
+      test('every new build change the name of bonus to lv 2 or lv 3', () => {})
+    })
+    describe('acceso a poderes psyquicos naturales', () => {
+      // can buy one psiquic hability, with a special context han explained in the book
+    })
+    describe('maestro marcial', () => {
+      test('cost 1', () => {})
+      test('can be build 3 times', () => {})
+      test('first build ads 40 point to martial conociment base', () => {})
+      test('second point ads 80 insead of 40', () => {})
+      test('thirt point adds 120 insead of 80', () => {})
+    })
+    describe('infatigable', () => {
+      test('cost 1', () => {})
+      test('can buy 3 times', () => {})
+      test('buy and recibe trhe point of cansancio for each expend', () => {})
+    })
+    describe('ver lo sobrenatural', () => {
+      test('when a magic or psyquic aplies blind tey are not penalty', () => {})
+      test('cost 1', () => {})
+    })
+    describe('sentido del peligro', () => {
+      test('the surprice only happends with 50 points of diference', () => {})
+      test('cost 2', () => {})
+    })
+    describe('curtido', () => {
+      test('cost 1', () => {})
+      test('can be buyed 2 times', () => {})
+      test('when buy add 50 points of exp', () => {})
+      test('when buy again add 100 inseat of 50', () => {})
+      test('when buy again add 150 inseat of 100', () => {})
+      test('if the experience is suficent can level uo', () => {})
+    })
+    describe('recuperacion de ky', () => {
+      test('a character recover one point of ky for characteristic every then minutes inseat of every one hour', () => {})
+      test('cost 1', () => {})
+      test('can build 3 times', () => {})
+      test('build secon point have one point every five minutes', () => {})
+      test('buy thirth point have one point every minute', () => {})
+    })
+    describe('elan', () => {
+      // aplies wheb the elan is user
+      test('cost 1', () => {})
+      test('can build three times', () => {})
+      test('20 of elan or 40 or 50', () => {})
+    })
+    describe('aprendisaje', () => {
+      test('cost 1', () => {})
+      test('can be biolt 3 times', () => {})
+      test('aplies 3 6 or 9 to every sesion of game in experiencie', () => {})
+    })
+    describe('common disvantages', () => {
+    })
+    describe('pshyquic advantages and disvantages', () => {
+    })
+    describe('ventajas y desventajas para don', () => {
+    })
+  })
+})
