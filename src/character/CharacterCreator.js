@@ -196,4 +196,9 @@ module.exports = class CharacterCreator {
   /** Returns the number of points left to spend in the characteristics
    * @returns {number} remainder points
    */
+  remainderPoints () {
+    const totalPoints = this._points.pointsToGenerate
+    const spendedPoints = Object.values(this.settedCharacteristics()).reduce((total, actual) => total + actual, 0)
+    return totalPoints - spendedPoints
+  }
 }
