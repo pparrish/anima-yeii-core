@@ -182,7 +182,7 @@ describe('Creation of a character', () => {
       expect(creator.remainderPoints()).toBe(50)
     })
 
-    test.skip('Given a creator with type 4 and select 60 points And try to expend more than 60 Then i get Error', () => {
+    test('Given a creator with type 4 and select 60 points And try to expend more than 60 Then i get Error', () => {
       const creator = creatorWithType5And60Points()
       const expendAllPoints = () => {
         for (const name of listOfCharacteristics) {
@@ -192,7 +192,7 @@ describe('Creation of a character', () => {
       expect(expendAllPoints).toThrow('points to expend exeded')
     })
 
-    test.skip('Given a creator with type 4 and select 60 points And try to expend more than 60 Then i have', () => {
+    test.skip('Given a creator with type 4 and select 60 points And try to expend more than 60 Then i have 4 points left', () => {
       const creator = creatorWithType5And60Points()
       const expendAllPoints = () => {
         for (const name of listOfCharacteristics) {

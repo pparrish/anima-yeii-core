@@ -245,6 +245,9 @@ module.exports = class CharacterCreator {
       actualCharacteristicValue = 0
     }
     this._set(characteristic, amount + actualCharacteristicValue, 'characteristics')
+    if (this.remainderPoints() < 0) {
+      throw new Error('points to expend exeded')
+    }
     return this
   }
 
