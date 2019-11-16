@@ -281,7 +281,6 @@ module.exports = class CharacterCreator {
       this._set(characteristic, null, 'characteristics')
       return this
     }
-    console.log(newValue)
     this._set(characteristic, newValue, 'characteristics')
     return this
   }
