@@ -22,6 +22,67 @@ module.exports = class CharacterCreator {
       pointsToGenerate: null,
       remainer: null
     }
+
+    this._rules = {
+      '10 cost 2': {
+        enabled: true,
+        path: 'points/spends',
+        rule: (spended) => {
+          spended = spended.map(x => x >= 10 ? x + 1 : x)
+          return spended
+        }
+      },
+      '10 limit': {
+        enabled: true,
+        path: 'characteristics/set',
+        rule: (characteristic) => {
+          if (characteristic > 10) {
+            throw new Error('The limit of characteristics is 10')
+          }
+          return characteristic
+        }
+      }
+    }
+  }
+
+  /** applies all rules of one path to a value
+   * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
+   * @param {any} context - is the value by working the rule
+   * @return {any} the modified value of operation
+   */
+  applyRules (path, context) {
+    let newContext = context
+    // get all rules matched widrh path
+    const rulesMatch = []
+    for (const rule in this._rules) {
+      if (this._rules[rule].path === path) {
+        rulesMatch.push(this._rules[rule])
+      }
+    }
+    // aply all rules to the context
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext) : aContext, newContext)
+    // return the new context
+    return newContext
+  }
+
+  /** disable a rule
+   * @param {string} rule - the name of rule to diable
+   * @return {object} this
+   */
+  disableRule (rule) {
+    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
+    this._rules[rule].enabled = false
+    return this
+  }
+
+  /** enable a rule
+   * @param {string} rule - rule to enable
+   * @return {object} this
+   */
+  enableRule (rule) {
+    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
+    this._rules[rule].enabled = true
+    return this
   }
 
   _getNames (type) {
@@ -33,7 +94,8 @@ module.exports = class CharacterCreator {
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
-    this._valuesLists[type][index] = value
+    const newValue = this.applyRules(`${type}/set`, value)
+    this._valuesLists[type][index] = newValue
     return true
   }
 
@@ -181,5 +243,55 @@ module.exports = class CharacterCreator {
 
   settedCharacteristics () {
     return this._settedValues('characteristics')
+  }
+
+  /** Add the amount of points to a characteristic and spend it from remainder points. Uses the rule path of "set/characteristics"
+   * @param {string} characteristic - The characteristic to add value
+   * @param {number} amount - The value to be added in characteristic and expended from remainder points.
+   * @returns {object} this
+   */
+  expendPointsTo (characteristic, amount) {
+    let actualCharacteristicValue = this.settedCharacteristics()[characteristic]
+    if (!actualCharacteristicValue) {
+      actualCharacteristicValue = 0
+    }
+    this._set(characteristic, amount + actualCharacteristicValue, 'characteristics')
+    if (this.remainderPoints() < 0) {
+      this._set(characteristic, actualCharacteristicValue, 'characteristics')
+      throw new Error('points to expend exeded')
+    }
+    return this
+  }
+
+  /** Subtracts or remove the points of a characteristic
+   * @param {string} characteristic - The name of the characteristic to substract or remove
+   * @param {number} [amount] - The value to substract, if not setted then remove all points to characteristic
+   * @return {object} this
+   */
+  removePointsTo (characteristic, amount) {
+    const beforeValue = this.settedCharacteristics()[characteristic]
+    if (!beforeValue) throw new Error(`the ${characteristic} not have any value`)
+    if (!amount) {
+      this._set(characteristic, null, 'characteristics')
+      return this
+    }
+    const newValue = beforeValue - amount
+    if (newValue < 0) throw new Error(`You are trying to remove ${amount} to ${characteristic} but only have ${beforeValue}`)
+    if (newValue === 0) {
+      this._set(characteristic, null, 'characteristics')
+      return this
+    }
+    this._set(characteristic, newValue, 'characteristics')
+    return this
+  }
+
+  /** Returns the number of points left to spend in the characteristics
+   * @returns {number} remainder points
+   */
+  remainderPoints () {
+    const totalPoints = this._points.pointsToGenerate
+    const spendCharacteristics = this.applyRules('points/spends', Object.values(this.settedCharacteristics()))
+    const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
+    return totalPoints - spendedPoints
   }
 }
