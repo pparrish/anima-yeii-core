@@ -154,9 +154,9 @@ describe('Creation of a character', () => {
       expect(creator.settedCharacteristics().dexterity).toBe(5)
     })
     test(`Given a creator width type 4
-And select 60 points
-And i expend 5 pointe to dexterity
-Then i have 55 points to expend`, () => {
+      And select 60 points
+      And i expend 5 pointe to dexterity
+  Then i have 55 points to expend`, () => {
       const creator = creatorWithType5And60Points()
       creator.expendPointsTo('dexterity', 5)
       expect(creator.remainderPoints()).toBe(55)
@@ -175,7 +175,7 @@ Then i have 55 points to expend`, () => {
       expect(creator.remainderPoints()).toBe(49)
     })
 
-    test.skip('Given a creator width type 4 amd select 60 pointd And disable the "10 value expends 2" Then i have 60 points remaind to expend', () => {
+    test('Given a creator width type 4 amd select 60 pointd And disable the "10 value expends 2" Then i have 60 points remaind to expend', () => {
       const creator = creatorWithType5And60Points()
       creator.disableRule('10 value expends 2')
       creator.expendPointsTo('dexterity', 10)
