@@ -169,10 +169,10 @@ Then i have 55 points to expend`, () => {
       expect(dexterity).toBe(7)
       expect(creator.remainderPoints()).toBe(53)
     })
-    test.skip('Given a creator with type 4 and select 60 points And expend 10 points to dexterity Then i have 49 points remaind to expend', () => {
+    test('Given a creator with type 4 and select 60 points And expend 10 points to dexterity Then i have 49 points remaind to expend', () => {
       const creator = creatorWithType5And60Points()
       creator.expendPointsTo('dexterity', 10)
-      expect(creator.remainerPoints()).toBe(49)
+      expect(creator.remainderPoints()).toBe(49)
     })
 
     test.skip('Given a creator width type 4 amd select 60 pointd And disable the "10 value expends 2" Then i have 60 points remaind to expend', () => {
