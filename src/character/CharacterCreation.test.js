@@ -212,9 +212,9 @@ describe('Creation of a character', () => {
       expect(() => creator.expendPointsTo('dexterity', 11)).toThrow('The limit of characteristics is 10')
     })
 
-    test.skip('Given q creator with type 4 and select 60 points And disable rule of "maximun is 10" And add 11 to dexterity then i have 11 to dexterity', () => {
+    test('Given a creator with type 4 and select 60 points And disable rule of "10 limit" And add 11 to dexterity then i have 11 to dexterity', () => {
       const creator = creatorWithType5And60Points()
-      creator.disableRule('maximun is 10').expendPointsTo('dexterity', 11)
+      creator.disableRule('10 limit').expendPointsTo('dexterity', 11)
       const { dexterity } = creator.settedCharacteristics()
       expect(dexterity).toBe(11)
     })
