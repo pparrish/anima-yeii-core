@@ -161,12 +161,13 @@ Then i have 55 points to expend`, () => {
       creator.expendPointsTo('dexterity', 5)
       expect(creator.remainderPoints()).toBe(55)
     })
-    test('Given a creator with type 4 And select 5 to dexterity And Select 2 to dexterity Then dexterity is 7', () => {
+    test('Given a creator with type 4 And select 5 to dexterity And Select 2 to dexterity Then dexterity is 7 And left 53 points to spend', () => {
       const creator = creatorWithType5And60Points()
       creator.expendPointsTo('dexterity', 5)
       creator.expendPointsTo('dexterity', 2)
       const { dexterity } = creator.settedCharacteristics()
-      expect(dexterity).toBe(4)
+      expect(dexterity).toBe(7)
+      expect(creator.remainerPoints()).toBe(53)
     })
     test.skip('Given a creator with type 4 and select 60 points And expend 10 points to dexterity Then i have 49 points remaind to expend', () => {
       const creator = creatorWithType5And60Points()
