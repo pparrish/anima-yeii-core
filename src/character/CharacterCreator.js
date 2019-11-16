@@ -263,6 +263,29 @@ module.exports = class CharacterCreator {
     return this
   }
 
+  /** Subtracts or remove the points of a characteristic
+   * @param {string} characteristic - The name of the characteristic to substract or remove
+   * @param {number} [amount] - The value to substract, if not setted then remove all points to characteristic
+   * @return {object} this
+   */
+  removePointsTo (characteristic, amount) {
+    const beforeValue = this.settedCharacteristics()[characteristic]
+    if (!beforeValue) throw new Error(`the ${characteristic} not have any value`)
+    if (!amount) {
+      this._set(characteristic, null, 'characteristics')
+      return this
+    }
+    const newValue = beforeValue - amount
+    if (newValue < 0) throw new Error(`You are trying to remove ${amount} to ${characteristic} but only have ${beforeValue}`)
+    if (newValue === 0) {
+      this._set(characteristic, null, 'characteristics')
+      return this
+    }
+    console.log(newValue)
+    this._set(characteristic, newValue, 'characteristics')
+    return this
+  }
+
   /** Returns the number of points left to spend in the characteristics
    * @returns {number} remainder points
    */

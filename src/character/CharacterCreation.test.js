@@ -219,12 +219,12 @@ describe('Creation of a character', () => {
       expect(dexterity).toBe(11)
     })
 
-    test.skip('Given a creator with type 4 And select 5 to dexterity And remove 4 to dexterity Then i have 1 of dexterity And i have 59 points remaind', () => {
+    test('Given a creator with type 4 And select 5 to dexterity And remove 4 to dexterity Then i have 1 of dexterity And i have 59 points remaind', () => {
       const creator = creatorWithType5And60Points()
       creator.expendPointsTo('dexterity', 5)
         .removePointsTo('dexterity', 4)
       expect(creator.settedCharacteristics().dexterity).toBe(1)
-      expect(creator.remainerPoints()).toBe(59)
+      expect(creator.remainderPoints()).toBe(59)
     })
 
     test.skip('Given a creator width type 4 And select 5 to dexterity And i remove 6 to dexterity then i get a error', () => {
