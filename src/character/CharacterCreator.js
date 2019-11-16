@@ -46,11 +46,11 @@ module.exports = class CharacterCreator {
     const rulesMatch = []
     for (const rule in this._rules) {
       if (this._rules[rule].path === path) {
-        rulesMatch.push(this._rules[rule].rule)
+        rulesMatch.push(this._rules[rule])
       }
     }
     // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule(aContext), newContext)
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext) : aContext, newContext)
     // return the new context
     return newContext
   }
