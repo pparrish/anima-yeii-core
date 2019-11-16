@@ -55,6 +55,26 @@ module.exports = class CharacterCreator {
     return newContext
   }
 
+  /** disable a rule
+   * @param {string} rule - the name of rule to diable
+   * @return {object} this
+   */
+  disableRule (rule) {
+    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
+    this._rules[rule].enabled = false
+    return this
+  }
+
+  /** enable a rule
+   * @param {string} rule - rule to enable
+   * @return {object} this
+   */
+  enableRule (rule) {
+    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
+    this._rules[rule].enabled = true
+    return this
+  }
+
   _getNames (type) {
     const list = this._namesLists[type]
     if (!list) throw new Error(`the ${type} list not exists`)
