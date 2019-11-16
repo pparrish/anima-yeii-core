@@ -22,6 +22,40 @@ module.exports = class CharacterCreator {
       pointsToGenerate: null,
       remainer: null
     }
+
+    this._rules = {
+      '10 cost 2': {
+        enabled: true,
+        path: 'points/spends',
+        rule: (spended) => {
+          spended = spended.map(x => x >= 10 ? x + 1 : x)
+          console.log(spended)
+          return spended
+        }
+      }
+    }
+  }
+
+  /** applies all rules of one path to a value
+   * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
+   * @param {any} context - is the value by working the rule
+   * @return {any} the modified value of operation
+   */
+  applyRules (path, context) {
+    let newContext = context
+    // get all rules matched widrh path
+    const rulesMatch = []
+    for (const rule in this._rules) {
+      console.log(rule)
+      if (this._rules[rule].path === path) {
+        rulesMatch.push(this._rules[rule].rule)
+      }
+    }
+    console.log(rulesMatch)
+    // aply all rules to the context
+    newContext = rulesMatch.reduce((aContext, rule) => rule(aContext), newContext)
+    // return the new context
+    return newContext
   }
 
   _getNames (type) {
@@ -202,7 +236,9 @@ module.exports = class CharacterCreator {
    */
   remainderPoints () {
     const totalPoints = this._points.pointsToGenerate
-    const spendedPoints = Object.values(this.settedCharacteristics()).reduce((total, actual) => total + actual, 0)
+    const spendCharacteristics = this.applyRules('points/spends', Object.values(this.settedCharacteristics()))
+    console.log(spendCharacteristics)
+    const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints
   }
 }
