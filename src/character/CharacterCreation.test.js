@@ -227,21 +227,21 @@ describe('Creation of a character', () => {
       expect(creator.remainderPoints()).toBe(59)
     })
 
-    test.skip('Given a creator width type 4 And select 5 to dexterity And i remove 6 to dexterity then i get a error', () => {
+    test('Given a creator width type 4 And select 5 to dexterity And i remove 6 to dexterity then i get a error', () => {
       const creator = creatorWithType5And60Points()
-      creator.expendPointsTo('dexterity')
-      expect(() => creator.removePointsTo('dexterity', 6)).toThrow('you are trying to remove 6 to dexterity but dexterity have only 5 points')
+      creator.expendPointsTo('dexterity', 5)
+      expect(() => creator.removePointsTo('dexterity', 6)).toThrow('You are trying to remove 6 to dexterity but only have 5')
     })
 
-    test.skip('Given a creator with type 4 And select 5 to dexterity and remove points to dexterity then dexterity not have points', () => {
+    test('Given a creator with type 4 And select 5 to dexterity and remove points to dexterity then dexterity not have points', () => {
       const creator = creatorWithType5And60Points()
-      creator.expendPointsTo('dexterity')
+      creator.expendPointsTo('dexterity', 5)
       creator.removePointsTo('dexterity')
-      expect(creator.nonSetGenerationValues()).toEqual(expect.arrayContaining(['dexterity']))
+      expect(creator.nonSetCharacteristics()).toEqual(expect.arrayContaining(['dexterity']))
     })
 
-    test.skip('Given a creator width type 4 and i remove 6 to dexterity then i have a error', () => {
-      expect(() => creatorWithType5And60Points().removePointsTo('dexterity', 6)).toThrow('you are tying to remove 6 to dexterity but dexterity is not have points')
+    test('Given a creator width type 4 and i remove 6 to dexterity then i have a error', () => {
+      expect(() => creatorWithType5And60Points().removePointsTo('dexterity', 6)).toThrow('the dexterity not have any value')
     })
   })
 })
