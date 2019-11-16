@@ -29,7 +29,6 @@ module.exports = class CharacterCreator {
         path: 'points/spends',
         rule: (spended) => {
           spended = spended.map(x => x >= 10 ? x + 1 : x)
-          console.log(spended)
           return spended
         }
       }
@@ -46,12 +45,10 @@ module.exports = class CharacterCreator {
     // get all rules matched widrh path
     const rulesMatch = []
     for (const rule in this._rules) {
-      console.log(rule)
       if (this._rules[rule].path === path) {
         rulesMatch.push(this._rules[rule].rule)
       }
     }
-    console.log(rulesMatch)
     // aply all rules to the context
     newContext = rulesMatch.reduce((aContext, rule) => rule(aContext), newContext)
     // return the new context
@@ -237,7 +234,6 @@ module.exports = class CharacterCreator {
   remainderPoints () {
     const totalPoints = this._points.pointsToGenerate
     const spendCharacteristics = this.applyRules('points/spends', Object.values(this.settedCharacteristics()))
-    console.log(spendCharacteristics)
     const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints
   }
