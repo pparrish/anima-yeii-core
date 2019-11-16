@@ -161,7 +161,7 @@ Then i have 55 points to expend`, () => {
       creator.expendPointsTo('dexterity', 5)
       expect(creator.remainderPoints()).toBe(55)
     })
-    test.skip('Given a creator with type 4 And select 5 to dexterity And Select 2 to dexterity Then dexterity is 7', () => {
+    test('Given a creator with type 4 And select 5 to dexterity And Select 2 to dexterity Then dexterity is 7', () => {
       const creator = creatorWithType5And60Points()
       creator.expendPointsTo('dexterity', 5)
       creator.expendPointsTo('dexterity', 2)
