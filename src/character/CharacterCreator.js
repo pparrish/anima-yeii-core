@@ -189,11 +189,7 @@ module.exports = class CharacterCreator {
    * @returns {object} this
    */
   expendPointsTo (characteristic, amount) {
-    let actualCharacteristicValue = this.settedCharacteristics()[characteristic]
-    if (!actualCharacteristicValue) {
-      actualCharacteristicValue = 0
-    }
-    this._set(characteristic, amount + actualCharacteristicValue, 'characteristics')
+    this._set(characteristic, amount, 'characteristics')
     return this
   }
 
