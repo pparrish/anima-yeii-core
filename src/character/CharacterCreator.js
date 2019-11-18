@@ -2,7 +2,11 @@ const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const pointsGenerators = require('../generatePoints')
 
-module.exports = class CharacterCreator {
+/** Class represents a creator of a character with a rules.of anima
+ */
+class CharacterCreator {
+  /** create a characterCreator
+   */
   constructor () {
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
@@ -48,7 +52,7 @@ module.exports = class CharacterCreator {
   /** applies all rules of one path to a value
    * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
    * @param {any} context - is the value by working the rule
-   * @return {any} the modified value of operation
+   * @return {Object} the modified value of operation
    */
   applyRules (path, context) {
     let newContext = context
@@ -67,7 +71,7 @@ module.exports = class CharacterCreator {
 
   /** disable a rule
    * @param {string} rule - the name of rule to diable
-   * @return {object} this
+   * @return {Object} this
    */
   disableRule (rule) {
     if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
@@ -77,7 +81,7 @@ module.exports = class CharacterCreator {
 
   /** enable a rule
    * @param {string} rule - rule to enable
-   * @return {object} this
+   * @return {Object} this
    */
   enableRule (rule) {
     if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
@@ -248,7 +252,7 @@ module.exports = class CharacterCreator {
   /** Add the amount of points to a characteristic and spend it from remainder points. Uses the rule path of "set/characteristics"
    * @param {string} characteristic - The characteristic to add value
    * @param {number} amount - The value to be added in characteristic and expended from remainder points.
-   * @returns {object} this
+   * @returns {Object} this
    */
   expendPointsTo (characteristic, amount) {
     let actualCharacteristicValue = this.settedCharacteristics()[characteristic]
@@ -266,7 +270,7 @@ module.exports = class CharacterCreator {
   /** Subtracts or remove the points of a characteristic
    * @param {string} characteristic - The name of the characteristic to substract or remove
    * @param {number} [amount] - The value to substract, if not setted then remove all points to characteristic
-   * @return {object} this
+   * @return {Object} this
    */
   removePointsTo (characteristic, amount) {
     const beforeValue = this.settedCharacteristics()[characteristic]
@@ -295,3 +299,5 @@ module.exports = class CharacterCreator {
     return totalPoints - spendedPoints
   }
 }
+
+module.exports = CharacterCreator
