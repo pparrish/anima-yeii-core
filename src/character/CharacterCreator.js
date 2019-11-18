@@ -212,6 +212,9 @@ class CharacterCreator {
   }
 
   // Characteristic
+  /** Returns a array of the non setted characteristics names
+   * @returns {Array} Array of strings
+   */
   nonSetCharacteristics () {
     return this._nonSetValues('characteristics')
   }
