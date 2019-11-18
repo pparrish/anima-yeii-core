@@ -240,6 +240,11 @@ class CharacterCreator {
     return index
   }
 
+  /* set a Value to a chacacteristic the value must be in the generated values. You can get the abiable values by non set generation values
+   * @param {string} name - The name of a characteristic
+   * @param {number} value - The value to set
+   * @returns {CharacterCreator} this
+   */
   selectValueTo (name, value) {
     const indexName = this.indexOfCharacteristic(name)
     const indexOfValue = this._getIndex(value, this._points.nonSettedValues)
