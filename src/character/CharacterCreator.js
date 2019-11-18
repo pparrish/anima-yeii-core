@@ -254,20 +254,35 @@ class CharacterCreator {
     return this
   }
 
+  /* set the greatest value of non setted values to a characteristic
+   * @param {string} the name of characteristic
+   * @return {CharacterCreator} this
+   */
   selectGreatestValueTo (characteristicName) {
     this.selectValueTo(characteristicName, this.getGreatestNonSetValue())
     return this
   }
 
+  /* set the smalest value of nin setted values to a characteristic
+   * @param {string} the name of characteristic
+   * @returns {CharacterCreator} this
+   */
   selectSmalestValueTo (characteristicName) {
     this.selectValueTo(characteristicName, this.getSmalestNonSetValue())
     return this
   }
 
+  /* Get the generation values than are not setted
+   * @returns {Array} array of numbes of non setted values
+   */
   nonSetGenerationValues () {
     return this._points.nonSettedValues.map(x => x)
   }
 
+  /* Remove a value to a characteristic and move again to the aviable values
+   * @param {string} name - The name of characteristic
+   * @returns {CharacterCreator} this
+   */
   removeValueTo (name) {
     const index = this.indexOfCharacteristic(name)
     const value = this._valuesLists.characteristics[index]
@@ -276,6 +291,9 @@ class CharacterCreator {
     return this
   }
 
+  /* Get the characteristic than are setted and her values
+   * @returns {Object} the characteristics setted
+   */
   settedCharacteristics () {
     return this._settedValues('characteristics')
   }
