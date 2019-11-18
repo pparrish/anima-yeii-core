@@ -51,6 +51,7 @@ class CharacterCreator {
   }
 
   /** applies all rules of one path to a value
+   * @protected
    * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
    * @param {any} context - is the value by working the rule
    * @return {Object} the modified value of operation
@@ -174,6 +175,10 @@ class CharacterCreator {
     return this
   }
 
+  /** Set the number of points than type 5 generator used, use this before use a type 5 generator
+   * @param {number} points - number of points for generate
+   * @returns {CharacterCreator} this
+   */
   setPoints (points) {
     this._points.pointsToGenerate = points
     return this
