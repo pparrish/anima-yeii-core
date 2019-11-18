@@ -14,11 +14,12 @@
     -   [nonSetBasicInfo][10]
     -   [setPoints][11]
         -   [Parameters][12]
-    -   [expendPointsTo][13]
-        -   [Parameters][14]
-    -   [removePointsTo][15]
-        -   [Parameters][16]
-    -   [remainderPoints][17]
+    -   [remainerPoints][13]
+    -   [expendPointsTo][14]
+        -   [Parameters][15]
+    -   [removePointsTo][16]
+        -   [Parameters][17]
+    -   [remainderPoints][18]
 
 ## CharacterCreator
 
@@ -30,10 +31,10 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][18]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][19]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][19]** the modified value of operation
+Returns **[Object][20]** the modified value of operation
 
 ### disableRule
 
@@ -41,9 +42,9 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][18]** the name of rule to diable
+-   `rule` **[string][19]** the name of rule to diable
 
-Returns **[Object][19]** this
+Returns **[Object][20]** this
 
 ### enableRule
 
@@ -51,9 +52,9 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][18]** rule to enable
+-   `rule` **[string][19]** rule to enable
 
-Returns **[Object][19]** this
+Returns **[Object][20]** this
 
 ### setBasicInfo
 
@@ -61,16 +62,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][18]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][19]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][20]** this
+Returns **[CharacterCreator][21]** this
 
 ### nonSetBasicInfo
 
 Return the names of basic info than are not setted
 
-Returns **[Array][21]** BasicInfoNames
+Returns **[Array][22]** BasicInfoNames
 
 ### setPoints
 
@@ -78,9 +79,16 @@ Set the number of points than type 5 generator used, use this before use a type 
 
 #### Parameters
 
--   `points` **[number][22]** number of points for generate
+-   `points` **[number][23]** number of points for generate
 
-Returns **[CharacterCreator][20]** this
+Returns **[CharacterCreator][21]** this
+
+### remainerPoints
+
+**Meta**
+
+-   **deprecated**: This is deprecated.
+
 
 ### expendPointsTo
 
@@ -88,10 +96,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][18]** The characteristic to add value
--   `amount` **[number][22]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][19]** The characteristic to add value
+-   `amount` **[number][23]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][19]** this
+Returns **[Object][20]** this
 
 ### removePointsTo
 
@@ -99,16 +107,16 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][18]** The name of the characteristic to substract or remove
--   `amount` **[number][22]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][19]** The name of the characteristic to substract or remove
+-   `amount` **[number][23]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][19]** this
+Returns **[Object][20]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][22]** remainder points
+Returns **[number][23]** remainder points
 
 [1]: #charactercreator
 
@@ -134,22 +142,24 @@ Returns **[number][22]** remainder points
 
 [12]: #parameters-4
 
-[13]: #expendpointsto
+[13]: #remainerpoints
 
-[14]: #parameters-5
+[14]: #expendpointsto
 
-[15]: #removepointsto
+[15]: #parameters-5
 
-[16]: #parameters-6
+[16]: #removepointsto
 
-[17]: #remainderpoints
+[17]: #parameters-6
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[18]: #remainderpoints
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[20]: #charactercreator
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[21]: #charactercreator
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

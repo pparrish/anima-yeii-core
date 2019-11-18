@@ -204,6 +204,8 @@ class CharacterCreator {
     throw new Error('The generator set of points generator is not a valid type')
   }
 
+  /** @deprecated
+   */
   remainerPoints () {
     if (this._points.remainer === null) throw new Error('points is not generated')
     return this._points.remainer
