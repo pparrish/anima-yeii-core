@@ -275,7 +275,7 @@ describe('Creation of a character', () => {
       })
       test('Given a generator And set 11 to appearance Then i get a error', () => {
         const creator = newCreator()
-        expect(() => creator.setSecondaryCharacteristics('appearance', 11)).toThrow()
+        expect(() => creator.setSecondaryCharacteristics('appearance', 11)).toThrow('appearance limit is 10')
       })
     })
     describe('size', () => {
