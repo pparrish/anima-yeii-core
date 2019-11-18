@@ -11,11 +11,12 @@
         -   [Parameters][7]
     -   [setBasicInfo][8]
         -   [Parameters][9]
-    -   [expendPointsTo][10]
-        -   [Parameters][11]
-    -   [removePointsTo][12]
-        -   [Parameters][13]
-    -   [remainderPoints][14]
+    -   [nonSetBasicInfo][10]
+    -   [expendPointsTo][11]
+        -   [Parameters][12]
+    -   [removePointsTo][13]
+        -   [Parameters][14]
+    -   [remainderPoints][15]
 
 ## CharacterCreator
 
@@ -27,10 +28,10 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][15]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][16]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][16]** the modified value of operation
+Returns **[Object][17]** the modified value of operation
 
 ### disableRule
 
@@ -38,9 +39,9 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][15]** the name of rule to diable
+-   `rule` **[string][16]** the name of rule to diable
 
-Returns **[Object][16]** this
+Returns **[Object][17]** this
 
 ### enableRule
 
@@ -48,9 +49,9 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][15]** rule to enable
+-   `rule` **[string][16]** rule to enable
 
-Returns **[Object][16]** this
+Returns **[Object][17]** this
 
 ### setBasicInfo
 
@@ -58,10 +59,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][15]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][16]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][17]** this
+Returns **[CharacterCreator][18]** this
+
+### nonSetBasicInfo
+
+Return the names of basic info than are not setted
+
+Returns **[Array][19]** BasicInfoNames
 
 ### expendPointsTo
 
@@ -69,10 +76,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][15]** The characteristic to add value
--   `amount` **[number][18]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][16]** The characteristic to add value
+-   `amount` **[number][20]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][16]** this
+Returns **[Object][17]** this
 
 ### removePointsTo
 
@@ -80,16 +87,16 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][15]** The name of the characteristic to substract or remove
--   `amount` **[number][18]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][16]** The name of the characteristic to substract or remove
+-   `amount` **[number][20]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][16]** this
+Returns **[Object][17]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][18]** remainder points
+Returns **[number][20]** remainder points
 
 [1]: #charactercreator
 
@@ -109,20 +116,24 @@ Returns **[number][18]** remainder points
 
 [9]: #parameters-3
 
-[10]: #expendpointsto
+[10]: #nonsetbasicinfo
 
-[11]: #parameters-4
+[11]: #expendpointsto
 
-[12]: #removepointsto
+[12]: #parameters-4
 
-[13]: #parameters-5
+[13]: #removepointsto
 
-[14]: #remainderpoints
+[14]: #parameters-5
 
-[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[15]: #remainderpoints
 
-[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[17]: #charactercreator
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[18]: #charactercreator
+
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

@@ -135,10 +135,16 @@ class CharacterCreator {
     return this._set(name, value, 'basicInfo')
   }
 
+  /** Return the names of basic info than are not setted
+   * @return {Array} BasicInfoNames
+   */
   nonSetBasicInfo () {
     return this._nonSetValues('basicInfo')
   }
 
+  /* Get a Object with all already setted values of Basic info an her values
+   * @returns {Object} Already setted Values
+   */
   settedBasicInfo () {
     return this._settedValues('basicInfo')
   }
