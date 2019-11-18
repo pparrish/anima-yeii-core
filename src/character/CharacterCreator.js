@@ -6,6 +6,7 @@ const pointsGenerators = require('../generatePoints')
  */
 class CharacterCreator {
   /** create a characterCreator
+   * @returns  {CharacterCreator}
    */
   constructor () {
     this._namesLists = {
@@ -125,6 +126,11 @@ class CharacterCreator {
   }
 
   // BASICINFO
+  /** Set a value of a character basic Info
+   * @param {string} name - The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+   * @param {any} value - The value of the basic info to set.
+   * @returns {CharacterCreator} - this
+   */
   setBasicInfo (name, value) {
     return this._set(name, value, 'basicInfo')
   }

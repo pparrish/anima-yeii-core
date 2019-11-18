@@ -9,11 +9,13 @@
         -   [Parameters][5]
     -   [enableRule][6]
         -   [Parameters][7]
-    -   [expendPointsTo][8]
+    -   [setBasicInfo][8]
         -   [Parameters][9]
-    -   [removePointsTo][10]
+    -   [expendPointsTo][10]
         -   [Parameters][11]
-    -   [remainderPoints][12]
+    -   [removePointsTo][12]
+        -   [Parameters][13]
+    -   [remainderPoints][14]
 
 ## CharacterCreator
 
@@ -25,10 +27,10 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][13]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][15]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][14]** the modified value of operation
+Returns **[Object][16]** the modified value of operation
 
 ### disableRule
 
@@ -36,9 +38,9 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][13]** the name of rule to diable
+-   `rule` **[string][15]** the name of rule to diable
 
-Returns **[Object][14]** this
+Returns **[Object][16]** this
 
 ### enableRule
 
@@ -46,9 +48,20 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][13]** rule to enable
+-   `rule` **[string][15]** rule to enable
 
-Returns **[Object][14]** this
+Returns **[Object][16]** this
+
+### setBasicInfo
+
+Set a value of a character basic Info
+
+#### Parameters
+
+-   `name` **[string][15]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `value` **any** The value of the basic info to set.
+
+Returns **[CharacterCreator][17]** this
 
 ### expendPointsTo
 
@@ -56,10 +69,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][13]** The characteristic to add value
--   `amount` **[number][15]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][15]** The characteristic to add value
+-   `amount` **[number][18]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][14]** this
+Returns **[Object][16]** this
 
 ### removePointsTo
 
@@ -67,16 +80,16 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][13]** The name of the characteristic to substract or remove
--   `amount` **[number][15]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][15]** The name of the characteristic to substract or remove
+-   `amount` **[number][18]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][14]** this
+Returns **[Object][16]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][15]** remainder points
+Returns **[number][18]** remainder points
 
 [1]: #charactercreator
 
@@ -92,18 +105,24 @@ Returns **[number][15]** remainder points
 
 [7]: #parameters-2
 
-[8]: #expendpointsto
+[8]: #setbasicinfo
 
 [9]: #parameters-3
 
-[10]: #removepointsto
+[10]: #expendpointsto
 
 [11]: #parameters-4
 
-[12]: #remainderpoints
+[12]: #removepointsto
 
-[13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[13]: #parameters-5
 
-[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[14]: #remainderpoints
 
-[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[17]: #charactercreator
+
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
