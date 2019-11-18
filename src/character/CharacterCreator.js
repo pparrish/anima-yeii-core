@@ -150,6 +150,10 @@ class CharacterCreator {
   }
 
   // POINTS
+  /* Generate point to be setted in characteristics
+   * @param {number} typeNumber - The type of generation for now allows [1,2,3] of value types and [4,5] of points type
+   * @returns {CharacterCreator} this
+   */
   generatePoints (typeNumber) {
     const generatedTypes = Object.keys(this._points.generators)
     const generateName = generatedTypes[typeNumber - 1]
