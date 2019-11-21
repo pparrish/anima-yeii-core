@@ -21,6 +21,7 @@
     -   [removePointsTo][17]
         -   [Parameters][18]
     -   [remainderPoints][19]
+    -   [settedPhysicalCapacities][20]
 
 ## CharacterCreator
 
@@ -32,10 +33,10 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][20]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][21]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][21]** the modified value of operation
+Returns **[Object][22]** the modified value of operation
 
 ### disableRule
 
@@ -43,9 +44,9 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][20]** the name of rule to diable
+-   `rule` **[string][21]** the name of rule to diable
 
-Returns **[Object][21]** this
+Returns **[Object][22]** this
 
 ### enableRule
 
@@ -53,9 +54,9 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][20]** rule to enable
+-   `rule` **[string][21]** rule to enable
 
-Returns **[Object][21]** this
+Returns **[Object][22]** this
 
 ### setBasicInfo
 
@@ -63,16 +64,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][20]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][21]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][22]** this
+Returns **[CharacterCreator][23]** this
 
 ### nonSetBasicInfo
 
 Return the names of basic info than are not setted
 
-Returns **[Array][23]** BasicInfoNames
+Returns **[Array][24]** BasicInfoNames
 
 ### setPoints
 
@@ -80,9 +81,9 @@ Set the number of points than type 5 generator used, use this before use a type 
 
 #### Parameters
 
--   `points` **[number][24]** number of points for generate
+-   `points` **[number][25]** number of points for generate
 
-Returns **[CharacterCreator][22]** this
+Returns **[CharacterCreator][23]** this
 
 ### remainerPoints
 
@@ -95,7 +96,7 @@ Returns **[CharacterCreator][22]** this
 
 Returns a array of the non setted characteristics names
 
-Returns **[Array][23]** Array of strings
+Returns **[Array][24]** Array of strings
 
 ### expendPointsTo
 
@@ -103,10 +104,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][20]** The characteristic to add value
--   `amount` **[number][24]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][21]** The characteristic to add value
+-   `amount` **[number][25]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][21]** this
+Returns **[Object][22]** this
 
 ### removePointsTo
 
@@ -114,16 +115,22 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][20]** The name of the characteristic to substract or remove
--   `amount` **[number][24]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][21]** The name of the characteristic to substract or remove
+-   `amount` **[number][25]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][21]** this
+Returns **[Object][22]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][24]** remainder points
+Returns **[number][25]** remainder points
+
+### settedPhysicalCapacities
+
+get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
+
+Returns **[Object][22]** the physicalCapacities names with value
 
 [1]: #charactercreator
 
@@ -163,12 +170,14 @@ Returns **[number][24]** remainder points
 
 [19]: #remainderpoints
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[20]: #settedphysicalcapacities
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[22]: #charactercreator
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[23]: #charactercreator
 
-[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

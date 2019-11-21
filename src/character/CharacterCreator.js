@@ -1,6 +1,7 @@
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
+const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -18,13 +19,15 @@ class CharacterCreator {
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
       characteristics: characteristicsList.map(x => x),
-      physicalCapacities: getNames(physicalCapacities)
+      physicalCapacities: getNames(physicalCapacities),
+      secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
 
     this._valuesLists = {
       basicInfo: this._getNames('basicInfo').map(() => null),
       characteristics: this._getNames('characteristics').map(() => null),
-      physicalCapacities: this._namesLists.physicalCapacities.map(() => null)
+      physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
+      secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
 
     this._points = {
