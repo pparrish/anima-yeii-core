@@ -58,6 +58,15 @@ module.exports = class CharacterCreator {
           aCreator._set('fatigue', physique, 'physicalCapacities')
           return physique
         }
+      },
+      'agility is movement type': {
+        enabled: true,
+        hidden: true,
+        path: 'characteristics/set/agility',
+        rule: (agility, aCreator) => {
+          aCreator._set('movement type', agility, 'physicalCapacities')
+          return agility
+        }
       }
     }
   }
