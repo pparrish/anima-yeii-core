@@ -256,7 +256,7 @@ describe('Creation of a character', () => {
       creator.selectGreatestValueTo('physique')
       expect(creator.settedPhysicalCapacities().fatigue).toBe(creator.settedCharacteristics().physique)
     })
-    test.skip('Given a type 1 creator And i select the greatest to agility Then movement type is the same as agility', () => {
+    test('Given a type 1 creator And i select the greatest to agility Then movement type is the same as agility', () => {
       const creator = creatorWithType1()
       creator.selectGreatestValueTo('agility')
       expect(creator.settedPhysicalCapacities()['movement type']).toBe(creator.settedCharacteristics().agility)
