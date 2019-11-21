@@ -1,17 +1,25 @@
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
+const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
+
+function getNames (listObject) {
+  return listObject.map(x => x.name)
+}
+
 const pointsGenerators = require('../generatePoints')
 
 module.exports = class CharacterCreator {
   constructor () {
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
-      characteristics: characteristicsList.map(x => x)
+      characteristics: characteristicsList.map(x => x),
+      physicalCapacities: getNames(physicalCapacities)
     }
 
     this._valuesLists = {
       basicInfo: this._getNames('basicInfo').map(() => null),
-      characteristics: this._getNames('characteristics').map(() => null)
+      characteristics: this._getNames('characteristics').map(() => null),
+      physicalCapacities: this._namesLists.physicalCapacities.map(() => null)
     }
 
     this._points = {
