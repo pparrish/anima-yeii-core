@@ -77,6 +77,8 @@ class CharacterCreator {
         }
       }
     }
+
+    this.applyRules('creator/init', this)
   }
 
   /** applies all rules of one path to a value
