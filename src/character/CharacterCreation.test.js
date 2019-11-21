@@ -21,6 +21,11 @@ describe('Creation of a character', () => {
     creator.setPoints(60).generatePoints(5)
     return creator
   }
+  const creatorWidthAllCharacteristicsSetted = () => {
+    const creator = creatorWithType1()
+    listOfCharacteristics.map(x => creator.selectGreatestValueTo(x))
+    return creator
+  }
 
   test('when the creation begings all the basic info is not seted', () => {
     expect(characterCreator.nonSetBasicInfo()).toEqual(expect.arrayContaining(listOfBasicInfo))
@@ -242,6 +247,102 @@ describe('Creation of a character', () => {
 
     test('Given a creator width type 4 and i remove 6 to dexterity then i have a error', () => {
       expect(() => creatorWithType5And60Points().removePointsTo('dexterity', 6)).toThrow('the dexterity not have any value')
+    })
+  })
+
+  describe('physical capacities', () => {
+    test('Given a type 1 creator And i select the greates to physique Then fatigue is the same as physique', () => {
+      const creator = creatorWithType1()
+      creator.selectGreatestValueTo('physique')
+      expect(creator.settedPhysicalCapacities().fatigue).toBe(creator.settedCharacteristics().physique)
+    })
+    test('Given a type 1 creator And i select the greatest to agility Then movement type is the same as agility', () => {
+      const creator = creatorWithType1()
+      creator.selectGreatestValueTo('agility')
+      expect(creator.settedPhysicalCapacities()['movement type']).toBe(creator.settedCharacteristics().agility)
+    })
+    test('The physical capacities cant be accesed witoud the characteristics than are linked', () => {
+      const creator = creatorWithType1()
+      expect(creator.settedPhysicalCapacities().fatigue).toBe(undefined)
+      expect(creator.settedPhysicalCapacities()['movement type']).toBe(undefined)
+    })
+  })
+  describe.skip('secondary characteristics', () => {
+    describe('appearance', () => {
+      test('Given a generator And not set appearance then i have a random value in appearance', () => {
+        const creator = newCreator()
+        expect(creator.settedSecondaryCharacteristics().appearance).toBethurty()
+      })
+      test('Given a generator And set 10 to appearance then i have 10 in appearance', () => {
+        const creator = newCreator()
+        creator.setSecondaryCharacteristics('appearance', 10)
+        expect(creator.settedSecondaryCharacteristics().appearance).toBe(10)
+      })
+      test('Given a generator And set 11 to appearance Then i get a error', () => {
+        const creator = newCreator()
+        expect(() => creator.setSecondaryCharacteristics('appearance', 11)).toThrow('appearance limit is 10')
+      })
+    })
+    describe('size', () => {
+      test('Given a generator with all characteristics setted them i have size equal to strenght and psysique ', () => {
+        const creator = creatorWidthAllCharacteristicsSetted()
+        const { strenght, physique } = creator.settedCharacteristics()
+        expect(creator.settedSecondaryCharacteristics()).toBe(strenght + physique)
+      })
+      test('Given a generator of type 5 and add 5 and 5 to strenght an physique then  my minimun height is 140 and maximun is 170 and weight is minimun in 40 and maximun is 90', () => {
+        const creator = creatorWithType5And60Points()
+        creator.expendPointsTo('physique', 5)
+          .expendPointsTo('strenght', 5)
+        expect(creator.minHeightSupported()).toBe(140)
+        expect(creator.maxHeightSupported()).toBe(170)
+        expect(creator.minWeightSupported()).toBe(40)
+        expect(creator.maxWeightSupported()).toBe(90)
+      })
+      test('Given a generator of type 5 And expend 5 and 5 in strenght and physique And select the body type in slim then the minimum height is 120 the maximun is 170 and weight minimun is 35 and the maximun is 90', () => {
+        const creator = creatorWithType5And60Points()
+        creator.expendPointsTo('physique', 5)
+          .expendPointsTo('strenght', 5)
+          .setBasicInfo('slim', true)
+        expect(creator.minHeightSupported()).toBe(120)
+        expect(creator.maxHeightSupported()).toBe(170)
+        expect(creator.minWeightSupported()).toBe(35)
+        expect(creator.maxWeightSupported()).toBe(90)
+      })
+      test('Given a generator and get the supported height and weight then i get error', () => {
+        const creator = newCreator()
+        expect(creator.minHeightSupported()).toThrow()
+        expect(creator.maxHeightSupported()).toThrow()
+        expect(creator.minWeightSupported()).toThrow()
+        expect(creator.maxWeightSupported()).toThrow()
+      })
+      test('Given a generator And disable the rule of "size limitations" Then supported height weight is o and infinity', () => {
+        const creator = newCreator()
+        creator.disableRule('size limitations')
+        expect(creator.minHeightSupported()).toBe(0)
+        expect(creator.maxHeightSupported()).toBe(Infinity)
+        expect(creator.minWeightSupported()).toBe(0)
+        expect(creator.maxWeightSupported()).toBe(Infinity)
+      })
+      test('Given a generator of type 5 And expend 5 and 5 in strenght and physique then i can set weigth 120 but not 121, and weight to 35 but not 36', () => {
+        const creator = creatorWithType5And60Points()
+        creator.expendPointsTo('physique', 5)
+          .expendPointsTo('strenght', 5)
+          .setBasicInfo('slim', true)
+        expect(() => creator.setBasicInfo('height', 120)).not.toThrow()
+        expect(() => creator.setBasicInfo('height', 121)).toThrow()
+        expect(() => creator.setBasicInfo('weight', 35)).not.toThrow()
+        expect(() => creator.setBasicInfo('weight', 36)).toThrow()
+      })
+      test('Given a generator of type 5 And expend 5 and 5 in strenght and physique And select the body type in slim then i can set weigth 170 but not 171, and weight to 90 but not 91', () => {
+        const creator = creatorWithType5And60Points()
+        creator.expendPointsTo('physique', 5)
+          .expendPointsTo('strenght', 5)
+          .setBasicInfo('slim', true)
+        expect(() => creator.setBasicInfo('height', 120)).not.toThrow()
+        expect(() => creator.setBasicInfo('height', 110)).toThrow()
+        expect(() => creator.setBasicInfo('weight', 35)).not.toThrow()
+        expect(() => creator.setBasicInfo('weight', 34)).toThrow()
+      })
     })
   })
 })

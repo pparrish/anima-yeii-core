@@ -1,17 +1,25 @@
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
+const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
+
+function getNames (listObject) {
+  return listObject.map(x => x.name)
+}
+
 const pointsGenerators = require('../generatePoints')
 
 module.exports = class CharacterCreator {
   constructor () {
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
-      characteristics: characteristicsList.map(x => x)
+      characteristics: characteristicsList.map(x => x),
+      physicalCapacities: getNames(physicalCapacities)
     }
 
     this._valuesLists = {
       basicInfo: this._getNames('basicInfo').map(() => null),
-      characteristics: this._getNames('characteristics').map(() => null)
+      characteristics: this._getNames('characteristics').map(() => null),
+      physicalCapacities: this._namesLists.physicalCapacities.map(() => null)
     }
 
     this._points = {
@@ -41,6 +49,24 @@ module.exports = class CharacterCreator {
           }
           return characteristic
         }
+      },
+      'physique is fatigue': {
+        enabled: true,
+        hidden: true,
+        path: 'characteristics/set/physique',
+        rule: (physique, aCreator) => {
+          aCreator._set('fatigue', physique, 'physicalCapacities')
+          return physique
+        }
+      },
+      'agility is movement type': {
+        enabled: true,
+        hidden: true,
+        path: 'characteristics/set/agility',
+        rule: (agility, aCreator) => {
+          aCreator._set('movement type', agility, 'physicalCapacities')
+          return agility
+        }
       }
     }
   }
@@ -60,7 +86,7 @@ module.exports = class CharacterCreator {
       }
     }
     // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext) : aContext, newContext)
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this) : aContext, newContext)
     // return the new context
     return newContext
   }
@@ -94,7 +120,8 @@ module.exports = class CharacterCreator {
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
-    const newValue = this.applyRules(`${type}/set`, value)
+    let newValue = this.applyRules(`${type}/set`, value)
+    newValue = this.applyRules(`${type}/set/${name}`, value)
     this._valuesLists[type][index] = newValue
     return true
   }
@@ -211,11 +238,10 @@ module.exports = class CharacterCreator {
   }
 
   selectValueTo (name, value) {
-    const indexName = this.indexOfCharacteristic(name)
     const indexOfValue = this._getIndex(value, this._points.nonSettedValues)
     if (indexOfValue === -1) throw new Error('the value is not in nonSettedValues')
-    this._valuesLists.characteristics[indexName] = value
-    this._points.nonSettedValues.splice(indexOfValue)
+    this._set(name, value, 'characteristics')
+    this._points.nonSettedValues.splice(indexOfValue, 1)
     return this
   }
 
@@ -293,5 +319,13 @@ module.exports = class CharacterCreator {
     const spendCharacteristics = this.applyRules('points/spends', Object.values(this.settedCharacteristics()))
     const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints
+  }
+
+  // PhysicalCapacities
+  /** get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
+   * @returns {Object} the physicalCapacities names with value
+   */
+  settedPhysicalCapacities () {
+    return this._settedValues('physicalCapacities')
   }
 }
