@@ -49,6 +49,15 @@ module.exports = class CharacterCreator {
           }
           return characteristic
         }
+      },
+      'physique is fatigue': {
+        enabled: true,
+        hidden: true,
+        path: 'characteristics/set/physique',
+        rule: (physique, aCreator) => {
+          aCreator._set('fatigue', physique, 'physicalCapacities')
+          return physique
+        }
       }
     }
   }
@@ -68,7 +77,7 @@ module.exports = class CharacterCreator {
       }
     }
     // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext) : aContext, newContext)
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this) : aContext, newContext)
     // return the new context
     return newContext
   }
@@ -102,7 +111,8 @@ module.exports = class CharacterCreator {
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
-    const newValue = this.applyRules(`${type}/set`, value)
+    let newValue = this.applyRules(`${type}/set`, value)
+    newValue = this.applyRules(`${type}/set/${name}`, value)
     this._valuesLists[type][index] = newValue
     return true
   }
