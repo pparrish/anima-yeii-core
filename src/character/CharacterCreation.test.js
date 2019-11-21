@@ -261,7 +261,7 @@ describe('Creation of a character', () => {
       creator.selectGreatestValueTo('agility')
       expect(creator.settedPhysicalCapacities()['movement type']).toBe(creator.settedCharacteristics().agility)
     })
-    test.skip('The physical capacities cant be accesed witoud the characteristics than are linked', () => {
+    test('The physical capacities cant be accesed witoud the characteristics than are linked', () => {
       const creator = creatorWithType1()
       expect(creator.settedPhysicalCapacities().fatigue).toBe(undefined)
       expect(creator.settedPhysicalCapacities()['movement type']).toBe(undefined)
