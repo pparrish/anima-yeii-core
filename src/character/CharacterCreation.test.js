@@ -250,16 +250,21 @@ describe('Creation of a character', () => {
     })
   })
 
-  describe.skip('physical capacities', () => {
+  describe('physical capacities', () => {
     test('Given a type 1 creator And i select the greates to physique Then fatigue is the same as physique', () => {
       const creator = creatorWithType1()
       creator.selectGreatestValueTo('physique')
-      expect(creator.settedPhysicalCapacities.fatigue).toBe(creator.settedCharacteristics().physique)
+      expect(creator.settedPhysicalCapacities().fatigue).toBe(creator.settedCharacteristics().physique)
     })
     test('Given a type 1 creator And i select the greatest to agility Then movement type is the same as agility', () => {
       const creator = creatorWithType1()
       creator.selectGreatestValueTo('agility')
       expect(creator.settedPhysicalCapacities()['movement type']).toBe(creator.settedCharacteristics().agility)
+    })
+    test('The physical capacities cant be accesed witoud the characteristics than are linked', () => {
+      const creator = creatorWithType1()
+      expect(creator.settedPhysicalCapacities().fatigue).toBe(undefined)
+      expect(creator.settedPhysicalCapacities()['movement type']).toBe(undefined)
     })
   })
   describe.skip('secondary characteristics', () => {
