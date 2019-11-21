@@ -1,3 +1,5 @@
+const D10 = require('../dices/d10')
+const d10 = new D10()
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
@@ -74,6 +76,14 @@ class CharacterCreator {
         rule: (agility, aCreator) => {
           aCreator._set('movement type', agility, 'physicalCapacities')
           return agility
+        }
+      },
+      'appearance is random': {
+        enabled: true,
+        hidden: true,
+        path: 'creator/init',
+        rule: (creator) => {
+          creator._appearance = d10.roll()
         }
       }
     }
