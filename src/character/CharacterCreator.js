@@ -1,17 +1,30 @@
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
+const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
+
+function getNames (listObject) {
+  return listObject.map(x => x.name)
+}
+
 const pointsGenerators = require('../generatePoints')
 
-module.exports = class CharacterCreator {
+/** Class represents a creator of a character with a rules.of anima
+ */
+class CharacterCreator {
+  /** create a characterCreator
+   * @returns  {CharacterCreator}
+   */
   constructor () {
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
-      characteristics: characteristicsList.map(x => x)
+      characteristics: characteristicsList.map(x => x),
+      physicalCapacities: getNames(physicalCapacities)
     }
 
     this._valuesLists = {
       basicInfo: this._getNames('basicInfo').map(() => null),
-      characteristics: this._getNames('characteristics').map(() => null)
+      characteristics: this._getNames('characteristics').map(() => null),
+      physicalCapacities: this._namesLists.physicalCapacities.map(() => null)
     }
 
     this._points = {
@@ -41,14 +54,33 @@ module.exports = class CharacterCreator {
           }
           return characteristic
         }
+      },
+      'physique is fatigue': {
+        enabled: true,
+        hidden: true,
+        path: 'characteristics/set/physique',
+        rule: (physique, aCreator) => {
+          aCreator._set('fatigue', physique, 'physicalCapacities')
+          return physique
+        }
+      },
+      'agility is movement type': {
+        enabled: true,
+        hidden: true,
+        path: 'characteristics/set/agility',
+        rule: (agility, aCreator) => {
+          aCreator._set('movement type', agility, 'physicalCapacities')
+          return agility
+        }
       }
     }
   }
 
   /** applies all rules of one path to a value
+   * @protected
    * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
    * @param {any} context - is the value by working the rule
-   * @return {any} the modified value of operation
+   * @return {Object} the modified value of operation
    */
   applyRules (path, context) {
     let newContext = context
@@ -60,14 +92,14 @@ module.exports = class CharacterCreator {
       }
     }
     // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext) : aContext, newContext)
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this) : aContext, newContext)
     // return the new context
     return newContext
   }
 
   /** disable a rule
    * @param {string} rule - the name of rule to diable
-   * @return {object} this
+   * @return {Object} this
    */
   disableRule (rule) {
     if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
@@ -77,7 +109,7 @@ module.exports = class CharacterCreator {
 
   /** enable a rule
    * @param {string} rule - rule to enable
-   * @return {object} this
+   * @return {Object} this
    */
   enableRule (rule) {
     if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
@@ -94,7 +126,8 @@ module.exports = class CharacterCreator {
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
-    const newValue = this.applyRules(`${type}/set`, value)
+    let newValue = this.applyRules(`${type}/set`, value)
+    newValue = this.applyRules(`${type}/set/${name}`, value)
     this._valuesLists[type][index] = newValue
     return true
   }
@@ -121,19 +154,34 @@ module.exports = class CharacterCreator {
   }
 
   // BASICINFO
+  /** Set a value of a character basic Info
+   * @param {string} name - The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+   * @param {any} value - The value of the basic info to set.
+   * @returns {CharacterCreator} - this
+   */
   setBasicInfo (name, value) {
     return this._set(name, value, 'basicInfo')
   }
 
+  /** Return the names of basic info than are not setted
+   * @return {Array} BasicInfoNames
+   */
   nonSetBasicInfo () {
     return this._nonSetValues('basicInfo')
   }
 
+  /* Get a Object with all already setted values of Basic info an her values
+   * @returns {Object} Already setted Values
+   */
   settedBasicInfo () {
     return this._settedValues('basicInfo')
   }
 
   // POINTS
+  /* Generate point to be setted in characteristics
+   * @param {number} typeNumber - The type of generation for now allows [1,2,3] of value types and [4,5] of points type
+   * @returns {CharacterCreator} this
+   */
   generatePoints (typeNumber) {
     const generatedTypes = Object.keys(this._points.generators)
     const generateName = generatedTypes[typeNumber - 1]
@@ -154,6 +202,10 @@ module.exports = class CharacterCreator {
     return this
   }
 
+  /** Set the number of points than type 5 generator used, use this before use a type 5 generator
+   * @param {number} points - number of points for generate
+   * @returns {CharacterCreator} this
+   */
   setPoints (points) {
     this._points.pointsToGenerate = points
     return this
@@ -179,12 +231,17 @@ module.exports = class CharacterCreator {
     throw new Error('The generator set of points generator is not a valid type')
   }
 
+  /** @deprecated
+   */
   remainerPoints () {
     if (this._points.remainer === null) throw new Error('points is not generated')
     return this._points.remainer
   }
 
   // Characteristic
+  /** Returns a array of the non setted characteristics names
+   * @returns {Array} Array of strings
+   */
   nonSetCharacteristics () {
     return this._nonSetValues('characteristics')
   }
@@ -210,29 +267,48 @@ module.exports = class CharacterCreator {
     return index
   }
 
+  /* set a Value to a chacacteristic the value must be in the generated values. You can get the abiable values by non set generation values
+   * @param {string} name - The name of a characteristic
+   * @param {number} value - The value to set
+   * @returns {CharacterCreator} this
+   */
   selectValueTo (name, value) {
-    const indexName = this.indexOfCharacteristic(name)
     const indexOfValue = this._getIndex(value, this._points.nonSettedValues)
     if (indexOfValue === -1) throw new Error('the value is not in nonSettedValues')
-    this._valuesLists.characteristics[indexName] = value
-    this._points.nonSettedValues.splice(indexOfValue)
+    this._set(name, value, 'characteristics')
+    this._points.nonSettedValues.splice(indexOfValue, 1)
     return this
   }
 
+  /* set the greatest value of non setted values to a characteristic
+   * @param {string} the name of characteristic
+   * @return {CharacterCreator} this
+   */
   selectGreatestValueTo (characteristicName) {
     this.selectValueTo(characteristicName, this.getGreatestNonSetValue())
     return this
   }
 
+  /* set the smalest value of nin setted values to a characteristic
+   * @param {string} the name of characteristic
+   * @returns {CharacterCreator} this
+   */
   selectSmalestValueTo (characteristicName) {
     this.selectValueTo(characteristicName, this.getSmalestNonSetValue())
     return this
   }
 
+  /* Get the generation values than are not setted
+   * @returns {Array} array of numbes of non setted values
+   */
   nonSetGenerationValues () {
     return this._points.nonSettedValues.map(x => x)
   }
 
+  /* Remove a value to a characteristic and move again to the aviable values
+   * @param {string} name - The name of characteristic
+   * @returns {CharacterCreator} this
+   */
   removeValueTo (name) {
     const index = this.indexOfCharacteristic(name)
     const value = this._valuesLists.characteristics[index]
@@ -241,6 +317,9 @@ module.exports = class CharacterCreator {
     return this
   }
 
+  /* Get the characteristic than are setted and her values
+   * @returns {Object} the characteristics setted
+   */
   settedCharacteristics () {
     return this._settedValues('characteristics')
   }
@@ -248,7 +327,7 @@ module.exports = class CharacterCreator {
   /** Add the amount of points to a characteristic and spend it from remainder points. Uses the rule path of "set/characteristics"
    * @param {string} characteristic - The characteristic to add value
    * @param {number} amount - The value to be added in characteristic and expended from remainder points.
-   * @returns {object} this
+   * @returns {Object} this
    */
   expendPointsTo (characteristic, amount) {
     let actualCharacteristicValue = this.settedCharacteristics()[characteristic]
@@ -266,7 +345,7 @@ module.exports = class CharacterCreator {
   /** Subtracts or remove the points of a characteristic
    * @param {string} characteristic - The name of the characteristic to substract or remove
    * @param {number} [amount] - The value to substract, if not setted then remove all points to characteristic
-   * @return {object} this
+   * @return {Object} this
    */
   removePointsTo (characteristic, amount) {
     const beforeValue = this.settedCharacteristics()[characteristic]
@@ -294,4 +373,14 @@ module.exports = class CharacterCreator {
     const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints
   }
+
+  // PhysicalCapacities
+  /** get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
+   * @returns {Object} the physicalCapacities names with value
+   */
+  settedPhysicalCapacities () {
+    return this._settedValues('physicalCapacities')
+  }
 }
+
+module.exports = CharacterCreator
