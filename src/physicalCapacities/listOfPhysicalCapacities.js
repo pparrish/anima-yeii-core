@@ -5,7 +5,7 @@ module.exports = [
     linkedTo: 'characteristics/strength'
   },
   {
-    name: 'movenent type',
+    name: 'movement type',
     type: 'int',
     linkedTo: 'characteristics/agility'
   }
