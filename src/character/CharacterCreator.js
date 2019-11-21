@@ -211,11 +211,10 @@ module.exports = class CharacterCreator {
   }
 
   selectValueTo (name, value) {
-    const indexName = this.indexOfCharacteristic(name)
     const indexOfValue = this._getIndex(value, this._points.nonSettedValues)
     if (indexOfValue === -1) throw new Error('the value is not in nonSettedValues')
-    this._valuesLists.characteristics[indexName] = value
-    this._points.nonSettedValues.splice(indexOfValue)
+    this._set(name, value, 'characteristics')
+    this._points.nonSettedValues.splice(indexOfValue, 1)
     return this
   }
 
