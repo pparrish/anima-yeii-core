@@ -311,4 +311,12 @@ module.exports = class CharacterCreator {
     const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints
   }
+
+  // PhysicalCapacities
+  /** get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
+   * @returns {Object} the physicalCapacities names with value
+   */
+  settedPhysicalCapacities () {
+    return this._settedValues('physicalCapacities')
+  }
 }
