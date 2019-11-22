@@ -288,6 +288,14 @@ describe('Creation of a character', () => {
         creator.disableRule('appearance blocked')
         expect(() => creator.setSecondaryCharacteristic('appearance', 11)).toThrow('appearance limit is 10')
       })
+      test('Given a Creator And and i disable the rule of "appearance blocked" And i set 10 to appearance and them remove it i have the same random value', () => {
+        const creator = newCreator()
+        const { appearance: expected } = creator.settedSecondaryCharacteristics()
+        creator.disableRule('appearance blocked')
+          .setSecondaryCharacteristic('appearance', 5)
+          .resetSecondaryCharacteristic('appearance')
+        expect(creator.settedSecondaryCharacteristics().appearance).toBe(expected)
+      })
     })
     describe.skip('size', () => {
       test('Given a generator with all characteristics setted them i have size equal to strenght and psysique ', () => {

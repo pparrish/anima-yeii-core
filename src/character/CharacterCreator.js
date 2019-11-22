@@ -432,6 +432,17 @@ class CharacterCreator {
     this._set(name, value, 'secondaryCharacteristics')
     return this
   }
+
+  /* reset a secondary charactetistic (null or origibal value)
+   * @param {string} nam - the name of sexondary characteristic to reset
+   * @return {CharacterCreator} this
+   */
+  resetSecondaryCharacteristic (name) {
+    const secondaryIndex = this._getIndex(name, this._getNames('secondaryCharacteristics'))
+    if (secondaryIndex === -1) throw new Error(`${name} is not a secondaryCharacteristic`)
+    this._valuesLists.secondaryCharacteristics[secondaryIndex] = null
+    return this
+  }
 }
 
 module.exports = CharacterCreator
