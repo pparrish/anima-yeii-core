@@ -107,11 +107,10 @@ class CharacterCreator {
         enabled: true,
         hidden: true,
         path: ['characteristics/setted/strength', 'characteristics/setted/physique'],
-        rule (characteristics, creator) {
-          const { strength, physique } = characteristics
-          if (!strength || !psysique) return
+        rule (_, creator) {
+          const { strength, physique } = creator.settedCharacteristics()
+          if (!strength || !physique) return
           creator._set('size', strength + physique, 'secondaryCharacteristics')
-          return characteristics
         }
       }
     }
@@ -129,9 +128,17 @@ class CharacterCreator {
     let newContext = context
     // get all rules matched widrh path
     const rulesMatch = []
-    for (const rule in this._rules) {
-      if (this._rules[rule].path === path) {
-        rulesMatch.push(this._rules[rule])
+    for (const ruleName in this._rules) {
+      const aRule = this._rules[ruleName]
+
+      if (Array.isArray(aRule.path)) {
+        for (const aPath of aRule.path) {
+          if (aPath === path) {
+            rulesMatch.push(aRule)
+          }
+        }
+      } else if (aRule.path === path) {
+        rulesMatch.push(this._rules[ruleName])
       }
     }
     // aply all rules to the context
@@ -172,7 +179,7 @@ class CharacterCreator {
     let newValue = this.applyRules(`${type}/set`, value)
     newValue = this.applyRules(`${type}/set/${name}`, value)
     this._valuesLists[type][index] = newValue
-    this.applyRules(`${type}/setted/${name}`, value)
+    this.applyRules(`${type}/setted/${name}`)
     return true
   }
 
