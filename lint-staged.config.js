@@ -14,12 +14,13 @@ module.exports = {
     // test files
     commands.push(`yarn test --findRelatedTests ${filenames.join(' ')}`)
     filenames.map(file => {
-      const docFile = file.replace(/\.js$/, 'doc.md')
+      const docFile = file.replace(/\.js$/, '-doc.md')
       // documentation lint files
       commands.push(`documentation lint ${file}`)
       // documentation create files
       commands.push(`documentation build ${file} -f md -o ${docFile}`)
       // add files
+      console.log('add doc file' + docFile)
       commands.push(`git add ${docFile}`)
     })
     return commands
