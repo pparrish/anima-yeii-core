@@ -2,19 +2,17 @@ module.exports = {
   // test first then fix and add.
   '**/*.js': filenames => {
     const commands = []
-    filenames.map(file => {
-      // test file
-      commands.push(`yarn test --findRelatedTests ${file}`)
-      // Fix file
-      commands.push(`yarn standard --fix ${file}`)
-      // add file
-      commands.push(`git add ${file}`)
-    })
+    // Fix file
+    commands.push(`yarn standard --fix ${filenames.join(' ')}`)
+    // add file
+    commands.push(`git add ${filenames.join(' ')}`)
     return commands
   },
   // Generate docunentation of nontest files in src
   'src/**/*!(*test).js': filenames => {
     const commands = []
+    // test files
+    commands.push(`yarn test --findRelatedTests ${filenames.join(' ')}`)
     filenames.map(file => {
       const docFile = file.replace(/\.js$/, 'doc.md')
       // documentation lint files
