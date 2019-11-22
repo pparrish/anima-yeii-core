@@ -396,6 +396,16 @@ class CharacterCreator {
   settedPhysicalCapacities () {
     return this._settedValues('physicalCapacities')
   }
+
+  // Secondary characteristics
+  /** get the secondaryCharacteristics than are setted already with the value. Maibe some are setted when the creator is created.
+   *  @returns {Object} the secondary characteristics names with values
+   */
+  settedSecondaryCharacteristics () {
+    const setted = this._settedValues('secondaryCharacteristics')
+    if (!setted.appearance) setted.appearance = this._appearance
+    return setted
+  }
 }
 
 module.exports = CharacterCreator
