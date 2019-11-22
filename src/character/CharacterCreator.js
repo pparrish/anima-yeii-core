@@ -406,6 +406,16 @@ class CharacterCreator {
     if (!setted.appearance) setted.appearance = this._appearance
     return setted
   }
+
+  /* set a secondary characteristic
+   * @param {string} name - a name of secondaryCharacteristic
+   * @param {any} value - the value to set the secondary characteristic
+   * returns {CharacterCreator} this
+   */
+  setSecondaryCharacteristic (name, value) {
+    this._set(name, value, 'secondaryCharacteristics')
+    return this
+  }
 }
 
 module.exports = CharacterCreator
