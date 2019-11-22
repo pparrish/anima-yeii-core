@@ -85,6 +85,13 @@ class CharacterCreator {
         rule: (creator) => {
           creator._appearance = d10.roll()
         }
+      },
+      'appearance blocked': {
+        enabled: true,
+        path: 'secondaryCharacteristics/set/appearance',
+        rule: () => {
+          throw new Error('appearance is random only')
+        }
       }
     }
 

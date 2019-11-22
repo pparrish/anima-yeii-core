@@ -267,23 +267,27 @@ describe('Creation of a character', () => {
       expect(creator.settedPhysicalCapacities()['movement type']).toBe(undefined)
     })
   })
-  describe.skip('secondary characteristics', () => {
+  describe('secondary characteristics', () => {
     describe('appearance', () => {
       test('Given a generator And not set appearance then i have a random value in appearance', () => {
         const creator = newCreator()
-        expect(creator.settedSecondaryCharacteristics().appearance).toBethurty()
+        expect(creator.settedSecondaryCharacteristics().appearance).toBeTruthy()
       })
-      test('Given a generator And set 10 to appearance then i have 10 in appearance', () => {
+      test('Given a creator and i set appearance to 5 then i get a error', () => {
         const creator = newCreator()
-        creator.setSecondaryCharacteristics('appearance', 10)
+        expect(() => creator.setSecondaryCharacteristic('appearance', 5)).toThrow('appearance is random only')
+      })
+      test.skip('Given a generator And set 10 to appearance then i have 10 in appearance', () => {
+        const creator = newCreator()
+        creator.setSecondaryCharacteristic('appearance', 10)
         expect(creator.settedSecondaryCharacteristics().appearance).toBe(10)
       })
-      test('Given a generator And set 11 to appearance Then i get a error', () => {
+      test.skip('Given a generator And set 11 to appearance Then i get a error', () => {
         const creator = newCreator()
         expect(() => creator.setSecondaryCharacteristics('appearance', 11)).toThrow('appearance limit is 10')
       })
     })
-    describe('size', () => {
+    describe.skip('size', () => {
       test('Given a generator with all characteristics setted them i have size equal to strenght and psysique ', () => {
         const creator = creatorWidthAllCharacteristicsSetted()
         const { strenght, physique } = creator.settedCharacteristics()
