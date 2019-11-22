@@ -102,6 +102,17 @@ class CharacterCreator {
           if (appearance > 10) throw new Error('appearance limit is 10')
           return appearance
         }
+      },
+      'Size is strength added to physique': {
+        enabled: true,
+        hidden: true,
+        path: ['characteristics/setted/strength', 'characteristics/setted/physique'],
+        rule (characteristics, creator) {
+          const { strength, physique } = characteristics
+          if (!strength || !psysique) return
+          creator._set('size', strength + physique, 'secondaryCharacteristics')
+          return characteristics
+        }
       }
     }
 
@@ -161,6 +172,7 @@ class CharacterCreator {
     let newValue = this.applyRules(`${type}/set`, value)
     newValue = this.applyRules(`${type}/set/${name}`, value)
     this._valuesLists[type][index] = newValue
+    this.applyRules(`${type}/setted/${name}`, value)
     return true
   }
 
