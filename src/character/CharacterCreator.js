@@ -433,8 +433,8 @@ class CharacterCreator {
     return this
   }
 
-  /* reset a secondary charactetistic (null or origibal value)
-   * @param {string} nam - the name of sexondary characteristic to reset
+  /** reset a secondary charactetistic (null or origibal value)
+   * @param {string} name - the name of sexondary characteristic to reset
    * @return {CharacterCreator} this
    */
   resetSecondaryCharacteristic (name) {
