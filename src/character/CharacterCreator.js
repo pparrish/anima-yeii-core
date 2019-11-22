@@ -92,6 +92,15 @@ class CharacterCreator {
         rule: () => {
           throw new Error('appearance is random only')
         }
+      },
+      'appearance 10 limit': {
+        enabled: true,
+        hidden: true,
+        path: 'secondaryCharacteristics/set/appearance',
+        rule (appearance) {
+          if (appearance > 10) throw new Error('appearance limit is 10')
+          return appearance
+        }
       }
     }
 

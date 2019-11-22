@@ -277,14 +277,16 @@ describe('Creation of a character', () => {
         const creator = newCreator()
         expect(() => creator.setSecondaryCharacteristic('appearance', 5)).toThrow('appearance is random only')
       })
-      test.skip('Given a generator And set 10 to appearance then i have 10 in appearance', () => {
+      test('Given a generator And i disable de rule of "appearance blocked" And set 10 to appearance then i have 10 in appearance', () => {
         const creator = newCreator()
+        creator.disableRule('appearance blocked')
         creator.setSecondaryCharacteristic('appearance', 10)
         expect(creator.settedSecondaryCharacteristics().appearance).toBe(10)
       })
-      test.skip('Given a generator And set 11 to appearance Then i get a error', () => {
+      test('Given a generator And set 11 to appearance Then i get a error', () => {
         const creator = newCreator()
-        expect(() => creator.setSecondaryCharacteristics('appearance', 11)).toThrow('appearance limit is 10')
+        creator.disableRule('appearance blocked')
+        expect(() => creator.setSecondaryCharacteristic('appearance', 11)).toThrow('appearance limit is 10')
       })
     })
     describe.skip('size', () => {

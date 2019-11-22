@@ -1,6 +1,7 @@
 module.exports = {
   // test first then fix and add.
   '**/*.js': filenames => {
+    console.log(filenames)
     const commands = []
     // Fix file
     commands.push(`yarn standard --fix ${filenames.join(' ')}`)
@@ -10,6 +11,7 @@ module.exports = {
   },
   // Generate docunentation of nontest files in src
   'src/**/*!(*test).js': filenames => {
+    console.log(filenames)
     const commands = []
     // test files
     commands.push(`yarn test --findRelatedTests ${filenames.join(' ')}`)
@@ -20,7 +22,6 @@ module.exports = {
       // documentation create files
       commands.push(`documentation build ${file} -f md -o ${docFile}`)
       // add files
-      console.log('add doc file' + docFile)
       commands.push(`git add ${docFile}`)
     })
     return commands
