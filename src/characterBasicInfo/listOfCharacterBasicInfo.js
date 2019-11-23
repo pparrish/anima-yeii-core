@@ -3,7 +3,7 @@ module.exports = [
   'description',
   'personality',
   'lore',
-  'body type',
+  'slim',
   'age',
   'race',
   'height',
