@@ -1,29 +1,24 @@
 module.exports = {
-  // test first then fix and add.
-  '**/*.js': filenames => {
-    const commands = []
-    filenames.map(file => {
-      // test file
-      commands.push(`yarn test --findRelatedTests ${file}`)
-      // Fix file
-      commands.push(`yarn standard --fix ${file}`)
-      // add file
-      commands.push(`git add ${file}`)
-    })
-    return commands
+  // Lint js files
+  '*.js': filenames => {
+    return [
+      `yarn jest --bail --findRelatedTests --coverage ${filenames.join(' ')}`,
+      `yarn standard --fix ${filenames.join(' ')}`,
+      `git add ${filenames.join(' ')}`
+    ]
   },
-  // Generate docunentation of nontest files in src
-  'src/**/*!(*test).js': filenames => {
-    const commands = []
+  // Lint documentation and create documentation
+  '!(*test).js': filenames => {
+    const lintDoc = []
+    const buildDoc = []
+    const addDoc = []
+
     filenames.map(file => {
-      const docFile = file.replace(/\.js$/, 'doc.md')
-      // documentation lint files
-      commands.push(`documentation lint ${file}`)
-      // documentation create files
-      commands.push(`documentation build ${file} -f md -o ${docFile}`)
-      // add files
-      commands.push(`git add ${docFile}`)
+      if (file.endsWith('.config.js')) return
+      lintDoc.push(`documentation lint ${file}`)
+      buildDoc.push(`documentation build -f md ${file} -o ${file.replace('.js', '.doc.md')}`)
+      buildDoc.push(`git add ${file.replace('.js', '.doc.md')}`)
     })
-    return commands
+    return [...lintDoc, ...buildDoc, ...addDoc]
   }
 }

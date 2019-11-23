@@ -1,6 +1,11 @@
+/** @module {Class} CharacterCreator */
+const D10 = require('../dices/d10')
+const d10 = new D10()
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
+const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
+const sizeTable = require('../secondaryCharacteristics/sizeTable')
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -8,23 +13,25 @@ function getNames (listObject) {
 
 const pointsGenerators = require('../generatePoints')
 
-/** Class represents a creator of a character with a rules.of anima
- */
+/** class represents a creator of a character with a rules.of anima */
 class CharacterCreator {
   /** create a characterCreator
    * @returns  {CharacterCreator}
    */
   constructor () {
+    /** storage of names */
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
       characteristics: characteristicsList.map(x => x),
-      physicalCapacities: getNames(physicalCapacities)
+      physicalCapacities: getNames(physicalCapacities),
+      secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
 
     this._valuesLists = {
       basicInfo: this._getNames('basicInfo').map(() => null),
       characteristics: this._getNames('characteristics').map(() => null),
-      physicalCapacities: this._namesLists.physicalCapacities.map(() => null)
+      physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
+      secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
 
     this._points = {
@@ -72,8 +79,66 @@ class CharacterCreator {
           aCreator._set('movement type', agility, 'physicalCapacities')
           return agility
         }
+      },
+      'appearance is random': {
+        enabled: true,
+        hidden: true,
+        path: 'creator/init',
+        rule: (creator) => {
+          creator._appearance = d10.roll()
+        }
+      },
+      'appearance blocked': {
+        enabled: true,
+        path: 'secondaryCharacteristics/set/appearance',
+        rule: () => {
+          throw new Error('appearance is random only')
+        }
+      },
+      'appearance 10 limit': {
+        enabled: true,
+        hidden: true,
+        path: 'secondaryCharacteristics/set/appearance',
+        rule (appearance) {
+          if (appearance > 10) throw new Error('appearance limit is 10')
+          return appearance
+        }
+      },
+      'Size is strength added to physique': {
+        enabled: true,
+        hidden: true,
+        path: ['characteristics/setted/strength', 'characteristics/setted/physique'],
+        rule (_, creator) {
+          const { strength, physique } = creator.settedCharacteristics()
+          if (!strength || !physique) return
+          creator._set('size', strength + physique, 'secondaryCharacteristics')
+        }
+      },
+      'size limitations': {
+        enabled: true,
+        path: ['basicInfo/set/height', 'basicInfo/set/weight'],
+        rule (value, creator, path) {
+          if (!creator._rules['size limitations'].enabled) return value
+
+          const { size } = creator.settedSecondaryCharacteristics()
+          const { slim } = creator.settedBasicInfo()
+
+          if (!size) throw new Error('size is not defined, first set streng and physique')
+
+          if (path === 'basicInfo/set/height') {
+            if (!sizeTable.height.from.check(size, value, slim)) throw new Error(`height ${value} must be greatest or equal than ${creator.minHeightSupported()}`)
+            if (!sizeTable.height.to.check(size, value)) throw new Error(`height ${value} must be less or equal than ${creator.maxHeightSupported()}`)
+          }
+          if (path === 'basicInfo/set/weight') {
+            if (!sizeTable.weight.from.check(size, value, slim)) throw new Error(`weight ${value} must be greatest or equal than ${creator.minWeightSupported()}`)
+            if (!sizeTable.weight.to.check(size, value)) throw new Error(`weight ${value} must be less or equal than ${creator.maxWeightSupported()}`)
+          }
+          return value
+        }
       }
     }
+
+    this.applyRules('creator/init', this)
   }
 
   /** applies all rules of one path to a value
@@ -86,13 +151,21 @@ class CharacterCreator {
     let newContext = context
     // get all rules matched widrh path
     const rulesMatch = []
-    for (const rule in this._rules) {
-      if (this._rules[rule].path === path) {
-        rulesMatch.push(this._rules[rule])
+    for (const ruleName in this._rules) {
+      const aRule = this._rules[ruleName]
+
+      if (Array.isArray(aRule.path)) {
+        for (const aPath of aRule.path) {
+          if (aPath === path) {
+            rulesMatch.push(aRule)
+          }
+        }
+      } else if (aRule.path === path) {
+        rulesMatch.push(this._rules[ruleName])
       }
     }
     // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this) : aContext, newContext)
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this, path) : aContext, newContext)
     // return the new context
     return newContext
   }
@@ -129,6 +202,7 @@ class CharacterCreator {
     let newValue = this.applyRules(`${type}/set`, value)
     newValue = this.applyRules(`${type}/set/${name}`, value)
     this._valuesLists[type][index] = newValue
+    this.applyRules(`${type}/setted/${name}`)
     return true
   }
 
@@ -380,6 +454,68 @@ class CharacterCreator {
    */
   settedPhysicalCapacities () {
     return this._settedValues('physicalCapacities')
+  }
+
+  // Secondary characteristics
+  /** get the secondaryCharacteristics than are setted already with the value. Maibe some are setted when the creator is created.
+   *  @returns {Object} the secondary characteristics names with values
+   */
+  settedSecondaryCharacteristics () {
+    const setted = this._settedValues('secondaryCharacteristics')
+    if (!setted.appearance) setted.appearance = this._appearance
+    return setted
+  }
+
+  /* set a secondary characteristic
+   * @param {string} name - a name of secondaryCharacteristic
+   * @param {any} value - the value to set the secondary characteristic
+   * returns {CharacterCreator} this
+   */
+  setSecondaryCharacteristic (name, value) {
+    this._set(name, value, 'secondaryCharacteristics')
+    return this
+  }
+
+  /** reset a secondary charactetistic (null or origibal value)
+   * @param {string} name - the name of sexondary characteristic to reset
+   * @return {CharacterCreator} this
+   */
+  resetSecondaryCharacteristic (name) {
+    const secondaryIndex = this._getIndex(name, this._getNames('secondaryCharacteristics'))
+    if (secondaryIndex === -1) throw new Error(`${name} is not a secondaryCharacteristic`)
+    this._valuesLists.secondaryCharacteristics[secondaryIndex] = null
+    return this
+  }
+
+  /** @returns {number} the min height supported by the size */
+  minHeightSupported () {
+    if (!this._rules['size limitations'].enabled) return 0
+    const { size } = this.settedSecondaryCharacteristics()
+    if (!size) throw new Error('size is not defined')
+    const { slim } = this.settedBasicInfo()
+    return sizeTable.height.from.value(size, slim)
+  }
+
+  /** @returns {number} the max height supported by the size */
+  maxWeightSupported () {
+    if (!this._rules['size limitations'].enabled) return Infinity
+    const { size } = this.settedSecondaryCharacteristics()
+    return sizeTable.weight.to.value(size)
+  }
+
+  /** @returns {number} the min weight supported by the size, if basic info slim is setted, the value is size -2 */
+  minWeightSupported () {
+    if (!this._rules['size limitations'].enabled) return 0
+    const { size } = this.settedSecondaryCharacteristics()
+    const { slim } = this.settedBasicInfo()
+    return sizeTable.weight.from.value(size, slim)
+  }
+
+  /** @returns {number} max height supported by the size. */
+  maxHeightSupported () {
+    if (!this._rules['size limitations'].enabled) return Infinity
+    const { size } = this.settedSecondaryCharacteristics()
+    return sizeTable.height.to.value(size)
   }
 }
 
