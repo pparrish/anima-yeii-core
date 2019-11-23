@@ -26,30 +26,38 @@
     -   [settedSecondaryCharacteristics][22]
     -   [resetSecondaryCharacteristic][23]
         -   [Parameters][24]
--   [CharacterCreator][25]
-    -   [\_namesLists][26]
-    -   [applyRules][27]
-        -   [Parameters][28]
-    -   [disableRule][29]
-        -   [Parameters][30]
-    -   [enableRule][31]
+    -   [minHeightSupported][25]
+    -   [maxWeightSupported][26]
+    -   [minWeightSupported][27]
+    -   [maxHeightSupported][28]
+-   [CharacterCreator][29]
+    -   [\_namesLists][30]
+    -   [applyRules][31]
         -   [Parameters][32]
-    -   [setBasicInfo][33]
+    -   [disableRule][33]
         -   [Parameters][34]
-    -   [nonSetBasicInfo][35]
-    -   [setPoints][36]
-        -   [Parameters][37]
-    -   [remainerPoints][38]
-    -   [nonSetCharacteristics][39]
-    -   [expendPointsTo][40]
+    -   [enableRule][35]
+        -   [Parameters][36]
+    -   [setBasicInfo][37]
+        -   [Parameters][38]
+    -   [nonSetBasicInfo][39]
+    -   [setPoints][40]
         -   [Parameters][41]
-    -   [removePointsTo][42]
-        -   [Parameters][43]
-    -   [remainderPoints][44]
-    -   [settedPhysicalCapacities][45]
-    -   [settedSecondaryCharacteristics][46]
-    -   [resetSecondaryCharacteristic][47]
-        -   [Parameters][48]
+    -   [remainerPoints][42]
+    -   [nonSetCharacteristics][43]
+    -   [expendPointsTo][44]
+        -   [Parameters][45]
+    -   [removePointsTo][46]
+        -   [Parameters][47]
+    -   [remainderPoints][48]
+    -   [settedPhysicalCapacities][49]
+    -   [settedSecondaryCharacteristics][50]
+    -   [resetSecondaryCharacteristic][51]
+        -   [Parameters][52]
+    -   [minHeightSupported][53]
+    -   [maxWeightSupported][54]
+    -   [minWeightSupported][55]
+    -   [maxHeightSupported][56]
 
 ## CharacterCreator
 
@@ -65,10 +73,10 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][49]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][57]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][50]** the modified value of operation
+Returns **[Object][58]** the modified value of operation
 
 ### disableRule
 
@@ -76,9 +84,9 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][49]** the name of rule to diable
+-   `rule` **[string][57]** the name of rule to diable
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### enableRule
 
@@ -86,9 +94,9 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][49]** rule to enable
+-   `rule` **[string][57]** rule to enable
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### setBasicInfo
 
@@ -96,16 +104,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][49]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][57]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][51]** this
+Returns **[CharacterCreator][59]** this
 
 ### nonSetBasicInfo
 
 Return the names of basic info than are not setted
 
-Returns **[Array][52]** BasicInfoNames
+Returns **[Array][60]** BasicInfoNames
 
 ### setPoints
 
@@ -113,9 +121,9 @@ Set the number of points than type 5 generator used, use this before use a type 
 
 #### Parameters
 
--   `points` **[number][53]** number of points for generate
+-   `points` **[number][61]** number of points for generate
 
-Returns **[CharacterCreator][51]** this
+Returns **[CharacterCreator][59]** this
 
 ### remainerPoints
 
@@ -128,7 +136,7 @@ Returns **[CharacterCreator][51]** this
 
 Returns a array of the non setted characteristics names
 
-Returns **[Array][52]** Array of strings
+Returns **[Array][60]** Array of strings
 
 ### expendPointsTo
 
@@ -136,10 +144,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][49]** The characteristic to add value
--   `amount` **[number][53]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][57]** The characteristic to add value
+-   `amount` **[number][61]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### removePointsTo
 
@@ -147,28 +155,28 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][49]** The name of the characteristic to substract or remove
--   `amount` **[number][53]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][57]** The name of the characteristic to substract or remove
+-   `amount` **[number][61]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][53]** remainder points
+Returns **[number][61]** remainder points
 
 ### settedPhysicalCapacities
 
 get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
 
-Returns **[Object][50]** the physicalCapacities names with value
+Returns **[Object][58]** the physicalCapacities names with value
 
 ### settedSecondaryCharacteristics
 
 get the secondaryCharacteristics than are setted already with the value. Maibe some are setted when the creator is created.
 
-Returns **[Object][50]** the secondary characteristics names with values
+Returns **[Object][58]** the secondary characteristics names with values
 
 ### resetSecondaryCharacteristic
 
@@ -176,9 +184,25 @@ reset a secondary charactetistic (null or origibal value)
 
 #### Parameters
 
--   `name` **[string][49]** the name of sexondary characteristic to reset
+-   `name` **[string][57]** the name of sexondary characteristic to reset
 
-Returns **[CharacterCreator][51]** this
+Returns **[CharacterCreator][59]** this
+
+### minHeightSupported
+
+Returns **[number][61]** the min height supported by the size
+
+### maxWeightSupported
+
+Returns **[number][61]** the max height supported by the size
+
+### minWeightSupported
+
+Returns **[number][61]** the min weight supported by the size, if basic info slim is setted, the value is size -2
+
+### maxHeightSupported
+
+Returns **[number][61]** max height supported by the size.
 
 ## CharacterCreator
 
@@ -194,10 +218,10 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][49]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][57]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][50]** the modified value of operation
+Returns **[Object][58]** the modified value of operation
 
 ### disableRule
 
@@ -205,9 +229,9 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][49]** the name of rule to diable
+-   `rule` **[string][57]** the name of rule to diable
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### enableRule
 
@@ -215,9 +239,9 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][49]** rule to enable
+-   `rule` **[string][57]** rule to enable
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### setBasicInfo
 
@@ -225,16 +249,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][49]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][57]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][51]** this
+Returns **[CharacterCreator][59]** this
 
 ### nonSetBasicInfo
 
 Return the names of basic info than are not setted
 
-Returns **[Array][52]** BasicInfoNames
+Returns **[Array][60]** BasicInfoNames
 
 ### setPoints
 
@@ -242,9 +266,9 @@ Set the number of points than type 5 generator used, use this before use a type 
 
 #### Parameters
 
--   `points` **[number][53]** number of points for generate
+-   `points` **[number][61]** number of points for generate
 
-Returns **[CharacterCreator][51]** this
+Returns **[CharacterCreator][59]** this
 
 ### remainerPoints
 
@@ -257,7 +281,7 @@ Returns **[CharacterCreator][51]** this
 
 Returns a array of the non setted characteristics names
 
-Returns **[Array][52]** Array of strings
+Returns **[Array][60]** Array of strings
 
 ### expendPointsTo
 
@@ -265,10 +289,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][49]** The characteristic to add value
--   `amount` **[number][53]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][57]** The characteristic to add value
+-   `amount` **[number][61]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### removePointsTo
 
@@ -276,28 +300,28 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][49]** The name of the characteristic to substract or remove
--   `amount` **[number][53]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][57]** The name of the characteristic to substract or remove
+-   `amount` **[number][61]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][50]** this
+Returns **[Object][58]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][53]** remainder points
+Returns **[number][61]** remainder points
 
 ### settedPhysicalCapacities
 
 get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
 
-Returns **[Object][50]** the physicalCapacities names with value
+Returns **[Object][58]** the physicalCapacities names with value
 
 ### settedSecondaryCharacteristics
 
 get the secondaryCharacteristics than are setted already with the value. Maibe some are setted when the creator is created.
 
-Returns **[Object][50]** the secondary characteristics names with values
+Returns **[Object][58]** the secondary characteristics names with values
 
 ### resetSecondaryCharacteristic
 
@@ -305,9 +329,25 @@ reset a secondary charactetistic (null or origibal value)
 
 #### Parameters
 
--   `name` **[string][49]** the name of sexondary characteristic to reset
+-   `name` **[string][57]** the name of sexondary characteristic to reset
 
-Returns **[CharacterCreator][51]** this
+Returns **[CharacterCreator][59]** this
+
+### minHeightSupported
+
+Returns **[number][61]** the min height supported by the size
+
+### maxWeightSupported
+
+Returns **[number][61]** the max height supported by the size
+
+### minWeightSupported
+
+Returns **[number][61]** the min weight supported by the size, if basic info slim is setted, the value is size -2
+
+### maxHeightSupported
+
+Returns **[number][61]** max height supported by the size.
 
 [1]: #charactercreator
 
@@ -357,60 +397,76 @@ Returns **[CharacterCreator][51]** this
 
 [24]: #parameters-7
 
-[25]: #charactercreator-1
+[25]: #minheightsupported
 
-[26]: #_nameslists-1
+[26]: #maxweightsupported
 
-[27]: #applyrules-1
+[27]: #minweightsupported
 
-[28]: #parameters-8
+[28]: #maxheightsupported
 
-[29]: #disablerule-1
+[29]: #charactercreator-1
 
-[30]: #parameters-9
+[30]: #_nameslists-1
 
-[31]: #enablerule-1
+[31]: #applyrules-1
 
-[32]: #parameters-10
+[32]: #parameters-8
 
-[33]: #setbasicinfo-1
+[33]: #disablerule-1
 
-[34]: #parameters-11
+[34]: #parameters-9
 
-[35]: #nonsetbasicinfo-1
+[35]: #enablerule-1
 
-[36]: #setpoints-1
+[36]: #parameters-10
 
-[37]: #parameters-12
+[37]: #setbasicinfo-1
 
-[38]: #remainerpoints-1
+[38]: #parameters-11
 
-[39]: #nonsetcharacteristics-1
+[39]: #nonsetbasicinfo-1
 
-[40]: #expendpointsto-1
+[40]: #setpoints-1
 
-[41]: #parameters-13
+[41]: #parameters-12
 
-[42]: #removepointsto-1
+[42]: #remainerpoints-1
 
-[43]: #parameters-14
+[43]: #nonsetcharacteristics-1
 
-[44]: #remainderpoints-1
+[44]: #expendpointsto-1
 
-[45]: #settedphysicalcapacities-1
+[45]: #parameters-13
 
-[46]: #settedsecondarycharacteristics-1
+[46]: #removepointsto-1
 
-[47]: #resetsecondarycharacteristic-1
+[47]: #parameters-14
 
-[48]: #parameters-15
+[48]: #remainderpoints-1
 
-[49]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[49]: #settedphysicalcapacities-1
 
-[50]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[50]: #settedsecondarycharacteristics-1
 
-[51]: #charactercreator
+[51]: #resetsecondarycharacteristic-1
 
-[52]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[52]: #parameters-15
 
-[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[53]: #minheightsupported-1
+
+[54]: #maxweightsupported-1
+
+[55]: #minweightsupported-1
+
+[56]: #maxheightsupported-1
+
+[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[59]: #charactercreator
+
+[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[61]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

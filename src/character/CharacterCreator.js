@@ -5,6 +5,7 @@ const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
+const sizeTable = require('../secondaryCharacteristics/sizeTable')
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -112,6 +113,28 @@ class CharacterCreator {
           if (!strength || !physique) return
           creator._set('size', strength + physique, 'secondaryCharacteristics')
         }
+      },
+      'size limitations': {
+        enabled: true,
+        path: ['basicInfo/set/height', 'basicInfo/set/weight'],
+        rule (value, creator, path) {
+          if (!creator._rules['size limitations'].enabled) return value
+
+          const { size } = creator.settedSecondaryCharacteristics()
+          const { slim } = creator.settedBasicInfo()
+
+          if (!size) throw new Error('size is not defined, first set streng and physique')
+
+          if (path === 'basicInfo/set/height') {
+            if (!sizeTable.height.from.check(size, value, slim)) throw new Error(`height ${value} must be greatest or equal than ${creator.minHeightSupported()}`)
+            if (!sizeTable.height.to.check(size, value)) throw new Error(`height ${value} must be less or equal than ${creator.maxHeightSupported()}`)
+          }
+          if (path === 'basicInfo/set/weight') {
+            if (!sizeTable.weight.from.check(size, value, slim)) throw new Error(`weight ${value} must be greatest or equal than ${creator.minWeightSupported()}`)
+            if (!sizeTable.weight.to.check(size, value)) throw new Error(`weight ${value} must be less or equal than ${creator.maxWeightSupported()}`)
+          }
+          return value
+        }
       }
     }
 
@@ -142,7 +165,7 @@ class CharacterCreator {
       }
     }
     // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this) : aContext, newContext)
+    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this, path) : aContext, newContext)
     // return the new context
     return newContext
   }
@@ -462,6 +485,37 @@ class CharacterCreator {
     if (secondaryIndex === -1) throw new Error(`${name} is not a secondaryCharacteristic`)
     this._valuesLists.secondaryCharacteristics[secondaryIndex] = null
     return this
+  }
+
+  /** @returns {number} the min height supported by the size */
+  minHeightSupported () {
+    if (!this._rules['size limitations'].enabled) return 0
+    const { size } = this.settedSecondaryCharacteristics()
+    if (!size) throw new Error('size is not defined')
+    const { slim } = this.settedBasicInfo()
+    return sizeTable.height.from.value(size, slim)
+  }
+
+  /** @returns {number} the max height supported by the size */
+  maxWeightSupported () {
+    if (!this._rules['size limitations'].enabled) return Infinity
+    const { size } = this.settedSecondaryCharacteristics()
+    return sizeTable.weight.to.value(size)
+  }
+
+  /** @returns {number} the min weight supported by the size, if basic info slim is setted, the value is size -2 */
+  minWeightSupported () {
+    if (!this._rules['size limitations'].enabled) return 0
+    const { size } = this.settedSecondaryCharacteristics()
+    const { slim } = this.settedBasicInfo()
+    return sizeTable.weight.from.value(size, slim)
+  }
+
+  /** @returns {number} max height supported by the size. */
+  maxHeightSupported () {
+    if (!this._rules['size limitations'].enabled) return Infinity
+    const { size } = this.settedSecondaryCharacteristics()
+    return sizeTable.height.to.value(size)
   }
 }
 
