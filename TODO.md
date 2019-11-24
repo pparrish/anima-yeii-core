@@ -42,7 +42,7 @@
 # strategy
 First need to have lv of character 
 based on lv add pd
-a table of pd and levels
+✔ a table of pd and levels 
 rules for get pd based on level and free pd
 add combat abilities 
 add expend in combat abilities based on pd
