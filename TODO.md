@@ -42,12 +42,21 @@
 # strategy
 First need to have lv of character 
 based on lv add pd
-✔ a table of pd and levels 
+
+✔ a table of levels levels 
+
 rules for get pd based on level and free pd
+
 add combat abilities 
+
 add expend in combat abilities based on pd
+
 add rules to manage base -30, first must reatch 5, and combat abilities limitations
+
 add another primary abilities and their rules
+
 add secondary abilities and teir rules
+
 the cost is 1 pd ever, for now
 
+Maive need start width 1 catefory for begining the shop
