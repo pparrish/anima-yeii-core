@@ -360,4 +360,28 @@ describe('Creation of a character', () => {
       })
     })
   })
+
+  describe('development points', () => {
+    test('Given a new creator And i get development points then i get error', () => {
+      const creator = newCreator()
+      expect(() => creator.developmentPoints).toThrow()
+    })
+    test('Given a new creator And i set level 1 Then the pd is 600', () => {
+      const creator = newCreator()
+      const rule = creator._rules['pd linked to level'].rule = jest.fn(creator._rules['pd linked to level'].rule)
+      creator.setBasicInfo('level', 1)
+      expect(rule).toBeCalled()
+      expect(creator.developmentPoints).toBe(600)
+    })
+    test('Given a new creator And i set pd to 300 Then i get a error', () => {
+      const creator = newCreator()
+      expect(() => { creator.developmentPoints = 300 }).toThrow()
+    })
+    test('Given a new creator And i disable the rulejof "pd linked to level" And i set pd to 300 Then the pd is 300', () => {
+      const creator = newCreator()
+      creator.disableRule('pd linked to level')
+      creator.developmentPoints = 300
+      expect(creator.developmentPoints).toBe(300)
+    })
+  })
 })
