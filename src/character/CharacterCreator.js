@@ -6,6 +6,7 @@ const characteristicsList = require('../characteristics/listOfAnimaCharacteristi
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
+const developmentPointsTable = require('../developmentPoints/developmentPointsTable')
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -135,8 +136,37 @@ class CharacterCreator {
           }
           return value
         }
+      },
+      'pd linked to level': {
+        enabled: true,
+        hidden: true,
+        path: 'basicInfo/set/level',
+        rule (level, creator) {
+          creator._pd = developmentPointsTable.get(level)
+          return level
+        },
+        childs: ['pd based on level', 'set pd disabled']
+      },
+      'pd based on level': {
+        enabled: true,
+        hidden: false,
+        path: 'pd/get',
+        rule (_, creator) {
+          const { level } = creator.settedBasicInfo()
+          if (!level) throw new Error('level is not setted use CharacterCreator.setBasicInfo("level", value)')
+        }
+
+      },
+      'set pd disabled': {
+        enabled: true,
+        hidden: true,
+        path: 'pd/set',
+        rule (pd, creator) {
+          throw new Error('pd only be setted by level')
+        }
       }
     }
+    this._pd = null
 
     this.applyRules('creator/init', this)
   }
@@ -177,6 +207,9 @@ class CharacterCreator {
   disableRule (rule) {
     if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
     this._rules[rule].enabled = false
+    if (this._rules[rule].childs) {
+      this._rules[rule].childs.map(rule => this.disableRule(rule))
+    }
     return this
   }
 
@@ -187,6 +220,9 @@ class CharacterCreator {
   enableRule (rule) {
     if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
     this._rules[rule].enabled = true
+    if (this._rules[rule].childs) {
+      this._rules[rule].childs.map(rule => this.enableRule(rule))
+    }
     return this
   }
 
@@ -516,6 +552,18 @@ class CharacterCreator {
     if (!this._rules['size limitations'].enabled) return Infinity
     const { size } = this.settedSecondaryCharacteristics()
     return sizeTable.height.to.value(size)
+  }
+
+  get developmentPoints () {
+    const pd = this.applyRules('pd/get', this._pd)
+    if (pd === null) throw new Error('Development points is not setted')
+    return this._pd
+  }
+
+  set developmentPoints (recibedPD) {
+    const newPD = this.applyRules('pd/set', recibedPD, this)
+    this._pd = newPD
+    return recibedPD
   }
 }
 

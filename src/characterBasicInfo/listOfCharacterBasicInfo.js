@@ -7,5 +7,6 @@ module.exports = [
   'age',
   'race',
   'height',
-  'weight'
+  'weight',
+  'level'
 ]
