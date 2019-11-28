@@ -40,12 +40,13 @@
 *  mastery
 
 # strategy
-First need to have lv of character 
-based on lv add pd
+✔️ First need to have lv of character 
 
-✔ a table of levels levels 
+✔️ based on lv add pd
 
-rules for get pd based on level and free pd
+✔️ a table of levels levels 
+
+✔️ rules for get pd based on level and free pd
 
 add combat abilities 
 
