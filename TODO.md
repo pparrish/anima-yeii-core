@@ -2,6 +2,9 @@
 ➖Split todos and of src/character/CharacterCreation.test.js 
 
 ➖Create a RuleManager
+  * move all rules to a file.
+  * maibe do a rule class
+  * maibe a rule with child
 
 ➖A manage the values and names
  
@@ -58,6 +61,10 @@
 add combat abilities 
 
 add expend in combat abilities based on pd
+
+add remainderPd. must be act equal as be a remainderPoints
+
+spend in combat abilities +1 ch = -1pd
 
 add rules to manage base -30, first must reatch 5, and combat abilities limitations
 
