@@ -1,3 +1,10 @@
+# Code related TODOS
+➖Split todos and of src/character/CharacterCreation.test.js 
+
+➖Create a RuleManager
+
+➖A manage the values and names
+ 
 # Primary and secondary abilities
 ## Character Creator
 * Manage primary abilities
