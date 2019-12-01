@@ -1,6 +1,3 @@
-/** Ability class
- * @module Ability
-*/
 const required = (name = 'is') => { throw new Error(`Param ${name} missed`) }
 const readOnly = (name) => { throw new Error(`${name} read only`) }
 /** Class representing a ability */
@@ -24,6 +21,10 @@ module.exports = class Ability {
     }
   }
 
+  /** the name of Ability
+   * @readonly
+   * @type {string}
+   */
   get name () {
     return this._.name
   }
@@ -32,6 +33,10 @@ module.exports = class Ability {
     readOnly('name')
   }
 
+  /** the value of the ability, calculed by the bomusses added to baae.
+   * @readonly
+   * @type {number}
+   */
   get value () {
     const value = this.base + this.bonus
     return value
@@ -41,6 +46,10 @@ module.exports = class Ability {
     readOnly('name')
   }
 
+  /* The baae is the points multiplied by rate
+   * @readonly
+   * @type {number}
+   */
   get base () {
     const base = this._.rate * this.points
     return base
@@ -50,6 +59,10 @@ module.exports = class Ability {
     readOnly('base')
   }
 
+  /* The total of bonusses values
+   * @readonly
+   * @type {number}
+   */
   get bonus () {
     const bonusValue = this._.bonuses.reduce((bonusValue, bonus) => bonusValue + bonus.value, 0)
     return bonusValue
@@ -59,6 +72,10 @@ module.exports = class Ability {
     readOnly('base')
   }
 
+  /* The rate of enhance, this is multiplied by points
+   * @readonly
+   * @type {number}
+   */
   get rate () {
     return this._.rate
   }
@@ -67,6 +84,10 @@ module.exports = class Ability {
     readOnly('rate')
   }
 
+  /* The points of the ability, this is multiplied by rate to obtain the base
+   * @readonly
+   * @type {number}
+   */
   get points () {
     return this._.points
   }
@@ -75,6 +96,10 @@ module.exports = class Ability {
     readOnly('rate')
   }
 
+  /* Bonuses aplied to the Ability
+   * @readonly
+   * @type {array }
+   */
   set bonuses (_) {
     readOnly('bonuses')
   }
@@ -83,6 +108,10 @@ module.exports = class Ability {
     return this._.bonuses.map(x => x)
   }
 
+  /* the name of the characteristic dependency of the ability
+   * @readonly
+   * @type {number}
+   */
   get dependency () {
     return this._.dependency
   }

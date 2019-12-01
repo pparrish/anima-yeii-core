@@ -3,70 +3,42 @@
 ### Table of Contents
 
 -   [Ability][1]
-    -   [addBonus][2]
-        -   [Parameters][3]
-    -   [removeBonus][4]
+    -   [name][2]
+    -   [value][3]
+    -   [addBonus][4]
         -   [Parameters][5]
-    -   [equal][6]
+    -   [removeBonus][6]
         -   [Parameters][7]
--   [Ability][8]
-    -   [addBonus][9]
-        -   [Parameters][10]
-    -   [removeBonus][11]
-        -   [Parameters][12]
-    -   [equal][13]
-        -   [Parameters][14]
-
-## Ability
-
-Ability class
-
-### addBonus
-
-add a bonus
-
-#### Parameters
-
--   `bonus` **[Object][15]**  (optional, default `required('bonus')`)
-    -   `bonus.reason` **[string][16]** The reason of the bonus or the name of the bonus
-    -   `bonus.value` **[number][17]** The value of the bonus.
-
-Returns **[Ability][18]** Ability with the new bonus
-
-### removeBonus
-
-Remove all bonus of one reazon
-
-#### Parameters
-
--   `reason` **[string][16]** String to search the bonus to remove, all bonus with the same reason is removed
-    returns { Ability } The Ability without the bonus removed. (optional, default `required('reason')`)
-
-### equal
-
-Check the equality of habilities, must be the same name, value, dependency and rate
-
-#### Parameters
-
--   `toTest` **[Ability][18]** The ability to test equality (optional, default `require('toTest')`)
-
-Returns **bolean** 
+    -   [equal][8]
+        -   [Parameters][9]
 
 ## Ability
 
 Class representing a ability
 
+### name
+
+the name of Ability
+
+Type: [string][10]
+
+### value
+
+the value of the ability, calculed by the bomusses added to baae.
+
+Type: [number][11]
+
 ### addBonus
 
 add a bonus
 
 #### Parameters
 
--   `bonus` **[Object][15]**  (optional, default `required('bonus')`)
-    -   `bonus.reason` **[string][16]** The reason of the bonus or the name of the bonus
-    -   `bonus.value` **[number][17]** The value of the bonus.
+-   `bonus` **[Object][12]**  (optional, default `required('bonus')`)
+    -   `bonus.reason` **[string][10]** The reason of the bonus or the name of the bonus
+    -   `bonus.value` **[number][11]** The value of the bonus.
 
-Returns **[Ability][18]** Ability with the new bonus
+Returns **[Ability][13]** Ability with the new bonus
 
 ### removeBonus
 
@@ -74,7 +46,7 @@ Remove all bonus of one reazon
 
 #### Parameters
 
--   `reason` **[string][16]** String to search the bonus to remove, all bonus with the same reason is removed
+-   `reason` **[string][10]** String to search the bonus to remove, all bonus with the same reason is removed
     returns { Ability } The Ability without the bonus removed. (optional, default `required('reason')`)
 
 ### equal
@@ -83,42 +55,32 @@ Check the equality of habilities, must be the same name, value, dependency and r
 
 #### Parameters
 
--   `toTest` **[Ability][18]** The ability to test equality (optional, default `require('toTest')`)
+-   `toTest` **[Ability][13]** The ability to test equality (optional, default `require('toTest')`)
 
 Returns **bolean** 
 
 [1]: #ability
 
-[2]: #addbonus
+[2]: #name
 
-[3]: #parameters
+[3]: #value
 
-[4]: #removebonus
+[4]: #addbonus
 
-[5]: #parameters-1
+[5]: #parameters
 
-[6]: #equal
+[6]: #removebonus
 
-[7]: #parameters-2
+[7]: #parameters-1
 
-[8]: #ability-1
+[8]: #equal
 
-[9]: #addbonus-1
+[9]: #parameters-2
 
-[10]: #parameters-3
+[10]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[11]: #removebonus-1
+[11]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[12]: #parameters-4
+[12]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[13]: #equal-1
-
-[14]: #parameters-5
-
-[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-
-[16]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
-
-[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
-
-[18]: #ability
+[13]: #ability
