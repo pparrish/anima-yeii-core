@@ -2,7 +2,7 @@ const required = (name = 'is') => { throw new Error(`Param ${name} missed`) }
 const readOnly = (name) => { throw new Error(`${name} read only`) }
 /** Class representing a ability */
 module.exports = class Ability {
-  /* Create a Ability
+  /** Create a Ability
    * @param {string} name - The name of the ability
    * @param { string } dependency - The name of characteristic on wich it depends
    * @param { number } rate - The rate of rise with every point
@@ -46,7 +46,7 @@ module.exports = class Ability {
     readOnly('name')
   }
 
-  /* The baae is the points multiplied by rate
+  /** The baae is the points multiplied by rate
    * @readonly
    * @type {number}
    */
@@ -59,7 +59,7 @@ module.exports = class Ability {
     readOnly('base')
   }
 
-  /* The total of bonusses values
+  /** The total of bonusses values
    * @readonly
    * @type {number}
    */
@@ -72,7 +72,7 @@ module.exports = class Ability {
     readOnly('base')
   }
 
-  /* The rate of enhance, this is multiplied by points
+  /** The rate of enhance, this is multiplied by points
    * @readonly
    * @type {number}
    */
@@ -84,7 +84,7 @@ module.exports = class Ability {
     readOnly('rate')
   }
 
-  /* The points of the ability, this is multiplied by rate to obtain the base
+  /** The points of the ability, this is multiplied by rate to obtain the base
    * @readonly
    * @type {number}
    */
@@ -96,9 +96,9 @@ module.exports = class Ability {
     readOnly('rate')
   }
 
-  /* Bonuses aplied to the Ability
+  /** Bonuses aplied to the Ability
    * @readonly
-   * @type {array }
+   * @type {Array }
    */
   set bonuses (_) {
     readOnly('bonuses')
@@ -108,7 +108,7 @@ module.exports = class Ability {
     return this._.bonuses.map(x => x)
   }
 
-  /* the name of the characteristic dependency of the ability
+  /** the name of the characteristic dependency of the ability
    * @readonly
    * @type {number}
    */
@@ -120,8 +120,8 @@ module.exports = class Ability {
     readOnly('dependency')
   }
 
-  /* enhance a ability
-   * @param {number} - A number of points to add.
+  /** enhance a ability
+   * @param {number} value - A number of points to add.
    * @returns { Ability } - new Ability with enhance
    */
   enhance (value = required('value')) {
@@ -130,7 +130,7 @@ module.exports = class Ability {
     return new Ability(this.name, newPoints, this.dependency, this.rate, this.bonuses)
   }
 
-  /* decrease a ability
+  /** decrease a ability
    * @param { number } value - A number of points to remove from a ability.
    * @returns { Ability } new Ability decreased
    */
