@@ -17,7 +17,7 @@ module.exports = {
     filenames.map(file => {
       if (file.endsWith('.config.js')) return
       lintDoc.push(`documentation lint ${file}`)
-      buildDoc.push(`documentation build -f md ${file} -o ${file.replace('.js', '.doc.md')}`)
+      buildDoc.push(`documentation build -f md ${file} -o ${file.replace('.js', '.doc.md')} --shalow`)
       buildDoc.push(`git add ${file.replace('.js', '.doc.md')}`)
     })
     return [...lintDoc, ...buildDoc, ...addDoc]
