@@ -36,6 +36,22 @@ module.exports = class Ability {
     }
   }
 
+  /** Return a {@link Ability} from options object.
+ * @param {Object} options - options object
+   * @param {string} options.name - The name of the ability
+   * @param { string } options.dependency - The name of characteristic on wich it depends
+   * @param { number } options.rate - The rate of rise with every point
+   * @param { number } options.points - The points of ability is used with {@link Ability#rate} to get the {@link Ability#base} value
+   * @param { Bonus[] } options.bonuses - A array of bonus, to be added with {@link Ability#base} to get {@link Ability#value}
+   * @param { string } options.bonuses[].reason - String with the reason of the bonus
+   * @param { number } options.bonuses[].value - the bonus value.
+   * @param { bolean } options.bonuses[].baseBonus - the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
+   */
+  static fromOptions (options = required('options')) {
+    const { name, points, dependency, rate, bonuses } = options
+    return new Ability(name, points, dependency, rate, bonuses)
+  }
+
   /** the name of Ability
    * @readonly
    * @type {string}
