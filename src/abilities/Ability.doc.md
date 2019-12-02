@@ -3,71 +3,82 @@
 ### Table of Contents
 
 -   [Ability][1]
-    -   [name][2]
-    -   [value][3]
-    -   [base][4]
-    -   [bonus][5]
-    -   [rate][6]
-    -   [points][7]
-    -   [bonuses][8]
-        -   [Parameters][9]
-    -   [dependency][10]
-    -   [enhance][11]
-        -   [Parameters][12]
-    -   [decrease][13]
-        -   [Parameters][14]
-    -   [addBonus][15]
-        -   [Parameters][16]
-    -   [removeBonus][17]
-        -   [Parameters][18]
-    -   [equal][19]
-        -   [Parameters][20]
+    -   [Parameters][2]
+    -   [name][3]
+    -   [value][4]
+    -   [base][5]
+    -   [bonus][6]
+    -   [rate][7]
+    -   [points][8]
+    -   [bonuses][9]
+        -   [Parameters][10]
+    -   [dependency][11]
+    -   [enhance][12]
+        -   [Parameters][13]
+    -   [decrease][14]
+        -   [Parameters][15]
+    -   [addBonus][16]
+        -   [Parameters][17]
+    -   [removeBonus][18]
+        -   [Parameters][19]
+    -   [equal][20]
+        -   [Parameters][21]
 
 ## Ability
 
 Class representing a ability
 
+### Parameters
+
+-   `name` **[string][22]** The name of the ability
+-   `dependency` **[string][22]** The name of characteristic on wich it depends
+-   `rate` **[number][23]** The rate of rise with every point
+-   `points` **[number][23]** The points of ability is used with [Ability#rate][24] to get the [Ability#base][25] value
+-   `bonuses` **[Array][26]&lt;Bonus>** A array of bonus, to be added with [Ability#base][25] to get [Ability#value][27]
+    -   `bonuses[].reason` **[string][22]** String with the reason of the bonus
+    -   `bonuses[].value` **[number][23]** the bonus value.
+
 ### name
 
 the name of Ability
 
-Type: [string][21]
+Type: [string][22]
 
 ### value
 
 the value of the ability, calculed by the bomusses added to baae.
 
-Type: [number][22]
+Type: [number][23]
 
 ### base
 
 The baae is the points multiplied by rate
 
-Type: [number][22]
+Type: [number][23]
 
 ### bonus
 
 The total of bonusses values
 
-Type: [number][22]
+Type: [number][23]
 
 ### rate
 
 The rate of enhance, this is multiplied by points
 
-Type: [number][22]
+Type: [number][23]
 
 ### points
 
 The points of the ability, this is multiplied by rate to obtain the base
 
-Type: [number][22]
+Type: [number][23]
 
 ### bonuses
 
 Bonuses aplied to the Ability
 
-Type: [Array][23]
+Type: [Array][26]
 
 #### Parameters
 
@@ -77,7 +88,7 @@ Type: [Array][23]
 
 the name of the characteristic dependency of the ability
 
-Type: [number][22]
+Type: [number][23]
 
 ### enhance
 
@@ -85,9 +96,9 @@ enhance a ability
 
 #### Parameters
 
--   `value` **[number][22]** A number of points to add. (optional, default `required('value')`)
+-   `value` **[number][23]** A number of points to add. (optional, default `required('value')`)
 
-Returns **[Ability][24]** new Ability with enhance
+Returns **[Ability][28]** new Ability with enhance
 
 ### decrease
 
@@ -95,9 +106,9 @@ decrease a ability
 
 #### Parameters
 
--   `value` **[number][22]** A number of points to remove from a ability. (optional, default `required('value')`)
+-   `value` **[number][23]** A number of points to remove from a ability. (optional, default `required('value')`)
 
-Returns **[Ability][24]** new Ability decreased
+Returns **[Ability][28]** new Ability decreased
 
 ### addBonus
 
@@ -105,11 +116,11 @@ add a bonus
 
 #### Parameters
 
--   `bonus` **[Object][25]**  (optional, default `required('bonus')`)
-    -   `bonus.reason` **[string][21]** The reason of the bonus or the name of the bonus
-    -   `bonus.value` **[number][22]** The value of the bonus.
+-   `bonus` **[Object][29]**  (optional, default `required('bonus')`)
+    -   `bonus.reason` **[string][22]** The reason of the bonus or the name of the bonus
+    -   `bonus.value` **[number][23]** The value of the bonus.
 
-Returns **[Ability][24]** Ability with the new bonus
+Returns **[Ability][28]** Ability with the new bonus
 
 ### removeBonus
 
@@ -117,7 +128,7 @@ Remove all bonus of one reazon
 
 #### Parameters
 
--   `reason` **[string][21]** String to search the bonus to remove, all bonus with the same reason is removed
+-   `reason` **[string][22]** String to search the bonus to remove, all bonus with the same reason is removed
     returns { Ability } The Ability without the bonus removed. (optional, default `required('reason')`)
 
 ### equal
@@ -126,56 +137,64 @@ Check the equality of habilities, must be the same name, value, dependency and r
 
 #### Parameters
 
--   `toTest` **[Ability][24]** The ability to test equality (optional, default `require('toTest')`)
+-   `toTest` **[Ability][28]** The ability to test equality (optional, default `require('toTest')`)
 
 Returns **bolean** 
 
 [1]: #ability
 
-[2]: #name
+[2]: #parameters
 
-[3]: #value
+[3]: #name
 
-[4]: #base
+[4]: #value
 
-[5]: #bonus
+[5]: #base
 
-[6]: #rate
+[6]: #bonus
 
-[7]: #points
+[7]: #rate
 
-[8]: #bonuses
+[8]: #points
 
-[9]: #parameters
+[9]: #bonuses
 
-[10]: #dependency
+[10]: #parameters-1
 
-[11]: #enhance
+[11]: #dependency
 
-[12]: #parameters-1
+[12]: #enhance
 
-[13]: #decrease
+[13]: #parameters-2
 
-[14]: #parameters-2
+[14]: #decrease
 
-[15]: #addbonus
+[15]: #parameters-3
 
-[16]: #parameters-3
+[16]: #addbonus
 
-[17]: #removebonus
+[17]: #parameters-4
 
-[18]: #parameters-4
+[18]: #removebonus
 
-[19]: #equal
+[19]: #parameters-5
 
-[20]: #parameters-5
+[20]: #equal
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[21]: #parameters-6
 
-[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[24]: #ability
+[24]: #abilityrate
 
-[25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[25]: #abilitybase
+
+[26]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[27]: #abilityvalue
+
+[28]: #ability
+
+[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object

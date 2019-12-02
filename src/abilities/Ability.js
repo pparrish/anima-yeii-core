@@ -1,8 +1,6 @@
 const required = (name = 'is') => { throw new Error(`Param ${name} missed`) }
 const readOnly = (name) => { throw new Error(`${name} read only`) }
-/** Class representing a ability */
-module.exports = class Ability {
-  /** Create a Ability
+/** Class representing a ability
    * @param {string} name - The name of the ability
    * @param { string } dependency - The name of characteristic on wich it depends
    * @param { number } rate - The rate of rise with every point
@@ -11,6 +9,7 @@ module.exports = class Ability {
    * @param { string } bonuses[].reason - String with the reason of the bonus
    * @param { number } bonuses[].value - the bonus value.
    */
+module.exports = class Ability {
   constructor (name = required('name'), points = 0, dependency = '', rate = 1, bonuses = []) {
     this._ = {
       name,
