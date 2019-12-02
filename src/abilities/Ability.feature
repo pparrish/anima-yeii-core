@@ -43,13 +43,16 @@ Feature: Ability
     Then the two abilities are not equal
 
 
+  Scenario: add base bonus
+    Given a ability of atack 10
+    And add a bonus with base bonus of -30
+    Then the value is -20
+    And the base is -20
+    And the bonus is 0
+    And the bonuses is empty
 
-
-    
-
-
-
-
-
-  
-
+  Scenario: remove base bonus
+    Given a ability with base bonus of -30
+    And remove the bonus
+    Then the value is 0
+    And the base is 0

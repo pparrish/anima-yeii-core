@@ -122,5 +122,47 @@ defineFeature(feature, test => {
         expect(ability.equal(secondAbility)).toBe(false)
       })
     })
+
+    test('add base bonus', ({ given, then, and }) => {
+      given(/^a ability of atack 10$/, () => {
+        ability = new Ability('atack', 10)
+      })
+      and(/^add a bonus with base bonus of -30$/, () => {
+        ability = ability.addBonus({ reason: 'base', value: -30, baseBonus: true })
+      })
+      then(/^the value is -20$/, () => {
+        expect(ability.value).toBe(-20)
+      })
+      and(/^the base is -20$/, () => {
+        expect(ability.base).toBe(-20)
+      })
+
+      and(/^the bonus is 0$/, () => {
+        expect(ability.bonus).toBe(0)
+      })
+
+      and(/^the bonuses is empty$/, () => {
+        expect(ability.bonuses).toHaveLength(0)
+      })
+    })
+  })
+
+  test('remove base bonus', ({ given, then, and }) => {
+    given(/^a ability with base bonus of -30$/, () => {
+      ability = new Ability('atack', 0, '', 1, [{ reason: 'test', value: -30, baseBonus: true }])
+      expect(ability.base).toBe(-30)
+    })
+
+    and(/^remove the bonus$/, () => {
+      ability = ability.removeBonus('test')
+    })
+
+    then(/^the value is 0$/, () => {
+      expect(ability.value).toBe(0)
+    })
+
+    and(/^the base is 0$/, () => {
+      expect(ability.base).toBe(0)
+    })
   })
 })

@@ -37,6 +37,7 @@ Class representing a ability
 -   `bonuses` **[Array][26]&lt;Bonus>** A array of bonus, to be added with [Ability#base][25] to get [Ability#value][27]
     -   `bonuses[].reason` **[string][22]** String with the reason of the bonus
     -   `bonuses[].value` **[number][23]** the bonus value.
+    -   `bonuses[].baseBonus` **bolean** the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
 ### name
 
@@ -119,6 +120,7 @@ add a bonus
 -   `bonus` **[Object][29]**  (optional, default `required('bonus')`)
     -   `bonus.reason` **[string][22]** The reason of the bonus or the name of the bonus
     -   `bonus.value` **[number][23]** The value of the bonus.
+    -   `bonus[].baseBonus` **bolean** the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
 Returns **[Ability][28]** Ability with the new bonus
 
