@@ -1,4 +1,3 @@
-const NamedValue = require('../namedValue/NamedValue')
-
-module.exports = class PrimaryAbility extends NamedValue {
+const Ability = require('../abilities/Ability')
+module.exports = class PrimaryAbility extends Ability {
 }
