@@ -3,42 +3,37 @@
 ### Table of Contents
 
 -   [CharacterCreator][1]
-    -   [Parameters][2]
-    -   [\_namesLists][3]
-    -   [applyRules][4]
-        -   [Parameters][5]
-    -   [disableRule][6]
-        -   [Parameters][7]
-    -   [enableRule][8]
-        -   [Parameters][9]
-    -   [setBasicInfo][10]
-        -   [Parameters][11]
-    -   [nonSetBasicInfo][12]
-    -   [setPoints][13]
-        -   [Parameters][14]
-    -   [remainerPoints][15]
-    -   [nonSetCharacteristics][16]
-    -   [expendPointsTo][17]
-        -   [Parameters][18]
-    -   [removePointsTo][19]
-        -   [Parameters][20]
-    -   [remainderPoints][21]
-    -   [settedPhysicalCapacities][22]
-    -   [settedSecondaryCharacteristics][23]
-    -   [resetSecondaryCharacteristic][24]
-        -   [Parameters][25]
-    -   [minHeightSupported][26]
-    -   [maxWeightSupported][27]
-    -   [minWeightSupported][28]
-    -   [maxHeightSupported][29]
+    -   [\_namesLists][2]
+    -   [applyRules][3]
+        -   [Parameters][4]
+    -   [disableRule][5]
+        -   [Parameters][6]
+    -   [enableRule][7]
+        -   [Parameters][8]
+    -   [setBasicInfo][9]
+        -   [Parameters][10]
+    -   [nonSetBasicInfo][11]
+    -   [setPoints][12]
+        -   [Parameters][13]
+    -   [remainerPoints][14]
+    -   [nonSetCharacteristics][15]
+    -   [expendPointsTo][16]
+        -   [Parameters][17]
+    -   [removePointsTo][18]
+        -   [Parameters][19]
+    -   [remainderPoints][20]
+    -   [settedPhysicalCapacities][21]
+    -   [settedSecondaryCharacteristics][22]
+    -   [resetSecondaryCharacteristic][23]
+        -   [Parameters][24]
+    -   [minHeightSupported][25]
+    -   [maxWeightSupported][26]
+    -   [minWeightSupported][27]
+    -   [maxHeightSupported][28]
 
 ## CharacterCreator
 
 class represents a creator of a character with a rules.of anima
-
-### Parameters
-
--   `a` **[Object][30]** its a a
 
 ### \_namesLists
 
@@ -50,7 +45,7 @@ applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][31]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][29]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
 Returns **[Object][30]** the modified value of operation
@@ -61,7 +56,7 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][31]** the name of rule to diable
+-   `rule` **[string][29]** the name of rule to diable
 
 Returns **[Object][30]** this
 
@@ -71,7 +66,7 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][31]** rule to enable
+-   `rule` **[string][29]** rule to enable
 
 Returns **[Object][30]** this
 
@@ -81,16 +76,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][31]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][29]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][32]** this
+Returns **[CharacterCreator][31]** this
 
 ### nonSetBasicInfo
 
 Return the names of basic info than are not setted
 
-Returns **[Array][33]** BasicInfoNames
+Returns **[Array][32]** BasicInfoNames
 
 ### setPoints
 
@@ -98,9 +93,9 @@ Set the number of points than type 5 generator used, use this before use a type 
 
 #### Parameters
 
--   `points` **[number][34]** number of points for generate
+-   `points` **[number][33]** number of points for generate
 
-Returns **[CharacterCreator][32]** this
+Returns **[CharacterCreator][31]** this
 
 ### remainerPoints
 
@@ -113,7 +108,7 @@ Returns **[CharacterCreator][32]** this
 
 Returns a array of the non setted characteristics names
 
-Returns **[Array][33]** Array of strings
+Returns **[Array][32]** Array of strings
 
 ### expendPointsTo
 
@@ -121,8 +116,8 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][31]** The characteristic to add value
--   `amount` **[number][34]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][29]** The characteristic to add value
+-   `amount` **[number][33]** The value to be added in characteristic and expended from remainder points.
 
 Returns **[Object][30]** this
 
@@ -132,8 +127,8 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][31]** The name of the characteristic to substract or remove
--   `amount` **[number][34]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][29]** The name of the characteristic to substract or remove
+-   `amount` **[number][33]?** The value to substract, if not setted then remove all points to characteristic
 
 Returns **[Object][30]** this
 
@@ -141,7 +136,7 @@ Returns **[Object][30]** this
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][34]** remainder points
+Returns **[number][33]** remainder points
 
 ### settedPhysicalCapacities
 
@@ -161,90 +156,88 @@ reset a secondary charactetistic (null or origibal value)
 
 #### Parameters
 
--   `name` **[string][31]** the name of sexondary characteristic to reset
+-   `name` **[string][29]** the name of sexondary characteristic to reset
 
-Returns **[CharacterCreator][32]** this
+Returns **[CharacterCreator][31]** this
 
 ### minHeightSupported
 
-Returns **[number][34]** the min height supported by the size
+Returns **[number][33]** the min height supported by the size
 
 ### maxWeightSupported
 
-Returns **[number][34]** the max height supported by the size
+Returns **[number][33]** the max height supported by the size
 
 ### minWeightSupported
 
-Returns **[number][34]** the min weight supported by the size, if basic info slim is setted, the value is size -2
+Returns **[number][33]** the min weight supported by the size, if basic info slim is setted, the value is size -2
 
 ### maxHeightSupported
 
-Returns **[number][34]** max height supported by the size.
+Returns **[number][33]** max height supported by the size.
 
 [1]: #charactercreator
 
-[2]: #parameters
+[2]: #_nameslists
 
-[3]: #_nameslists
+[3]: #applyrules
 
-[4]: #applyrules
+[4]: #parameters
 
-[5]: #parameters-1
+[5]: #disablerule
 
-[6]: #disablerule
+[6]: #parameters-1
 
-[7]: #parameters-2
+[7]: #enablerule
 
-[8]: #enablerule
+[8]: #parameters-2
 
-[9]: #parameters-3
+[9]: #setbasicinfo
 
-[10]: #setbasicinfo
+[10]: #parameters-3
 
-[11]: #parameters-4
+[11]: #nonsetbasicinfo
 
-[12]: #nonsetbasicinfo
+[12]: #setpoints
 
-[13]: #setpoints
+[13]: #parameters-4
 
-[14]: #parameters-5
+[14]: #remainerpoints
 
-[15]: #remainerpoints
+[15]: #nonsetcharacteristics
 
-[16]: #nonsetcharacteristics
+[16]: #expendpointsto
 
-[17]: #expendpointsto
+[17]: #parameters-5
 
-[18]: #parameters-6
+[18]: #removepointsto
 
-[19]: #removepointsto
+[19]: #parameters-6
 
-[20]: #parameters-7
+[20]: #remainderpoints
 
-[21]: #remainderpoints
+[21]: #settedphysicalcapacities
 
-[22]: #settedphysicalcapacities
+[22]: #settedsecondarycharacteristics
 
-[23]: #settedsecondarycharacteristics
+[23]: #resetsecondarycharacteristic
 
-[24]: #resetsecondarycharacteristic
+[24]: #parameters-7
 
-[25]: #parameters-8
+[25]: #minheightsupported
 
-[26]: #minheightsupported
+[26]: #maxweightsupported
 
-[27]: #maxweightsupported
+[27]: #minweightsupported
 
-[28]: #minweightsupported
+[28]: #maxheightsupported
 
-[29]: #maxheightsupported
+[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [30]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[31]: #charactercreator
 
-[32]: #charactercreator
+[32]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[33]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
-
-[34]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[33]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

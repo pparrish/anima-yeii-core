@@ -14,9 +14,9 @@ function getNames (listObject) {
 const pointsGenerators = require('../generatePoints')
 
 /** class represents a creator of a character with a rules.of anima
- * @param {Object} a - its a a */
+ */
 class CharacterCreator {
-  constructor (a) {
+  constructor () {
     /** storage of names */
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
