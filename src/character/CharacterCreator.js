@@ -1,4 +1,3 @@
-/** @module {Class} CharacterCreator */
 const D10 = require('../dices/d10')
 const d10 = new D10()
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
@@ -14,12 +13,10 @@ function getNames (listObject) {
 
 const pointsGenerators = require('../generatePoints')
 
-/** class represents a creator of a character with a rules.of anima */
+/** class represents a creator of a character with a rules.of anima
+ * @param {Object} a - its a a */
 class CharacterCreator {
-  /** create a characterCreator
-   * @returns  {CharacterCreator}
-   */
-  constructor () {
+  constructor (a) {
     /** storage of names */
     this._namesLists = {
       basicInfo: basicInfoList.map(x => x),
