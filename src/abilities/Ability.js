@@ -154,6 +154,7 @@ module.exports = class Ability {
   decrease (value = required('value')) {
     if (value < 0) throw new Error('The value must be positive')
     const newPoints = this.points - value
+    if (newPoints < 0) throw new Error('The points cannot be negative')
     const bonuses = this.bonuses
     bonuses.push(this._.baseBonus)
     return new Ability(this.name, newPoints, this.dependency, this.rate, bonuses)
