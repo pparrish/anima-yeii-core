@@ -1,5 +1,8 @@
 module.exports = {
   name: 'weapon master',
+  limits: {
+    combatAbilities: 60
+  },
   primaryAbilities: {
     combatAbilities: {
       attack: 2,

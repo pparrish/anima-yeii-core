@@ -1,5 +1,8 @@
 module.exports = {
   name: 'warlock',
+  limits: {
+    combatAbilities: 50
+  },
   primaryAbilities: {
     combatAbilities: {
       attack: 2,

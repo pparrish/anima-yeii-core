@@ -1,5 +1,8 @@
 module.exports = {
   name: 'technician',
+  limits: {
+    combatAbilities: 60
+  },
   primaryAbilities: {
     combatAbilities: {
       attack: 2,

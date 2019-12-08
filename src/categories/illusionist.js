@@ -1,5 +1,8 @@
 module.exports = {
   name: 'illusionist',
+  limits: {
+    combatAbilities: 50
+  },
   primaryAbilities: {
     combatAbilities: {
       attack: 3,

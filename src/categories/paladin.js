@@ -2,6 +2,9 @@
 module.exports = {
   name: 'paladin',
   primaryAbilities: {
+  limits: {
+    combatAbilities: 60
+  },
     combatAbilities: {
       attack: 2,
       stop: 2,

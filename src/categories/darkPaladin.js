@@ -1,5 +1,8 @@
 module.exports = {
   name: 'dark paladin',
+  limits: {
+    combatAbilities: 60
+  },
   primaryAbilities: {
     combatAbilities: {
       attack: 2,
