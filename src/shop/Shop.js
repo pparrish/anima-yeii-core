@@ -28,9 +28,9 @@ class Shop {
   refound (name, quantity) {
     if (!(name in this._.productsList)) throw new Error(`${name} is not a product`)
     if (quantity <= 0) throw new Error('the quantity must be a number greatest than 0')
-    if (!this._.buyList[name]) throw new Error('the product is not in the buyList')
+    if (!this._.buyList[name]) throw new Error('the product ' +name + ' is not in the buyList')
     const beforeQuantity = this._.buyList[name]
-    const balance = this._.buyList - quantity
+    const balance = this._.buyList[name] - quantity
     if (balance < 0) throw new Error('Only have buyed ' + this._.buyList[name])
     if (balance === 0) delete this._.buyList[name]
     else this._.buyList[name] = balance
@@ -52,7 +52,7 @@ class Shop {
   }
 
   get productsList () {
-    return Object.key(this._.productsList)
+    return Object.keys(this._.productsList)
   }
 
   set productsList (_) {
@@ -74,7 +74,7 @@ class Shop {
 
   balanceOf (name) {
     if (!(name in this._.productsList)) throw new Error(`${name} is not a product`)
-    return this._.buyList[name] * this._.productsList[name]
+    return (this._.buyList[name] || 0) * this._.productsList[name]
   }
 
   get buyList () {
