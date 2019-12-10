@@ -2,7 +2,7 @@ const createList = require('../../utils/createList')
 const CombatAbility = require('./CombatAbility')
 const list = [
   {
-    name: 'atack',
+    name: 'attack',
     dependency: 'dexterity',
     CREATOR: CombatAbility
   },
