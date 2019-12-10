@@ -41,7 +41,7 @@ storage of names
 
 ### applyRules
 
-applies all rules of one path to a value
+ñapplies all rules of one path to a value
 
 #### Parameters
 
