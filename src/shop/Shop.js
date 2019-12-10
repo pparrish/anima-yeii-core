@@ -28,7 +28,7 @@ class Shop {
   refound (name, quantity) {
     if (!(name in this._.productsList)) throw new Error(`${name} is not a product`)
     if (quantity <= 0) throw new Error('the quantity must be a number greatest than 0')
-    if (!this._.buyList[name]) throw new Error('the product ' +name + ' is not in the buyList')
+    if (!this._.buyList[name]) throw new Error('the product ' + name + ' is not in the buyList')
     const beforeQuantity = this._.buyList[name]
     const balance = this._.buyList[name] - quantity
     if (balance < 0) throw new Error('Only have buyed ' + this._.buyList[name])
