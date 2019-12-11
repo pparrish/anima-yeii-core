@@ -725,6 +725,10 @@ class CharacterCreator {
     return sizeTable.height.to.value(size)
   }
 
+  /** the total of development points
+   * @readonly
+   * @type {number}
+   */
   get developmentPoints () {
     const pd = this.applyRules('pd/get', this._pd)
     if (pd === null) throw new Error('Development points is not setted')
@@ -737,15 +741,26 @@ class CharacterCreator {
     return recibedPD
   }
 
+  /** Select the category of the character
+   * @param {string} name - the name of category
+   */
   selectCategory (name) {
     this._category = this.applyRules('category/set', name)
   }
 
+  /** name of the category selected
+   * @type {string}
+   */
   get category () {
     if (this._category) { return this._category.name }
     return undefined
   }
 
+  /** Enhance a ability
+   * @param {string} name - the name of the ability
+   * @param {number} value - the value to enhance
+   * @returns {CharacterCreator} this
+   */
   enhance (name, value) {
     const context = this.applyRules('pd/spend', { name, value }, this)
     this.developmentPointsShop.spend(context.name, context.value)
@@ -753,6 +768,11 @@ class CharacterCreator {
     return this
   }
 
+  /** decrease a ability
+   * @param {string} name - the name of ability
+   * @param {number} value - the value to decrease
+   * @returns {CharacterCreator} this
+   */
   decrease (name, value) {
     if (this.developmentPointsShop.buyList[name] && this.developmentPointsShop.buyList[name] - value < 0) throw new Error('decrease bellow 0')
     const context = this.applyRules('pd/refound', { name, value }, this)
@@ -760,14 +780,26 @@ class CharacterCreator {
     this.combatAbilities.decrease(context.name, context.value)
   }
 
+  /* total of development points spended
+   * @type {number}
+   * @readonly
+   */
   get developmentPointsSpended () {
     return this.developmentPointsShop.balance
   }
 
+  /* Get a ability
+   * @param {string} name - the name of ability
+   * @returns {Ability}
+   */
   ability (name) {
     return this.combatAbilities.get(name)
   }
 
+  /* Get the total of development points spended in a ability
+   * @param {string} name - the name of ability
+   * @returns {number}
+   */
   developmentPointsSpendedIn (name) {
     return this.developmentPointsShop.balanceOf(name)
   }
