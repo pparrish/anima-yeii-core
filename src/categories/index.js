@@ -1,0 +1,22 @@
+module.exports = [
+  require('./warrior'),
+  require('./tao'),
+  require('./novel'),
+  require('./thief'),
+  require('./ranger'),
+  require('./shadow'),
+  require('./assassin'),
+  require('./paladin'),
+  require('./warlock'),
+  require('./conjurer'),
+  require('./sorcerer'),
+  require('./mentalist'),
+  require('./technician'),
+  require('./darkPaladin'),
+  require('./illusionist'),
+  require('./weaponMaster'),
+  require('./acrobatWarrior'),
+  require('./conjuringWarrior'),
+  require('./mentalistWarrior'),
+  require('./mentalistSorcerer')
+]
