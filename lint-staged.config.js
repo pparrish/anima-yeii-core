@@ -2,6 +2,7 @@ module.exports = {
   // Lint js files
   '*.js': filenames => {
     return [
+      'yarn fix',
       `yarn standard --fix ${filenames.join(' ')}`,
       `git add ${filenames.join(' ')}`
     ]
