@@ -7,9 +7,6 @@ module.exports = {
       `git add ${filenames.join(' ')}`
     ]
   },
-  '(*test|*steps).js': (filenames) => {
-    return `yarn jest ${filenames.join(' ')} --bail --findRelatedTests --coverage `
-  },
   '!(*test|*steps).js': filenames => {
     const lintDoc = []
     const buildDoc = []
