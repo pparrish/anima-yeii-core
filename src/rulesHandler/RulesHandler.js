@@ -25,14 +25,14 @@ module.exports = class RulesHandler {
    * @param {string} name - unique the name of a rule.
    * @param {string|string[]} path - path or paths to fire the rule.
    * @param {function} rule - the function handler rule, reibes a context, a emiter, and a path
-   * @param {object} options - modifiers to rule
+   * @param {Object} options - modifiers to rule
    * @param {boolean} options.enabled - default is true, when is false the rule not be used.
    * @param {boolean} options.hidden - default false, when a rule is hidden it work but cant be listed by ruleHandler
    * @param {function} options.enable - function called when a rule is enabled, recibes a context and a emiter
    * @param {functios} options.disable - function called when a object is disabled
    * @param {string[]} options.childs - name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled.
    */
-  add (name, path, rule, { enabled = true, hidden = false, enable = () => {}, disable = () => {}, childs= [] } = {}) {
+  add (name, path, rule, { enabled = true, hidden = false, enable = () => {}, disable = () => {}, childs = [] } = {}) {
     const options = { enabled, hidden, disable, enable, childs }
     this.rules[name] = { name, rule, ...options }
     if (Array.isArray(path)) {
@@ -101,7 +101,7 @@ module.exports = class RulesHandler {
   }
 
   isEnabled (name) {
-    if(!this.rules[name]) throw new Error(`the "${name}" rule does not exists`)
+    if (!this.rules[name]) throw new Error(`the "${name}" rule does not exists`)
     return this.rules[name].enabled
   }
 

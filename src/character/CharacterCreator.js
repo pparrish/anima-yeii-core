@@ -42,7 +42,8 @@ class CharacterCreator {
       remainer: null
     }
 
-    this._rules = rules
+    this.rules = rules()
+
     this._pd = null
 
     this.applyRules('creator/init', this)
@@ -55,40 +56,15 @@ class CharacterCreator {
    * @return {Object} the modified value of operation
    */
   applyRules (path, context) {
-    let newContext = context
-    // get all rules matched widrh path
-    const rulesMatch = []
-    for (const ruleName in this._rules) {
-      const aRule = this._rules[ruleName]
-
-      if (Array.isArray(aRule.path)) {
-        for (const aPath of aRule.path) {
-          if (aPath === path) {
-            rulesMatch.push(aRule)
-          }
-        }
-      } else if (aRule.path === path) {
-        rulesMatch.push(this._rules[ruleName])
-      }
-    }
-    // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this, path) : aContext, newContext)
-    // return the new context
-    return newContext
+    return this.rules.apply(path, context, this)
   }
 
   /** disable a rule
    * @param {string} rule - the name of rule to diable
    * @return {Object} this
    */
-  disableRule (rule) {
-    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
-    this._rules[rule].enabled = false
-    if (this._rules[rule].disabled) this._rules[rule].disabled({}, this)
-    if (this._rules[rule].childs) {
-      this._rules[rule].childs.map(rule => this.disableRule(rule))
-      if (this._rules[rule].disabled) this._rules[rule].disabled({}, this)
-    }
+  disableRule (rule, context) {
+    this.rules.disable(rule, context, this)
     return this
   }
 
@@ -96,14 +72,8 @@ class CharacterCreator {
    * @param {string} rule - rule to enable
    * @return {Object} this
    */
-  enableRule (rule) {
-    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
-    this._rules[rule].enabled = true
-    if (this._rules[rule].enable) this._rules[rule].enable({}, this)
-    if (this._rules[rule].childs) {
-      this._rules[rule].childs.map(rule => this.enableRule(rule))
-      if (this._rules[rule].enable) this._rules[rule].enable({}, this)
-    }
+  enableRule (rule, context) {
+    this.rules.enable(rule, context, this)
     return this
   }
 
@@ -406,7 +376,7 @@ class CharacterCreator {
 
   /** @returns {number} the min height supported by the size */
   minHeightSupported () {
-    if (!this._rules['size limitations'].enabled) return 0
+    if (!this.rules.isEnabled('size limitations')) return 0
     const { size } = this.settedSecondaryCharacteristics()
     if (!size) throw new Error('size is not defined')
     const { slim } = this.settedBasicInfo()
@@ -415,14 +385,14 @@ class CharacterCreator {
 
   /** @returns {number} the max height supported by the size */
   maxWeightSupported () {
-    if (!this._rules['size limitations'].enabled) return Infinity
+    if (!this.rules.isEnabled('size limitations')) return Infinity
     const { size } = this.settedSecondaryCharacteristics()
     return sizeTable.weight.to.value(size)
   }
 
   /** @returns {number} the min weight supported by the size, if basic info slim is setted, the value is size -2 */
   minWeightSupported () {
-    if (!this._rules['size limitations'].enabled) return 0
+    if (!this.rules.isEnabled('size limitations')) return 0
     const { size } = this.settedSecondaryCharacteristics()
     const { slim } = this.settedBasicInfo()
     return sizeTable.weight.from.value(size, slim)
@@ -430,7 +400,7 @@ class CharacterCreator {
 
   /** @returns {number} max height supported by the size. */
   maxHeightSupported () {
-    if (!this._rules['size limitations'].enabled) return Infinity
+    if (!this.rules.isEnabled('size limitations')) return Infinity
     const { size } = this.settedSecondaryCharacteristics()
     return sizeTable.height.to.value(size)
   }
@@ -456,9 +426,10 @@ class CharacterCreator {
    */
   selectCategory (name) {
     this._category = this.applyRules('category/set', name)
+    return this
   }
 
-  /** name of the category selected
+  /** ñ name of the category selected
    * @type {string}
    */
   get category () {

@@ -270,7 +270,7 @@ describe('Creation of a character', () => {
     })
     test('Given a new creator And i set level 1 Then the pd is 600', () => {
       const creator = newCreator()
-      const rule = creator._rules['pd linked to level'].rule = jest.fn(creator._rules['pd linked to level'].rule)
+      const rule = creator.rules.rules['pd linked to level'].rule = jest.fn(creator.rules.rules['pd linked to level'].rule)
       creator.setBasicInfo('level', 1)
       expect(rule).toBeCalled()
       expect(creator.developmentPoints).toBe(600)

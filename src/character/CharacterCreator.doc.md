@@ -65,6 +65,7 @@ disable a rule
 #### Parameters
 
 -   `rule` **[string][37]** the name of rule to diable
+-   `context`  
 
 Returns **[Object][38]** this
 
@@ -75,6 +76,7 @@ enable a rule
 #### Parameters
 
 -   `rule` **[string][37]** rule to enable
+-   `context`  
 
 Returns **[Object][38]** this
 
@@ -200,7 +202,7 @@ Select the category of the character
 
 ### category
 
-name of the category selected
+ñ name of the category selected
 
 Type: [string][37]
 
