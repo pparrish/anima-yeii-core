@@ -1,7 +1,8 @@
 module.exports = {
   name: 'mentalist',
   limits: {
-    combatAbilities: 50
+    combatAbilities: 50,
+    supernaturalAbilities: 50
   },
   primaryAbilities: {
     combatAbilities: {

@@ -2,7 +2,8 @@
 module.exports = {
   name: 'acrobat warrior',
   limits: {
-    combatAbilities: 60
+    combatAbilities: 60,
+    supernaturalAbilities: 50
   },
   primaryAbilities: {
     combatAbilities: {

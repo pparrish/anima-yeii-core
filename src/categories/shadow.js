@@ -1,7 +1,8 @@
 module.exports = {
   name: 'shadow',
   limits: {
-    combatAbilities: 60
+    combatAbilities: 60,
+    supernaturalAbilities: 50
   },
   primaryAbilities: {
     combatAbilities: {

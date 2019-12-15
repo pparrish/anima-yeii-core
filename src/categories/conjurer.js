@@ -1,7 +1,8 @@
 module.exports = {
   name: 'conjurer',
   limits: {
-    combatAbilities: 50
+    combatAbilities: 50,
+    supernaturalAbilities: 60
   },
   primaryAbilities: {
     combatAbilities: {
