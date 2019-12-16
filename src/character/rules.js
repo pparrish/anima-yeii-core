@@ -112,14 +112,23 @@ module.exports = () => {
       })
 
     .add('refound all points add -30 bonus',
-      'pd/spend',
+      'pd/refound',
       ({ name, value }, creator) => {
         if (creator.developmentPointsShop.buyList[name] && creator.developmentPointsShop.buyList[name] - value === 0) {
-          creator.combatAbilities.addBonusOf(name, {
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
+          if (creator.combatAbilities.has(name)) {
+            creator.combatAbilities.addBonusOf(name, {
+              reason: 'base -30',
+              value: -30,
+              baseBonus: true
+            })
+          }
+          if (creator.supernaturalAbilities.has(name)) {
+            creator.supernaturalAbilities.addBonusOf(name, {
+              reason: 'base -30',
+              value: -30,
+              baseBonus: true
+            })
+          }
         }
         return { name, value }
       })
@@ -251,13 +260,24 @@ module.exports = () => {
           value: -30,
           baseBonus: true
         })
+        creator.supernaturalAbilities.addBonus({
+          reason: 'base -30',
+          value: -30,
+          baseBonus: true
+        })
       },
       {
         disable (_, creator) {
           creator.combatAbilities.removeBonus('base -30')
+          creator.supernaturalAbilities.removeBonus('base -30')
         },
         enable (_, creator) {
           creator.combatAbilities.addBonus({
+            reason: 'base -30',
+            value: -30,
+            baseBonus: true
+          })
+          creator.supernaturalAbilities.addBonus({
             reason: 'base -30',
             value: -30,
             baseBonus: true

@@ -11,6 +11,19 @@ describe('character creator -> supernatural abilities ', () => {
     beforeEach(() => {
       creator.selectCategory('warrior')
     })
+    describe('base -30 rule', () => {
+      test('when i dont enhance then the base is -30', () => {
+        expect(creator.supernaturalAbilities.get('magic projection').base).toBe(-30)
+      })
+      test('when i enhance by 5 then the base is 5', () => {
+        creator.enhance('magic projection', 5)
+        expect(creator.supernaturalAbilities.get('magic projection').base).toBe(5)
+      })
+      test('when i disable the rule then the base is 0', () => {
+        creator.disableRule('base -30')
+        expect(creator.supernaturalAbilities.get('magic projection').base).toBe(0)
+      })
+    })
     test('when i enhance 5 all the supernarural abilities then i spend 75 pd', () => {
       creator.enhance('magic projection', 5)
       expect(creator.developmentPointsSpended).toBe(15)
