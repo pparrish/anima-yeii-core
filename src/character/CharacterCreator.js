@@ -1,14 +1,12 @@
-const D10 = require('../dices/d10')
-const d10 = new D10()
 const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
-const sizeTable = require('../secondaryCharacteristics/sizeTable')
-const developmentPointsTable = require('../developmentPoints/developmentPointsTable')
-const categories = require('../categories')
 const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
+const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
+const rules = require('./rules')
+const sizeTable = require('../secondaryCharacteristics/sizeTable')
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -35,7 +33,6 @@ class CharacterCreator {
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
     this.developmentPointsShop = new Shop({})
-    this.combatAbilities = new CombatAbilities()
     this._points = {
       generators: pointsGenerators,
       generatedResults: {},
@@ -45,294 +42,11 @@ class CharacterCreator {
       remainer: null
     }
 
-    this._rules = {
-      '10 cost 2': {
-        enabled: true,
-        path: 'points/spends',
-        rule: (spended) => {
-          spended = spended.map(x => x >= 10 ? x + 1 : x)
-          return spended
-        }
-      },
-      '10 limit': {
-        enabled: true,
-        path: 'characteristics/set',
-        rule: (characteristic) => {
-          if (characteristic > 10) {
-            throw new Error('The limit of characteristics is 10')
-          }
-          return characteristic
-        }
-      },
-      'physique is fatigue': {
-        enabled: true,
-        hidden: true,
-        path: 'characteristics/set/physique',
-        rule: (physique, aCreator) => {
-          aCreator._set('fatigue', physique, 'physicalCapacities')
-          return physique
-        }
-      },
-      'agility is movement type': {
-        enabled: true,
-        hidden: true,
-        path: 'characteristics/set/agility',
-        rule: (agility, aCreator) => {
-          aCreator._set('movement type', agility, 'physicalCapacities')
-          return agility
-        }
-      },
-      'appearance is random': {
-        enabled: true,
-        hidden: true,
-        path: 'creator/init',
-        rule: (creator) => {
-          creator._appearance = d10.roll()
-        }
-      },
-      'appearance blocked': {
-        enabled: true,
-        path: 'secondaryCharacteristics/set/appearance',
-        rule: () => {
-          throw new Error('appearance is random only')
-        }
-      },
-      'appearance 10 limit': {
-        enabled: true,
-        hidden: true,
-        path: 'secondaryCharacteristics/set/appearance',
-        rule (appearance) {
-          if (appearance > 10) throw new Error('appearance limit is 10')
-          return appearance
-        }
-      },
-      'Size is strength added to physique': {
-        enabled: true,
-        hidden: true,
-        path: ['characteristics/setted/strength', 'characteristics/setted/physique'],
-        rule (_, creator) {
-          const { strength, physique } = creator.settedCharacteristics()
-          if (!strength || !physique) return
-          creator._set('size', strength + physique, 'secondaryCharacteristics')
-        }
-      },
-      'size limitations': {
-        enabled: true,
-        path: ['basicInfo/set/height', 'basicInfo/set/weight'],
-        rule (value, creator, path) {
-          if (!creator._rules['size limitations'].enabled) return value
+    this.combatAbilities = new CombatAbilities()
+    this.supernaturalAbilities = new SupernaturalAbilities()
 
-          const { size } = creator.settedSecondaryCharacteristics()
-          const { slim } = creator.settedBasicInfo()
+    this.rules = rules()
 
-          if (!size) throw new Error('size is not defined, first set streng and physique')
-
-          if (path === 'basicInfo/set/height') {
-            if (!sizeTable.height.from.check(size, value, slim)) throw new Error(`height ${value} must be greatest or equal than ${creator.minHeightSupported()}`)
-            if (!sizeTable.height.to.check(size, value)) throw new Error(`height ${value} must be less or equal than ${creator.maxHeightSupported()}`)
-          }
-          if (path === 'basicInfo/set/weight') {
-            if (!sizeTable.weight.from.check(size, value, slim)) throw new Error(`weight ${value} must be greatest or equal than ${creator.minWeightSupported()}`)
-            if (!sizeTable.weight.to.check(size, value)) throw new Error(`weight ${value} must be less or equal than ${creator.maxWeightSupported()}`)
-          }
-          return value
-        }
-      },
-      'pd linked to level': {
-        enabled: true,
-        hidden: true,
-        path: 'basicInfo/set/level',
-        rule (level, creator) {
-          creator._pd = developmentPointsTable.get(level)
-          return level
-        },
-        childs: ['pd based on level', 'set pd disabled']
-      },
-      'pd based on level': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/get',
-        rule (_, creator) {
-          const { level } = creator.settedBasicInfo()
-          if (!level) throw new Error('level is not setted use CharacterCreator.setBasicInfo("level", value)')
-        }
-
-      },
-      'set pd disabled': {
-        enabled: true,
-        hidden: true,
-        path: 'pd/set',
-        rule (pd, creator) {
-          throw new Error('pd only be setted by level')
-        }
-      },
-      'select category to spend pd': {
-        enabled: true,
-        hidden: true,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          if (!creator.category) throw new Error('select category to spend development points')
-          return { name, value }
-        }
-      },
-      'spenden in a ability remove -30 bonus': {
-        enabled: true,
-        hidden: true,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          creator.combatAbilities.removeBonusOf(name, 'base -30')
-          return { name, value }
-        }
-      },
-      'refound all points add -30 bonus': {
-        enabled: true,
-        hidden: true,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          if (creator.developmentPointsShop.buyList[name] && creator.developmentPointsShop.buyList[name] - value === 0) {
-            creator.combatAbilities.addBonusOf(name, {
-              reason: 'base -30',
-              value: -30,
-              baseBonus: true
-            })
-          }
-          return { name, value }
-        }
-      },
-      'ability minimun 5': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          if (!creator.developmentPointsShop.buyList[name] && value < 5) {
-            throw new Error('cannot enhance bellow 5')
-          }
-          if (creator.developmentPointsShop.buyList[name] && creator.developmentPointsShop.buyList[name] + value < 5) throw new Error('cannot enhance bellow 5')
-          return { name, value }
-        },
-        childs: ['cannot decrease bellow 5']
-      },
-      'development points lumit': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          const balance = creator.developmentPointsShop.balance
-          const cost = creator.developmentPointsShop.catalog[name] * value
-          if (balance + cost > creator.developmentPoints) throw new Error('development points exeded')
-          return { name, value }
-        }
-      },
-      'cannot decrease bellow 5': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/refound',
-        rule ({ name, value }, creator) {
-          if (creator.developmentPointsShop.buyList[name] && creator.developmentPointsShop.buyList[name] - value < 5 && creator.developmentPointsShop.buyList[name] - value > 0) throw new Error('cannot enhance bellow 5')
-          return { name, value }
-        }
-      },
-      'combat abilities limit': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          if (name in creator._category.primaryAbilities.combatAbilities) {
-            const limit = creator.developmentPoints * (creator._category.limits.combatAbilities / 100)
-            let spended = creator.developmentPointsShop.catalog[name] * value
-            for (const ability in creator.developmentPointsShop.buyList) {
-              if (ability in creator._category.primaryAbilities.combatAbilities) {
-                spended += creator.developmentPointsSpendedIn(name)
-              }
-            }
-            if (spended > limit) throw new Error(`the limit of pd for combat abilities is ${limit}`)
-          }
-          return { name, value }
-        }
-      },
-      'offencive and defencive limits': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          if (name !== 'attack' && name !== 'dodge' && name !== 'stop') return { name, value }
-
-          const limit = creator.developmentPoints / 2
-          let spended = creator.developmentPointsShop.catalog[name] * value
-          spended += creator.developmentPointsSpendedIn('attack')
-          spended += creator.developmentPointsSpendedIn('dodge')
-          spended += creator.developmentPointsSpendedIn('stop')
-
-          if (spended > limit) throw new Error('the limit of offensive and defensive is ' + limit)
-
-          return { name, value }
-        }
-      },
-      'select category': {
-        enabled: true,
-        hidden: true,
-        path: 'category/set',
-        rule (name, creator) {
-          const category = categories.find(cat => cat.name === name)
-          if (!category) throw new Error('the category does not exist')
-          creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.combatAbilities)
-          return category
-        }
-      },
-      'offencive and deffensive diference limit': {
-        enabled: true,
-        hidden: false,
-        path: 'pd/spend',
-        rule ({ name, value }, creator) {
-          if (name !== 'attack' && name !== 'dodge' && name !== 'stop') return { name, value }
-          let attack = creator.combatAbilities.get('attack').base
-          let dodge = creator.combatAbilities.get('dodge').base
-          let stop = creator.combatAbilities.get('stop').base
-          attack = name === 'attack' ? attack + value : attack
-          dodge = name === 'dodge' ? dodge + value : dodge
-          stop = name === 'stop' ? stop + value : stop
-
-          const dominantDefense = stop > dodge ? stop : dodge
-          const limit = creator.developmentPoints / 4
-          if (creator.developmentPointsSpendedIn('attack') === 0) {
-            let spended = creator.developmentPointsShop.catalog[name] * value
-            spended += creator.developmentPointsSpendedIn('dodge')
-            spended += creator.developmentPointsSpendedIn('stop')
-            if (spended > limit) throw new Error('the limit of dodge and stop is ' + limit)
-          } else if (creator.developmentPointsSpendedIn('dodge') === 0 && creator.developmentPointsSpendedIn('stop') === 0) {
-            let spended = creator.developmentPointsShop.catalog[name] * value
-            spended += creator.developmentPointsSpendedIn('attack')
-            if (spended > limit) throw new Error('the limit of attack is ' + limit)
-          } else if (Math.abs(dominantDefense - attack) > 50) {
-            throw new Error('attack and defense diference cannot be more than 50')
-          }
-          return { name, value }
-        }
-      },
-      'base -30': {
-        enabled: true,
-        hidden: false,
-        path: 'creator/init',
-        rule (_, creator) {
-          creator.combatAbilities.addBonus({
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
-        },
-        disabled (_, creator) {
-          creator.combatAbilities.removeBonus('base -30')
-        },
-        enable (_, creator) {
-          creator.combatAbilities.addBonus({
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
-        },
-        childs: ['refound all points add -30 bonus', 'spenden in a ability remove -30 bonus']
-      }
-    }
     this._pd = null
 
     this.applyRules('creator/init', this)
@@ -345,40 +59,15 @@ class CharacterCreator {
    * @return {Object} the modified value of operation
    */
   applyRules (path, context) {
-    let newContext = context
-    // get all rules matched widrh path
-    const rulesMatch = []
-    for (const ruleName in this._rules) {
-      const aRule = this._rules[ruleName]
-
-      if (Array.isArray(aRule.path)) {
-        for (const aPath of aRule.path) {
-          if (aPath === path) {
-            rulesMatch.push(aRule)
-          }
-        }
-      } else if (aRule.path === path) {
-        rulesMatch.push(this._rules[ruleName])
-      }
-    }
-    // aply all rules to the context
-    newContext = rulesMatch.reduce((aContext, rule) => rule.enabled ? rule.rule(aContext, this, path) : aContext, newContext)
-    // return the new context
-    return newContext
+    return this.rules.apply(path, context, this)
   }
 
   /** disable a rule
    * @param {string} rule - the name of rule to diable
    * @return {Object} this
    */
-  disableRule (rule) {
-    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
-    this._rules[rule].enabled = false
-    if (this._rules[rule].disabled) this._rules[rule].disabled({}, this)
-    if (this._rules[rule].childs) {
-      this._rules[rule].childs.map(rule => this.disableRule(rule))
-      if (this._rules[rule].disabled) this._rules[rule].disabled({}, this)
-    }
+  disableRule (rule, context) {
+    this.rules.disable(rule, context, this)
     return this
   }
 
@@ -386,14 +75,8 @@ class CharacterCreator {
    * @param {string} rule - rule to enable
    * @return {Object} this
    */
-  enableRule (rule) {
-    if (!this._rules[rule]) throw new Error(`the rule ${rule} does not exist`)
-    this._rules[rule].enabled = true
-    if (this._rules[rule].enable) this._rules[rule].enable({}, this)
-    if (this._rules[rule].childs) {
-      this._rules[rule].childs.map(rule => this.enableRule(rule))
-      if (this._rules[rule].enable) this._rules[rule].enable({}, this)
-    }
+  enableRule (rule, context) {
+    this.rules.enable(rule, context, this)
     return this
   }
 
@@ -696,7 +379,7 @@ class CharacterCreator {
 
   /** @returns {number} the min height supported by the size */
   minHeightSupported () {
-    if (!this._rules['size limitations'].enabled) return 0
+    if (!this.rules.isEnabled('size limitations')) return 0
     const { size } = this.settedSecondaryCharacteristics()
     if (!size) throw new Error('size is not defined')
     const { slim } = this.settedBasicInfo()
@@ -705,14 +388,14 @@ class CharacterCreator {
 
   /** @returns {number} the max height supported by the size */
   maxWeightSupported () {
-    if (!this._rules['size limitations'].enabled) return Infinity
+    if (!this.rules.isEnabled('size limitations')) return Infinity
     const { size } = this.settedSecondaryCharacteristics()
     return sizeTable.weight.to.value(size)
   }
 
   /** @returns {number} the min weight supported by the size, if basic info slim is setted, the value is size -2 */
   minWeightSupported () {
-    if (!this._rules['size limitations'].enabled) return 0
+    if (!this.rules.isEnabled('size limitations')) return 0
     const { size } = this.settedSecondaryCharacteristics()
     const { slim } = this.settedBasicInfo()
     return sizeTable.weight.from.value(size, slim)
@@ -720,11 +403,15 @@ class CharacterCreator {
 
   /** @returns {number} max height supported by the size. */
   maxHeightSupported () {
-    if (!this._rules['size limitations'].enabled) return Infinity
+    if (!this.rules.isEnabled('size limitations')) return Infinity
     const { size } = this.settedSecondaryCharacteristics()
     return sizeTable.height.to.value(size)
   }
 
+  /** the total of development points
+   * @readonly
+   * @type {number}
+   */
   get developmentPoints () {
     const pd = this.applyRules('pd/get', this._pd)
     if (pd === null) throw new Error('Development points is not setted')
@@ -737,37 +424,81 @@ class CharacterCreator {
     return recibedPD
   }
 
+  /** Select the category of the character
+   * @param {string} name - the name of category
+   */
   selectCategory (name) {
     this._category = this.applyRules('category/set', name)
+    return this
   }
 
+  /** ñ name of the category selected
+   * @type {string}
+   */
   get category () {
     if (this._category) { return this._category.name }
     return undefined
   }
 
+  /** Enhance a ability
+   * @param {string} name - the name of the ability
+   * @param {number} value - the value to enhance
+   * @returns {CharacterCreator} this
+   */
   enhance (name, value) {
-    const context = this.applyRules('pd/spend', { name, value }, this)
+    let context = this.applyRules('pd/spend', { name, value }, this)
+    if (this.combatAbilities.has(name)) {
+      context = this.applyRules('pd/spend/combatAbilities', context)
+      this.combatAbilities.enhance(context.name, context.value)
+    }
+    if (this.supernaturalAbilities.has(name)) {
+      context = this.applyRules('pd/spend/supernaturalAbilities', context)
+      this.supernaturalAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
-    this.combatAbilities.enhance(context.name, context.value)
     return this
   }
 
+  /** decrease a ability
+   * @param {string} name - the name of ability
+   * @param {number} value - the value to decrease
+   * @returns {CharacterCreator} this
+   */
   decrease (name, value) {
     if (this.developmentPointsShop.buyList[name] && this.developmentPointsShop.buyList[name] - value < 0) throw new Error('decrease bellow 0')
-    const context = this.applyRules('pd/refound', { name, value }, this)
+    let context = this.applyRules('pd/refound', { name, value }, this)
+    if (this.combatAbilities.has(name)) {
+      context = this.applyRules('pd/refound/combatAbilities', context)
+      this.combatAbilities.decrease(context.name, context.value)
+    }
+    if (this.supernaturalAbilities.has(name)) {
+      context = this.applyRules('pd/refound/supernaturalAbilities', context)
+      this.supernaturalAbilities.decrease(context.name, context.value)
+    }
     this.developmentPointsShop.refound(context.name, context.value)
-    this.combatAbilities.decrease(context.name, context.value)
+    return this
   }
 
+  /* total of development points spended
+   * @type {number}
+   * @readonly
+   */
   get developmentPointsSpended () {
     return this.developmentPointsShop.balance
   }
 
+  /* Get a ability
+   * @param {string} name - the name of ability
+   * @returns {Ability}
+   */
   ability (name) {
     return this.combatAbilities.get(name)
   }
 
+  /* Get the total of development points spended in a ability
+   * @param {string} name - the name of ability
+   * @returns {number}
+   */
   developmentPointsSpendedIn (name) {
     return this.developmentPointsShop.balanceOf(name)
   }

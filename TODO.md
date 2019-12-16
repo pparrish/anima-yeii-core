@@ -58,44 +58,41 @@
 
 ✔️ rules for get pd based on level and free pd
 
-add combat abilities 
+✔️add combat abilities 
 
-add expend in combat abilities based on pd
+✔️add expend in combat abilities based on pd
 
-add remainderPd. must be act equal as be a remainderPoints
+✔️add remainderPd. must be act equal as be a remainderPoints
 
-spend in combat abilities +1 ch = -1pd
+✔️spend in combat abilities +1 ch = -1pd
 
-add rules to manage base -30, first must reatch 5, and combat abilities limitations
+✔️add rules to manage base -30, first must reatch 5, and combat abilities limitations
 
-add another primary abilities and their rules
+✔️add another primary abilities and their rules
 
-add secondary abilities and teir rules
+✔️ add secondary abilities and teir rules
 
-the cost is 1 pd ever, for now
-
-Maive need start width 1 catefory for begining the shop
 
 #Abilities
-All abilities must have some components.
+✔️ All abilities must have some components.
 
-The base, is the points to add spending pd, and have two main rules, 
+✔️ The base, is the points to add spending pd, and have two main rules, 
 
-A rate, is the number of points in base than auments every pd is aded
+✔️ A rate, is the number of points in base than auments every pd is aded
 
-the rate * points = base
+✔️ the rate * points = base
 
-the points is a internal value, when you spend pd you adquire a point to thad ability 
+✔️ the points is a internal value, when you spend pd you adquire a point to thad ability 
 
-r first if you dont spend any point in the ability the base is -30 insead of 0,
+✔️ r first if you dont spend any point in the ability the base is -30 insead of 0,
 
-and the first tlme you expend pd in the ability you must spend pd to get the base of 5. 
+✔️ and the first tlme you expend pd in the ability you must spend pd to get the base of 5. 
 
-The bonus, the bonus is a value than added to a ability and can be positive or negative and maibe to is a array or map of Bonus instances or rules
+✔️ The bonus, the bonus is a value than added to a ability and can be positive or negative and maibe to is a array or map of Bonus instances or rules
 
-The dependency are the characteristic linked to the ability from here can get the bonus of chatracteriatic, maibe or the bonus of characteristic implies that are the dependency.
+✔️ The dependency are the characteristic linked to the ability from here can get the bonus of chatracteriatic, maibe or the bonus of characteristic implies that are the dependency.
 
-The final value, and this is the value of the add of base and all the bonus.
+✔️ The final value, and this is the value of the add of base and all the bonus.
 
 # Some abilities require a especial trate
 lifepoints is based in physique * 10, and the bonus and 20 points more and the points spend * a rate of life points equlvqlent to physique

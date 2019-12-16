@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "yarn standard --globals expect",
     "fix": "yarn lint --fix",
-    "test": "jest --coverage --bail",
+    "test": "jest --coverage ",
     "fixAndTest": "yarn fix && yarn test"
   },
   "husky": {

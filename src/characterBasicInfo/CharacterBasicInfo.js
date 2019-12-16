@@ -1,7 +1,7 @@
-const NamedValueCollection = require('../namedValue/NamedValueCollection')
+const NamedValueColection = require('../NamedValue/NamedValueColection')
 const BasicInfo = require('./BasicInfo')
 
-class CharacterBasicInfo extends NamedValueCollection {
+class CharacterBasicInfo extends NamedValueColection {
   constructor (infoName, infoContent) {
     super(infoName, infoContent, BasicInfo)
   }
