@@ -1,4 +1,4 @@
-const NamedValueCollection = require('../namedValue/NamedValueColection')
+const NamedValueCollection = require('../NamedValue/NamedValueColection')
 const SecondaryCharacteristic = require('./SecondaryCharacteristic')
 
 module.exports = class SecondaryCharacteristics extends NamedValueCollection {

@@ -13,6 +13,10 @@ module.exports = class Abilities {
     return ability
   }
 
+  has (name) {
+    return this._.storage.has(name)
+  }
+
   enhance (name, points) {
     const ability = this._.storage.get(name)
     if (!ability) throw new Error(`the ${name} ability does not exist`)

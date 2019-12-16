@@ -1,4 +1,4 @@
-const NamedValue = require('../namedValue/NamedValue')
+const NamedValue = require('../NamedValue/NamedValue')
 
 class BasicInfo extends NamedValue {
 }

@@ -4,6 +4,7 @@ const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapaciti
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
+const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 
@@ -32,7 +33,6 @@ class CharacterCreator {
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
     this.developmentPointsShop = new Shop({})
-    this.combatAbilities = new CombatAbilities()
     this._points = {
       generators: pointsGenerators,
       generatedResults: {},
@@ -41,6 +41,9 @@ class CharacterCreator {
       pointsToGenerate: null,
       remainer: null
     }
+
+    this.combatAbilities = new CombatAbilities()
+    this.supernaturalAbilities = new SupernaturalAbilities()
 
     this.rules = rules()
 
@@ -443,9 +446,16 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   enhance (name, value) {
-    const context = this.applyRules('pd/spend', { name, value }, this)
+    let context = this.applyRules('pd/spend', { name, value }, this)
+    if (this.combatAbilities.has(name)) {
+      context = this.applyRules('pd/spend/combatAbilities', context)
+      this.combatAbilities.enhance(context.name, context.value)
+    }
+    if (this.supernaturalAbilities.has(name)) {
+      context = this.applyRules('pd/spend/supernaturalAbilities', context)
+      this.supernaturalAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
-    this.combatAbilities.enhance(context.name, context.value)
     return this
   }
 
@@ -456,9 +466,17 @@ class CharacterCreator {
    */
   decrease (name, value) {
     if (this.developmentPointsShop.buyList[name] && this.developmentPointsShop.buyList[name] - value < 0) throw new Error('decrease bellow 0')
-    const context = this.applyRules('pd/refound', { name, value }, this)
+    let context = this.applyRules('pd/refound', { name, value }, this)
+    if (this.combatAbilities.has(name)) {
+      context = this.applyRules('pd/refound/combatAbilities', context)
+      this.combatAbilities.decrease(context.name, context.value)
+    }
+    if (this.supernaturalAbilities.has(name)) {
+      context = this.applyRules('pd/refound/supernaturalAbilities', context)
+      this.supernaturalAbilities.decrease(context.name, context.value)
+    }
     this.developmentPointsShop.refound(context.name, context.value)
-    this.combatAbilities.decrease(context.name, context.value)
+    return this
   }
 
   /* total of development points spended

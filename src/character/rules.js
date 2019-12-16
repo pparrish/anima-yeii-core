@@ -106,19 +106,29 @@ module.exports = () => {
     .add('spenden in a ability remove -30 bonus',
       'pd/spend',
       ({ name, value }, creator) => {
-        creator.combatAbilities.removeBonusOf(name, 'base -30')
+        if (creator.combatAbilities.has(name)) { creator.combatAbilities.removeBonusOf(name, 'base -30') }
+        if (creator.supernaturalAbilities.has(name)) { creator.supernaturalAbilities.removeBonusOf(name, 'base -30') }
         return { name, value }
       })
 
     .add('refound all points add -30 bonus',
-      'pd/spend',
+      'pd/refound',
       ({ name, value }, creator) => {
         if (creator.developmentPointsShop.buyList[name] && creator.developmentPointsShop.buyList[name] - value === 0) {
-          creator.combatAbilities.addBonusOf(name, {
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
+          if (creator.combatAbilities.has(name)) {
+            creator.combatAbilities.addBonusOf(name, {
+              reason: 'base -30',
+              value: -30,
+              baseBonus: true
+            })
+          }
+          if (creator.supernaturalAbilities.has(name)) {
+            creator.supernaturalAbilities.addBonusOf(name, {
+              reason: 'base -30',
+              value: -30,
+              baseBonus: true
+            })
+          }
         }
         return { name, value }
       })
@@ -150,7 +160,7 @@ module.exports = () => {
       })
 
     .add('combat abilities limit',
-      'pd/spend',
+      'pd/spend/combatAbilities',
       ({ name, value }, creator) => {
         if (name in creator._category.primaryAbilities.combatAbilities) {
           const limit = creator.developmentPoints * (creator._category.limits.combatAbilities / 100)
@@ -165,7 +175,7 @@ module.exports = () => {
         return { name, value }
       })
     .add('offencive and defencive limits',
-      'pd/spend',
+      'pd/spend/combatAbilities',
       ({ name, value }, creator) => {
         if (name !== 'attack' && name !== 'dodge' && name !== 'stop') return { name, value }
 
@@ -179,6 +189,31 @@ module.exports = () => {
 
         return { name, value }
       })
+    .add('sobrenatural abilities limits',
+      'pd/spend/supernaturalAbilities',
+      ({ name, value }, creator) => {
+        const limit = creator.developmentPoints * (creator._category.limits.supernaturalAbilities / 100)
+        let spended = creator.developmentPointsShop.catalog[name] * value
+        spended += creator.developmentPointsSpendedIn('magic projection')
+        spended += creator.developmentPointsSpendedIn('summon')
+        spended += creator.developmentPointsSpendedIn('domain')
+        spended += creator.developmentPointsSpendedIn('tie')
+        spended += creator.developmentPointsSpendedIn('unsummon')
+        if (spended > limit) throw new Error('the limit of supernatural abilities is ' + limit)
+
+        return { name, value }
+      })
+
+    .add('magic projection limit',
+      'pd/spend/supernaturalAbilities',
+      ({ name, value }, creator) => {
+        const limit = (creator.developmentPoints * (creator._category.limits.supernaturalAbilities / 100)) / 2
+        let spended = creator.developmentPointsShop.catalog[name] * value
+        spended += creator.developmentPointsSpendedIn('magic projection')
+        if (spended > limit) throw new Error('the pd limit to spend in magic projection is ' + limit)
+
+        return { name, value }
+      })
 
     .add('select category',
       'category/set',
@@ -186,10 +221,11 @@ module.exports = () => {
         const category = categories.find(cat => cat.name === name)
         if (!category) throw new Error('the category does not exist')
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.combatAbilities)
+        creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.supernaturalAbilities)
         return category
       })
     .add('offencive and deffensive diference limit',
-      'pd/spend',
+      'pd/spend/combatAbilities',
       ({ name, value }, creator) => {
         if (name !== 'attack' && name !== 'dodge' && name !== 'stop') return { name, value }
         let attack = creator.combatAbilities.get('attack').base
@@ -224,13 +260,24 @@ module.exports = () => {
           value: -30,
           baseBonus: true
         })
+        creator.supernaturalAbilities.addBonus({
+          reason: 'base -30',
+          value: -30,
+          baseBonus: true
+        })
       },
       {
         disable (_, creator) {
           creator.combatAbilities.removeBonus('base -30')
+          creator.supernaturalAbilities.removeBonus('base -30')
         },
         enable (_, creator) {
           creator.combatAbilities.addBonus({
+            reason: 'base -30',
+            value: -30,
+            baseBonus: true
+          })
+          creator.supernaturalAbilities.addBonus({
             reason: 'base -30',
             value: -30,
             baseBonus: true
