@@ -23,6 +23,13 @@ describe('character creator -> supernatural abilities ', () => {
       creator.enhance('unsummon', 5)
       expect(creator.developmentPointsSpended).toBe(75)
     })
+    test('when i enhance 10 points i can decrease the ability 5 points', () => {
+      creator.enhance('magic projection', 10)
+      expect(() => {
+        creator.decrease('magic projection', 5)
+      }).not.toThrow()
+      expect(creator.developmentPointsSpended).toBe(15)
+    })
     test('i cannot enhance more than the supernatural abilities limit', () => {
       expect(() => {
         creator.enhance('summon', 101)
