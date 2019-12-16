@@ -4,6 +4,7 @@ const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapaciti
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
+const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 
@@ -32,7 +33,6 @@ class CharacterCreator {
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
     this.developmentPointsShop = new Shop({})
-    this.combatAbilities = new CombatAbilities()
     this._points = {
       generators: pointsGenerators,
       generatedResults: {},
@@ -41,6 +41,9 @@ class CharacterCreator {
       pointsToGenerate: null,
       remainer: null
     }
+
+    this.combatAbilities = new CombatAbilities()
+    this.SupernaturalAbilities = new SupernaturalAbilities()
 
     this.rules = rules()
 
