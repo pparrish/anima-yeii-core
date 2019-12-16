@@ -1,39 +1,30 @@
-module.exports = [
-  {
-    name: 'zeon',
-    type: 'int'
-  },
-  {
-    name: 'magic acumulation',
-    type: 'int'
-  },
+const createList = require('../../utils/createList')
+const supernaturalAbility = require('./SupernaturalAbility')
+const list = [
   {
     name: 'magic proyection',
-    type: 'int',
-    dependence: 'dexterity'
+    dependency: 'dexterity',
+    CREATOR: supernaturalAbility
   },
   {
     name: 'summon',
-    type: 'int',
-    dependence: 'power'
+    dependency: 'power',
+    CREATOR: supernaturalAbility
   },
   {
     name: 'domination',
-    type: 'int',
-    dependence: 'will'
+    dependency: 'will',
+    CREATOR: supernaturalAbility
   },
   {
     name: 'tie',
-    type: 'int',
-    dependence: 'power'
+    dependency: 'power',
+    CREATOR: supernaturalAbility
   },
   {
     name: 'unsummon',
-    type: 'int',
-    dependence: 'power'
-  },
-  {
-    name: 'magic proyection table',
-    type: 'table'
+    dependency: 'power',
+    CREATOR: supernaturalAbility
   }
 ]
+module.exports = createList(list)
