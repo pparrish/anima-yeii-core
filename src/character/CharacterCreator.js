@@ -43,7 +43,7 @@ class CharacterCreator {
     }
 
     this.combatAbilities = new CombatAbilities()
-    this.SupernaturalAbilities = new SupernaturalAbilities()
+    this.supernaturalAbilities = new SupernaturalAbilities()
 
     this.rules = rules()
 
@@ -446,9 +446,16 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   enhance (name, value) {
-    const context = this.applyRules('pd/spend', { name, value }, this)
+    let context = this.applyRules('pd/spend', { name, value }, this)
+    if (this.combatAbilities.has(name)) {
+      context = this.applyRules('pd/spend/combatAbilities', context)
+      this.combatAbilities.enhance(context.name, context.value)
+    }
+    if (this.supernaturalAbilities.has(name)) {
+      context = this.applyRules('pd/spend/supernaturalAbilities', context)
+      this.supernaturalAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
-    this.combatAbilities.enhance(context.name, context.value)
     return this
   }
 

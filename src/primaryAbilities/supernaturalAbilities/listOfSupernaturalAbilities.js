@@ -2,7 +2,7 @@ const createList = require('../../utils/createList')
 const supernaturalAbility = require('./SupernaturalAbility')
 const list = [
   {
-    name: 'magic proyection',
+    name: 'magic projection',
     dependency: 'dexterity',
     CREATOR: supernaturalAbility
   },
