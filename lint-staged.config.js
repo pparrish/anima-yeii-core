@@ -5,7 +5,7 @@ module.exports = {
       'yarn test',
       `yarn standard --fix ${filenames.join(' ')}`,
       `git add ${filenames.join(' ')}`,
-      'yarn documentation build src/** -f md -o documentation.md --github',
+      'yarn documentation build src/** -f md -o documentation.md',
       'git add documentation.md'
     ]
   },
