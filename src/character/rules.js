@@ -22,6 +22,8 @@ const limitValueToTen = (message) => throwErrorWhenExceeds(10, message)
 /* TODO change the context to get the name of characteristic */
 const theMaximunValueOfCharacteristicIsTen = (characteristic) => limitValueToTen('the maximun value of the characteristics is ten')(characteristic)
 
+const theMaximunValueOfAppearanceIsTen = (appearanceValue) => limitValueToTen('the maximun value of appearance is ten')(appearanceValue)
+
 module.exports = () => {
   const rules = new RulesHandler()
 
@@ -34,13 +36,6 @@ module.exports = () => {
     .add('the maximun value of the characteristics is ten',
       'characteristics/set',
       theMaximunValueOfCharacteristicIsTen)
-
-    .add('appearance 10 limit',
-      'secondaryCharacteristics/set/appearance',
-      (appearance) => {
-        if (appearance > 10) throw new Error('appearance limit is 10')
-        return appearance
-      })
 
   /* Characteristics links */
     .add('physique is fatigue',
@@ -66,16 +61,23 @@ module.exports = () => {
       })
 
   /* Appearance */
+    .add('appearance blocked',
+      'secondaryCharacteristics/set/appearance',
+      () => {
+        throw new Error('appearance is random only')
+      })
+
     .add('appearance is random',
       'creator/init',
       (creator) => {
         creator._appearance = d10.roll()
       })
 
-    .add('appearance blocked',
+    .add('the maximun value of appearance is ten',
       'secondaryCharacteristics/set/appearance',
-      () => {
-        throw new Error('appearance is random only')
+      theMaximunValueOfAppearanceIsTen,
+      {
+        hidden: true
       })
 
     .add('size limitations',

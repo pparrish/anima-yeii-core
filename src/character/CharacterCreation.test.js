@@ -188,7 +188,7 @@ describe('Creation of a character', () => {
       test('Given a generator And set 11 to appearance Then i get a error', () => {
         const creator = newCreator()
         creator.disableRule('appearance blocked')
-        expect(() => creator.setSecondaryCharacteristic('appearance', 11)).toThrow('appearance limit is 10')
+        expect(() => creator.setSecondaryCharacteristic('appearance', 11)).toThrow('the maximun value of appearance is ten')
       })
       test('Given a Creator And and i disable the rule of "appearance blocked" And i set 10 to appearance and them remove it i have the same random value', () => {
         const creator = newCreator()
