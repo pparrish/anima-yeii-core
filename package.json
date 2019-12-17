@@ -7,7 +7,8 @@
     "lint": "yarn standard --globals expect",
     "fix": "yarn lint --fix",
     "test": "jest --coverage ",
-    "fixAndTest": "yarn fix && yarn test"
+    "fixAndTest": "yarn fix && yarn test",
+    "documentate": "yarn documentation build src/** -f md -o documentation.md"
   },
   "husky": {
     "hooks": {

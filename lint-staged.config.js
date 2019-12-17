@@ -4,9 +4,7 @@ module.exports = {
     return [
       'yarn test',
       `yarn standard --fix ${filenames.join(' ')}`,
-      `git add ${filenames.join(' ')}`,
-      'yarn documentation build src/** -f md -o documentation.md',
-      'git add documentation.md'
+      `git add ${filenames.join(' ')}`
     ]
   },
   '!(*test|*steps).js': filenames => {
