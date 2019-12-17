@@ -2,180 +2,308 @@
 
 ### Table of Contents
 
--   [Ability][1]
+-   [Abilities][1]
     -   [Parameters][2]
-    -   [name][3]
-    -   [value][4]
-    -   [base][5]
-    -   [bonus][6]
-    -   [rate][7]
-    -   [points][8]
-    -   [bonuses][9]
+    -   [get][3]
+        -   [Parameters][4]
+    -   [has][5]
+        -   [Parameters][6]
+    -   [enhance][7]
+        -   [Parameters][8]
+    -   [decrease][9]
         -   [Parameters][10]
-    -   [dependency][11]
-    -   [enhance][12]
-        -   [Parameters][13]
-    -   [decrease][14]
-        -   [Parameters][15]
-    -   [addBonus][16]
-        -   [Parameters][17]
-    -   [removeBonus][18]
-        -   [Parameters][19]
-    -   [equal][20]
-        -   [Parameters][21]
-    -   [fromOptions][22]
-        -   [Parameters][23]
--   [CharacterCreator][24]
-    -   [\_namesLists][25]
-    -   [applyRules][26]
-        -   [Parameters][27]
-    -   [disableRule][28]
-        -   [Parameters][29]
-    -   [enableRule][30]
+    -   [addBonus][11]
+        -   [Parameters][12]
+    -   [removeBonus][13]
+        -   [Parameters][14]
+    -   [addBonusOf][15]
+        -   [Parameters][16]
+    -   [removeBonusOf][17]
+        -   [Parameters][18]
+-   [Ability][19]
+    -   [Parameters][20]
+    -   [name][21]
+    -   [value][22]
+    -   [base][23]
+    -   [bonus][24]
+    -   [rate][25]
+    -   [points][26]
+    -   [bonuses][27]
+        -   [Parameters][28]
+    -   [dependency][29]
+    -   [enhance][30]
         -   [Parameters][31]
-    -   [setBasicInfo][32]
+    -   [decrease][32]
         -   [Parameters][33]
-    -   [nonSetBasicInfo][34]
-    -   [setPoints][35]
-        -   [Parameters][36]
-    -   [remainerPoints][37]
-    -   [nonSetCharacteristics][38]
-    -   [expendPointsTo][39]
-        -   [Parameters][40]
-    -   [removePointsTo][41]
-        -   [Parameters][42]
-    -   [remainderPoints][43]
-    -   [settedPhysicalCapacities][44]
-    -   [settedSecondaryCharacteristics][45]
-    -   [resetSecondaryCharacteristic][46]
+    -   [addBonus][34]
+        -   [Parameters][35]
+    -   [removeBonus][36]
+        -   [Parameters][37]
+    -   [equal][38]
+        -   [Parameters][39]
+    -   [fromOptions][40]
+        -   [Parameters][41]
+-   [CharacterCreator][42]
+    -   [\_namesLists][43]
+    -   [applyRules][44]
+        -   [Parameters][45]
+    -   [disableRule][46]
         -   [Parameters][47]
-    -   [minHeightSupported][48]
-    -   [maxWeightSupported][49]
-    -   [minWeightSupported][50]
-    -   [maxHeightSupported][51]
-    -   [developmentPoints][52]
-    -   [selectCategory][53]
+    -   [enableRule][48]
+        -   [Parameters][49]
+    -   [setBasicInfo][50]
+        -   [Parameters][51]
+    -   [nonSetBasicInfo][52]
+    -   [setPoints][53]
         -   [Parameters][54]
-    -   [category][55]
-    -   [enhance][56]
-        -   [Parameters][57]
-    -   [decrease][58]
-        -   [Parameters][59]
--   [src/developmentPoints/developmentPointsTable][60]
-    -   [add][61]
-        -   [Parameters][62]
-    -   [enable][63]
-        -   [Parameters][64]
-    -   [disable][65]
-        -   [Parameters][66]
-    -   [apply][67]
-        -   [Parameters][68]
-    -   [list][69]
-    -   [get][70]
-        -   [Parameters][71]
--   [src/developmentPoints/developmentPointsTable][72]
-    -   [add][73]
-        -   [Parameters][74]
-    -   [enable][75]
-        -   [Parameters][76]
-    -   [disable][77]
-        -   [Parameters][78]
-    -   [apply][79]
+    -   [remainerPoints][55]
+    -   [nonSetCharacteristics][56]
+    -   [expendPointsTo][57]
+        -   [Parameters][58]
+    -   [removePointsTo][59]
+        -   [Parameters][60]
+    -   [remainderPoints][61]
+    -   [settedPhysicalCapacities][62]
+    -   [settedSecondaryCharacteristics][63]
+    -   [resetSecondaryCharacteristic][64]
+        -   [Parameters][65]
+    -   [minHeightSupported][66]
+    -   [maxWeightSupported][67]
+    -   [minWeightSupported][68]
+    -   [maxHeightSupported][69]
+    -   [developmentPoints][70]
+    -   [selectCategory][71]
+        -   [Parameters][72]
+    -   [category][73]
+    -   [enhance][74]
+        -   [Parameters][75]
+    -   [decrease][76]
+        -   [Parameters][77]
+-   [src/developmentPoints/developmentPointsTable][78]
+    -   [add][79]
         -   [Parameters][80]
-    -   [list][81]
-    -   [get][82]
-        -   [Parameters][83]
--   [NamedValue][84]
-    -   [Parameters][85]
-    -   [name][86]
-    -   [value][87]
--   [NamedValueColection][88]
-    -   [Parameters][89]
-    -   [has][90]
-        -   [Parameters][91]
-    -   [get][92]
-        -   [Parameters][93]
-    -   [valueOf][94]
-        -   [Parameters][95]
--   [Shop][96]
-    -   [Parameters][97]
-    -   [spend][98]
-        -   [Parameters][99]
-    -   [refound][100]
+    -   [enable][81]
+        -   [Parameters][82]
+    -   [disable][83]
+        -   [Parameters][84]
+    -   [apply][85]
+        -   [Parameters][86]
+    -   [list][87]
+    -   [get][88]
+        -   [Parameters][89]
+-   [src/developmentPoints/developmentPointsTable][90]
+    -   [add][91]
+        -   [Parameters][92]
+    -   [enable][93]
+        -   [Parameters][94]
+    -   [disable][95]
+        -   [Parameters][96]
+    -   [apply][97]
+        -   [Parameters][98]
+    -   [list][99]
+    -   [get][100]
         -   [Parameters][101]
+-   [NamedValue][102]
+    -   [Parameters][103]
+    -   [name][104]
+    -   [value][105]
+-   [NamedValueColection][106]
+    -   [Parameters][107]
+    -   [has][108]
+        -   [Parameters][109]
+    -   [get][110]
+        -   [Parameters][111]
+    -   [valueOf][112]
+        -   [Parameters][113]
+-   [Shop][114]
+    -   [Parameters][115]
+    -   [spend][116]
+        -   [Parameters][117]
+    -   [refound][118]
+        -   [Parameters][119]
+
+## Abilities
+
+[src/abilities/Abilities.js:4-93][120]
+
+Represents a collection of abilities
+
+### Parameters
+
+-   `list` **[Array][121]&lt;[Ability][122]>** Abilities to store
+
+### get
+
+[src/abilities/Abilities.js:17-21][123]
+
+Get a [Ability][19] in the collection
+
+#### Parameters
+
+-   `name` **[string][124]** the name of ability
+
+Returns **[Ability][122]** 
+
+### has
+
+[src/abilities/Abilities.js:27-29][125]
+
+Inform the existence of a ability in the collection
+
+#### Parameters
+
+-   `name` **[string][124]** the name of the ability to check.
+
+Returns **[boolean][126]** 
+
+### enhance
+
+[src/abilities/Abilities.js:36-41][127]
+
+Enhance a ability
+
+#### Parameters
+
+-   `name` **[string][124]** the name ability to enhance
+-   `points` **[number][128]** the points to enhance, must be positive
+
+Returns **[Abilities][129]** this
+
+### decrease
+
+[src/abilities/Abilities.js:48-52][130]
+
+decrease a ability
+
+#### Parameters
+
+-   `name` **[string][124]** the name of ability to decrease
+-   `points` **[number][128]** the points to decrease, must be positive
+
+Returns **[Abilities][129]** this
+
+### addBonus
+
+[src/abilities/Abilities.js:58-62][131]
+
+add bonus to all abilities in collection
+
+#### Parameters
+
+-   `bonus` **[Object][132]** the same as [Ability#addBonus][133]
+
+Returns **[Abilities][129]** this
+
+### removeBonus
+
+[src/abilities/Abilities.js:68-72][134]
+
+Remove bonus to all abilities in collection
+
+#### Parameters
+
+-   `bonusName` **[string][124]** name of bonus to remove
+
+Returns **[Abilities][129]** this
+
+### addBonusOf
+
+[src/abilities/Abilities.js:79-82][135]
+
+add bonus to a abilities in collection
+
+#### Parameters
+
+-   `name` **[string][124]** the name of a ability to add bonus
+-   `bonus` **[Object][132]** the same as [Ability#addBonus][133]
+
+Returns **[Abilities][129]** this
+
+### removeBonusOf
+
+[src/abilities/Abilities.js:89-92][136]
+
+Remove bonus to a abilities in collection
+
+#### Parameters
+
+-   `name` **[string][124]** the name of a ability to remove bonus
+-   `bonusName` **[string][124]** the name of the bonus to remove
+
+Returns **[Abilities][129]** this
 
 ## Ability
 
-[src/abilities/Ability.js:13-219][102]
+[src/abilities/Ability.js:13-219][137]
 
 Class representing a ability
 
 ### Parameters
 
--   `name` **[string][103]** The name of the ability
--   `dependency` **[string][103]** The name of characteristic on wich it depends
--   `rate` **[number][104]** The rate of rise with every point
--   `points` **[number][104]** The points of ability is used with [Ability#rate][105] to get the [Ability#base][106] value
--   `bonuses` **[Array][107]&lt;Bonus>** A array of bonus, to be added with [Ability#base][106] to get [Ability#value][108]
-    -   `bonuses[].reason` **[string][103]** String with the reason of the bonus
-    -   `bonuses[].value` **[number][104]** the bonus value.
+-   `name` **[string][124]** The name of the ability
+-   `dependency` **[string][124]** The name of characteristic on wich it depends
+-   `rate` **[number][128]** The rate of rise with every point
+-   `points` **[number][128]** The points of ability is used with [Ability#rate][138] to get the [Ability#base][139] value
+-   `bonuses` **[Array][121]&lt;Bonus>** A array of bonus, to be added with [Ability#base][139] to get [Ability#value][140]
+    -   `bonuses[].reason` **[string][124]** String with the reason of the bonus
+    -   `bonuses[].value` **[number][128]** the bonus value.
     -   `bonuses[].baseBonus` **bolean** the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
 ### name
 
-[src/abilities/Ability.js:59-61][109]
+[src/abilities/Ability.js:59-61][141]
 
 the name of Ability
 
-Type: [string][103]
+Type: [string][124]
 
 ### value
 
-[src/abilities/Ability.js:71-74][110]
+[src/abilities/Ability.js:71-74][142]
 
 the value of the ability, calculed by the bomusses added to baae.
 
-Type: [number][104]
+Type: [number][128]
 
 ### base
 
-[src/abilities/Ability.js:84-87][111]
+[src/abilities/Ability.js:84-87][143]
 
 The baae is the points multiplied by rate
 
-Type: [number][104]
+Type: [number][128]
 
 ### bonus
 
-[src/abilities/Ability.js:97-100][112]
+[src/abilities/Ability.js:97-100][144]
 
 The total of bonusses values
 
-Type: [number][104]
+Type: [number][128]
 
 ### rate
 
-[src/abilities/Ability.js:110-112][113]
+[src/abilities/Ability.js:110-112][145]
 
 The rate of enhance, this is multiplied by points
 
-Type: [number][104]
+Type: [number][128]
 
 ### points
 
-[src/abilities/Ability.js:122-124][114]
+[src/abilities/Ability.js:122-124][146]
 
 The points of the ability, this is multiplied by rate to obtain the base
 
-Type: [number][104]
+Type: [number][128]
 
 ### bonuses
 
-[src/abilities/Ability.js:134-136][115]
+[src/abilities/Ability.js:134-136][147]
 
 Bonuses aplied to the Ability
 
-Type: [Array][107]
+Type: [Array][121]
 
 #### Parameters
 
@@ -183,179 +311,179 @@ Type: [Array][107]
 
 ### dependency
 
-[src/abilities/Ability.js:146-148][116]
+[src/abilities/Ability.js:146-148][148]
 
 the name of the characteristic dependency of the ability
 
-Type: [number][104]
+Type: [number][128]
 
 ### enhance
 
-[src/abilities/Ability.js:158-164][117]
+[src/abilities/Ability.js:158-164][149]
 
 enhance a ability
 
 #### Parameters
 
--   `value` **[number][104]** A number of points to add. (optional, default `required('value')`)
+-   `value` **[number][128]** A number of points to add. (optional, default `required('value')`)
 
-Returns **[Ability][118]** new Ability with enhance
+Returns **[Ability][122]** new Ability with enhance
 
 ### decrease
 
-[src/abilities/Ability.js:170-177][119]
+[src/abilities/Ability.js:170-177][150]
 
 decrease a ability
 
 #### Parameters
 
--   `value` **[number][104]** A number of points to remove from a ability. (optional, default `required('value')`)
+-   `value` **[number][128]** A number of points to remove from a ability. (optional, default `required('value')`)
 
-Returns **[Ability][118]** new Ability decreased
+Returns **[Ability][122]** new Ability decreased
 
 ### addBonus
 
-[src/abilities/Ability.js:186-195][120]
+[src/abilities/Ability.js:186-195][151]
 
 add a bonus
 
 #### Parameters
 
--   `bonus` **[Object][121]**  (optional, default `required('bonus')`)
-    -   `bonus.reason` **[string][103]** The reason of the bonus or the name of the bonus
-    -   `bonus.value` **[number][104]** The value of the bonus.
+-   `bonus` **[Object][132]**  (optional, default `required('bonus')`)
+    -   `bonus.reason` **[string][124]** The reason of the bonus or the name of the bonus
+    -   `bonus.value` **[number][128]** The value of the bonus.
     -   `bonus[].baseBonus` **bolean** the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
-Returns **[Ability][118]** Ability with the new bonus
+Returns **[Ability][122]** Ability with the new bonus
 
 ### removeBonus
 
-[src/abilities/Ability.js:201-207][122]
+[src/abilities/Ability.js:201-207][152]
 
 Remove all bonus of one reazon
 
 #### Parameters
 
--   `reason` **[string][103]** String to search the bonus to remove, all bonus with the same reason is removed
+-   `reason` **[string][124]** String to search the bonus to remove, all bonus with the same reason is removed
     returns { Ability } The Ability without the bonus removed. (optional, default `required('reason')`)
 
 ### equal
 
-[src/abilities/Ability.js:213-218][123]
+[src/abilities/Ability.js:213-218][153]
 
 Check the equality of habilities, must be the same name, value, dependency and rate
 
 #### Parameters
 
--   `toTest` **[Ability][118]** The ability to test equality (optional, default `require('toTest')`)
+-   `toTest` **[Ability][122]** The ability to test equality (optional, default `require('toTest')`)
 
 Returns **bolean** 
 
 ### fromOptions
 
-[src/abilities/Ability.js:50-53][124]
+[src/abilities/Ability.js:50-53][154]
 
-Return a [Ability][1] from options object.
+Return a [Ability][19] from options object.
 
 #### Parameters
 
--   `options` **[Object][121]** options object (optional, default `required('options')`)
-    -   `options.name` **[string][103]** The name of the ability
-    -   `options.dependency` **[string][103]** The name of characteristic on wich it depends
-    -   `options.rate` **[number][104]** The rate of rise with every point
-    -   `options.points` **[number][104]** The points of ability is used with [Ability#rate][105] to get the [Ability#base][106] value
-    -   `options.bonuses` **[Array][107]&lt;Bonus>** A array of bonus, to be added with [Ability#base][106] to get [Ability#value][108]
-    -   `options.bonuses` **[string][103]** \[].reason - String with the reason of the bonus
-    -   `options.bonuses` **[number][104]** \[].value - the bonus value.
+-   `options` **[Object][132]** options object (optional, default `required('options')`)
+    -   `options.name` **[string][124]** The name of the ability
+    -   `options.dependency` **[string][124]** The name of characteristic on wich it depends
+    -   `options.rate` **[number][128]** The rate of rise with every point
+    -   `options.points` **[number][128]** The points of ability is used with [Ability#rate][138] to get the [Ability#base][139] value
+    -   `options.bonuses` **[Array][121]&lt;Bonus>** A array of bonus, to be added with [Ability#base][139] to get [Ability#value][140]
+    -   `options.bonuses` **[string][124]** \[].reason - String with the reason of the bonus
+    -   `options.bonuses` **[number][128]** \[].value - the bonus value.
     -   `options.bonuses` **bolean** \[].baseBonus - the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
 ## CharacterCreator
 
-[src/character/CharacterCreator.js:19-505][125]
+[src/character/CharacterCreator.js:19-505][155]
 
 class represents a creator of a character with a rules.of anima
 
 ### \_namesLists
 
-[src/character/CharacterCreator.js:22-27][126]
+[src/character/CharacterCreator.js:22-27][156]
 
 storage of names
 
 ### applyRules
 
-[src/character/CharacterCreator.js:61-63][127]
+[src/character/CharacterCreator.js:61-63][157]
 
 ñapplies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][103]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][124]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][121]** the modified value of operation
+Returns **[Object][132]** the modified value of operation
 
 ### disableRule
 
-[src/character/CharacterCreator.js:69-72][128]
+[src/character/CharacterCreator.js:69-72][158]
 
 disable a rule
 
 #### Parameters
 
--   `rule` **[string][103]** the name of rule to diable
+-   `rule` **[string][124]** the name of rule to diable
 -   `context`  
 
-Returns **[Object][121]** this
+Returns **[Object][132]** this
 
 ### enableRule
 
-[src/character/CharacterCreator.js:78-81][129]
+[src/character/CharacterCreator.js:78-81][159]
 
 enable a rule
 
 #### Parameters
 
--   `rule` **[string][103]** rule to enable
+-   `rule` **[string][124]** rule to enable
 -   `context`  
 
-Returns **[Object][121]** this
+Returns **[Object][132]** this
 
 ### setBasicInfo
 
-[src/character/CharacterCreator.js:126-128][130]
+[src/character/CharacterCreator.js:126-128][160]
 
 Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][103]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][124]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][161]** this
 
 ### nonSetBasicInfo
 
-[src/character/CharacterCreator.js:133-135][132]
+[src/character/CharacterCreator.js:133-135][162]
 
 Return the names of basic info than are not setted
 
-Returns **[Array][107]** BasicInfoNames
+Returns **[Array][121]** BasicInfoNames
 
 ### setPoints
 
-[src/character/CharacterCreator.js:173-176][133]
+[src/character/CharacterCreator.js:173-176][163]
 
 Set the number of points than type 5 generator used, use this before use a type 5 generator
 
 #### Parameters
 
--   `points` **[number][104]** number of points for generate
+-   `points` **[number][128]** number of points for generate
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][161]** this
 
 ### remainerPoints
 
-[src/character/CharacterCreator.js:200-203][134]
+[src/character/CharacterCreator.js:200-203][164]
 
 **Meta**
 
@@ -364,183 +492,183 @@ Returns **[CharacterCreator][131]** this
 
 ### nonSetCharacteristics
 
-[src/character/CharacterCreator.js:209-211][135]
+[src/character/CharacterCreator.js:209-211][165]
 
 Returns a array of the non setted characteristics names
 
-Returns **[Array][107]** Array of strings
+Returns **[Array][121]** Array of strings
 
 ### expendPointsTo
 
-[src/character/CharacterCreator.js:296-307][136]
+[src/character/CharacterCreator.js:296-307][166]
 
 Add the amount of points to a characteristic and spend it from remainder points. Uses the rule path of "set/characteristics"
 
 #### Parameters
 
--   `characteristic` **[string][103]** The characteristic to add value
--   `amount` **[number][104]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][124]** The characteristic to add value
+-   `amount` **[number][128]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][121]** this
+Returns **[Object][132]** this
 
 ### removePointsTo
 
-[src/character/CharacterCreator.js:314-329][137]
+[src/character/CharacterCreator.js:314-329][167]
 
 Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][103]** The name of the characteristic to substract or remove
--   `amount` **[number][104]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][124]** The name of the characteristic to substract or remove
+-   `amount` **[number][128]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][121]** this
+Returns **[Object][132]** this
 
 ### remainderPoints
 
-[src/character/CharacterCreator.js:334-339][138]
+[src/character/CharacterCreator.js:334-339][168]
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][104]** remainder points
+Returns **[number][128]** remainder points
 
 ### settedPhysicalCapacities
 
-[src/character/CharacterCreator.js:345-347][139]
+[src/character/CharacterCreator.js:345-347][169]
 
 get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
 
-Returns **[Object][121]** the physicalCapacities names with value
+Returns **[Object][132]** the physicalCapacities names with value
 
 ### settedSecondaryCharacteristics
 
-[src/character/CharacterCreator.js:353-357][140]
+[src/character/CharacterCreator.js:353-357][170]
 
 get the secondaryCharacteristics than are setted already with the value. Maibe some are setted when the creator is created.
 
-Returns **[Object][121]** the secondary characteristics names with values
+Returns **[Object][132]** the secondary characteristics names with values
 
 ### resetSecondaryCharacteristic
 
-[src/character/CharacterCreator.js:373-378][141]
+[src/character/CharacterCreator.js:373-378][171]
 
 reset a secondary charactetistic (null or origibal value)
 
 #### Parameters
 
--   `name` **[string][103]** the name of sexondary characteristic to reset
+-   `name` **[string][124]** the name of sexondary characteristic to reset
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][161]** this
 
 ### minHeightSupported
 
-[src/character/CharacterCreator.js:381-387][142]
+[src/character/CharacterCreator.js:381-387][172]
 
-Returns **[number][104]** the min height supported by the size
+Returns **[number][128]** the min height supported by the size
 
 ### maxWeightSupported
 
-[src/character/CharacterCreator.js:390-394][143]
+[src/character/CharacterCreator.js:390-394][173]
 
-Returns **[number][104]** the max height supported by the size
+Returns **[number][128]** the max height supported by the size
 
 ### minWeightSupported
 
-[src/character/CharacterCreator.js:397-402][144]
+[src/character/CharacterCreator.js:397-402][174]
 
-Returns **[number][104]** the min weight supported by the size, if basic info slim is setted, the value is size -2
+Returns **[number][128]** the min weight supported by the size, if basic info slim is setted, the value is size -2
 
 ### maxHeightSupported
 
-[src/character/CharacterCreator.js:405-409][145]
+[src/character/CharacterCreator.js:405-409][175]
 
-Returns **[number][104]** max height supported by the size.
+Returns **[number][128]** max height supported by the size.
 
 ### developmentPoints
 
-[src/character/CharacterCreator.js:415-419][146]
+[src/character/CharacterCreator.js:415-419][176]
 
 the total of development points
 
-Type: [number][104]
+Type: [number][128]
 
 ### selectCategory
 
-[src/character/CharacterCreator.js:430-433][147]
+[src/character/CharacterCreator.js:430-433][177]
 
 Select the category of the character
 
 #### Parameters
 
--   `name` **[string][103]** the name of category
+-   `name` **[string][124]** the name of category
 
 ### category
 
-[src/character/CharacterCreator.js:438-441][148]
+[src/character/CharacterCreator.js:438-441][178]
 
 ñ name of the category selected
 
-Type: [string][103]
+Type: [string][124]
 
 ### enhance
 
-[src/character/CharacterCreator.js:448-460][149]
+[src/character/CharacterCreator.js:448-460][179]
 
 Enhance a ability
 
 #### Parameters
 
--   `name` **[string][103]** the name of the ability
--   `value` **[number][104]** the value to enhance
+-   `name` **[string][124]** the name of the ability
+-   `value` **[number][128]** the value to enhance
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][161]** this
 
 ### decrease
 
-[src/character/CharacterCreator.js:467-480][150]
+[src/character/CharacterCreator.js:467-480][180]
 
 decrease a ability
 
 #### Parameters
 
--   `name` **[string][103]** the name of ability
--   `value` **[number][104]** the value to decrease
+-   `name` **[string][124]** the name of ability
+-   `value` **[number][128]** the value to decrease
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][161]** this
 
 ## src/developmentPoints/developmentPointsTable
 
-[src/developmentPoints/developmentPointsTable.js:4-8][151]
+[src/developmentPoints/developmentPointsTable.js:4-8][181]
 
 A table with the pd based on level
 
 ### add
 
-[src/rulesHandler/RulesHandler.js:35-48][152]
+[src/rulesHandler/RulesHandler.js:35-48][182]
 
 add a rule to a rule handler
 
 #### Parameters
 
--   `name` **[string][103]** unique the name of a rule.
--   `path` **([string][103] \| [Array][107]&lt;[string][103]>)** path or paths to fire the rule.
--   `rule` **[function][153]** the function handler rule, reibes a context, a emiter, and a path
--   `options` **[Object][121]** modifiers to rule (optional, default `{}`)
-    -   `options.enabled` **[boolean][154]** default is true, when is false the rule not be used. (optional, default `true`)
-    -   `options.hidden` **[boolean][154]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
-    -   `options.enable` **[function][153]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
+-   `name` **[string][124]** unique the name of a rule.
+-   `path` **([string][124] \| [Array][121]&lt;[string][124]>)** path or paths to fire the rule.
+-   `rule` **[function][183]** the function handler rule, reibes a context, a emiter, and a path
+-   `options` **[Object][132]** modifiers to rule (optional, default `{}`)
+    -   `options.enabled` **[boolean][126]** default is true, when is false the rule not be used. (optional, default `true`)
+    -   `options.hidden` **[boolean][126]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
+    -   `options.enable` **[function][183]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
     -   `options.disable` **functios** function called when a object is disabled (optional, default `()=>{}`)
-    -   `options.childs` **[Array][107]&lt;[string][103]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
+    -   `options.childs` **[Array][121]&lt;[string][124]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
 
 ### enable
 
-[src/rulesHandler/RulesHandler.js:54-64][155]
+[src/rulesHandler/RulesHandler.js:54-64][184]
 
 Enable a rule if the rule have childs all childs are enabled
 
 #### Parameters
 
--   `name` **[string][103]** The name of the rule
+-   `name` **[string][124]** The name of the rule
 -   `context`  
 -   `emiter`  
 
@@ -548,13 +676,13 @@ Returns **RulesHandler** this
 
 ### disable
 
-[src/rulesHandler/RulesHandler.js:70-80][156]
+[src/rulesHandler/RulesHandler.js:70-80][185]
 
 Disable a rule if the rule have childs all childs are disabled
 
 #### Parameters
 
--   `name` **[string][103]** The name of the rule
+-   `name` **[string][124]** The name of the rule
 -   `context`  
 -   `emiter`  
 
@@ -562,70 +690,70 @@ Returns **RulesHandler** this
 
 ### apply
 
-[src/rulesHandler/RulesHandler.js:88-101][157]
+[src/rulesHandler/RulesHandler.js:88-101][186]
 
 Applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][103]** is a path to find the rules any string is vald but by convention is a path like string
+-   `path` **[string][124]** is a path to find the rules any string is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 -   `source` **any** is the object to wich the rule will be applied
 
-Returns **[Object][121]** the modified context of operation
+Returns **[Object][132]** the modified context of operation
 
 ### list
 
-[src/rulesHandler/RulesHandler.js:111-113][158]
+[src/rulesHandler/RulesHandler.js:111-113][187]
 
 List of all tules exept the hidden rules
 type {string\[]}
 
 ### get
 
-[src/developmentPoints/developmentPointsTable.js:16-19][159]
+[src/developmentPoints/developmentPointsTable.js:16-19][188]
 
 Get the development points based on levels
 
 #### Parameters
 
--   `level` **[number][104]** A positive number
+-   `level` **[number][128]** A positive number
 
-Returns **[number][104]** Value of development points
+Returns **[number][128]** Value of development points
 
 ## src/developmentPoints/developmentPointsTable
 
-[src/rulesHandler/RulesHandler.js:2-118][160]
+[src/rulesHandler/RulesHandler.js:2-118][189]
 
 Represents a rules handler
 
 ### add
 
-[src/rulesHandler/RulesHandler.js:35-48][152]
+[src/rulesHandler/RulesHandler.js:35-48][182]
 
 add a rule to a rule handler
 
 #### Parameters
 
--   `name` **[string][103]** unique the name of a rule.
--   `path` **([string][103] \| [Array][107]&lt;[string][103]>)** path or paths to fire the rule.
--   `rule` **[function][153]** the function handler rule, reibes a context, a emiter, and a path
--   `options` **[Object][121]** modifiers to rule (optional, default `{}`)
-    -   `options.enabled` **[boolean][154]** default is true, when is false the rule not be used. (optional, default `true`)
-    -   `options.hidden` **[boolean][154]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
-    -   `options.enable` **[function][153]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
+-   `name` **[string][124]** unique the name of a rule.
+-   `path` **([string][124] \| [Array][121]&lt;[string][124]>)** path or paths to fire the rule.
+-   `rule` **[function][183]** the function handler rule, reibes a context, a emiter, and a path
+-   `options` **[Object][132]** modifiers to rule (optional, default `{}`)
+    -   `options.enabled` **[boolean][126]** default is true, when is false the rule not be used. (optional, default `true`)
+    -   `options.hidden` **[boolean][126]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
+    -   `options.enable` **[function][183]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
     -   `options.disable` **functios** function called when a object is disabled (optional, default `()=>{}`)
-    -   `options.childs` **[Array][107]&lt;[string][103]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
+    -   `options.childs` **[Array][121]&lt;[string][124]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
 
 ### enable
 
-[src/rulesHandler/RulesHandler.js:54-64][155]
+[src/rulesHandler/RulesHandler.js:54-64][184]
 
 Enable a rule if the rule have childs all childs are enabled
 
 #### Parameters
 
--   `name` **[string][103]** The name of the rule
+-   `name` **[string][124]** The name of the rule
 -   `context`  
 -   `emiter`  
 
@@ -633,13 +761,13 @@ Returns **RulesHandler** this
 
 ### disable
 
-[src/rulesHandler/RulesHandler.js:70-80][156]
+[src/rulesHandler/RulesHandler.js:70-80][185]
 
 Disable a rule if the rule have childs all childs are disabled
 
 #### Parameters
 
--   `name` **[string][103]** The name of the rule
+-   `name` **[string][124]** The name of the rule
 -   `context`  
 -   `emiter`  
 
@@ -647,59 +775,59 @@ Returns **RulesHandler** this
 
 ### apply
 
-[src/rulesHandler/RulesHandler.js:88-101][157]
+[src/rulesHandler/RulesHandler.js:88-101][186]
 
 Applies all rules of one path to a value
 
 #### Parameters
 
--   `path` **[string][103]** is a path to find the rules any string is vald but by convention is a path like string
+-   `path` **[string][124]** is a path to find the rules any string is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 -   `source` **any** is the object to wich the rule will be applied
 
-Returns **[Object][121]** the modified context of operation
+Returns **[Object][132]** the modified context of operation
 
 ### list
 
-[src/rulesHandler/RulesHandler.js:111-113][158]
+[src/rulesHandler/RulesHandler.js:111-113][187]
 
 List of all tules exept the hidden rules
 type {string\[]}
 
 ### get
 
-[src/developmentPoints/developmentPointsTable.js:16-19][159]
+[src/developmentPoints/developmentPointsTable.js:16-19][188]
 
 Get the development points based on levels
 
 #### Parameters
 
--   `level` **[number][104]** A positive number
+-   `level` **[number][128]** A positive number
 
-Returns **[number][104]** Value of development points
+Returns **[number][128]** Value of development points
 
 ## NamedValue
 
-[src/NamedValue/NamedValue.js:5-29][161]
+[src/NamedValue/NamedValue.js:5-29][190]
 
 Class than represent a name asociated to a value
 
 ### Parameters
 
--   `name` **[string][103]** the name for asociated a value
+-   `name` **[string][124]** the name for asociated a value
 -   `value` **any** any value to asociate
 
 ### name
 
-[src/NamedValue/NamedValue.js:15-15][162]
+[src/NamedValue/NamedValue.js:15-15][191]
 
 the name of the named value
 
-Type: [string][103]
+Type: [string][124]
 
 ### value
 
-[src/NamedValue/NamedValue.js:20-20][163]
+[src/NamedValue/NamedValue.js:20-20][192]
 
 the value of the named value
 
@@ -707,422 +835,480 @@ Type: any
 
 ## NamedValueColection
 
-[src/NamedValue/NamedValueColection.js:7-40][164]
+[src/NamedValue/NamedValueColection.js:7-40][193]
 
-Represents a colection of [NamedValue][84] objects
+Represents a colection of [NamedValue][102] objects
 
 ### Parameters
 
--   `names` **[Array][107]&lt;[string][103]>** A array of names of each [NamedValue][84]
--   `values` **[Array][107]&lt;any>** A array of any values to use in each [NamedValue][84]
+-   `names` **[Array][121]&lt;[string][124]>** A array of names of each [NamedValue][102]
+-   `values` **[Array][121]&lt;any>** A array of any values to use in each [NamedValue][102]
 -   `InamedValue`   (optional, default `NamedValue`)
 
 ### has
 
-[src/NamedValue/NamedValueColection.js:19-21][165]
+[src/NamedValue/NamedValueColection.js:19-21][194]
 
 inform the existence of a name in the collection
 
 #### Parameters
 
--   `name` **[string][103]** the name to search
+-   `name` **[string][124]** the name to search
 
-Returns **[boolean][154]** true if the name is in the collection
+Returns **[boolean][126]** true if the name is in the collection
 
 ### get
 
-[src/NamedValue/NamedValueColection.js:27-30][166]
+[src/NamedValue/NamedValueColection.js:27-30][195]
 
-get a [NamedValue][84] in the collection
+get a [NamedValue][102] in the collection
 
 #### Parameters
 
--   `name` **[string][103]** the name of the [NamedValue][84] in the collection
+-   `name` **[string][124]** the name of the [NamedValue][102] in the collection
 
-Returns **([NamedValue][167] | null)** if the name is not in collection return null
+Returns **([NamedValue][196] | null)** if the name is not in collection return null
 
 ### valueOf
 
-[src/NamedValue/NamedValueColection.js:36-39][168]
+[src/NamedValue/NamedValueColection.js:36-39][197]
 
 value asociated by a name
 
 #### Parameters
 
--   `name` **[string][103]** the name in the collection to get the value
+-   `name` **[string][124]** the name in the collection to get the value
 
-Returns **([NamedValue][167] | null)** if name is not in collection return null
+Returns **([NamedValue][196] | null)** if name is not in collection return null
 
 ## Shop
 
-[src/shop/Shop.js:4-96][169]
+[src/shop/Shop.js:4-96][198]
 
 Represent a shop
 
 ### Parameters
 
--   `productsList` **[Object][121]** contains product: price of all products of the shop
+-   `productsList` **[Object][132]** contains product: price of all products of the shop
 
 ### spend
 
-[src/shop/Shop.js:16-22][170]
+[src/shop/Shop.js:16-22][199]
 
 #### Parameters
 
--   `name` **[string][103]** the name of product must be in a product list
--   `quantity` **[number][104]** number of products to buy
+-   `name` **[string][124]** the name of product must be in a product list
+-   `quantity` **[number][128]** number of products to buy
 
-Returns **[number][104]** the total cost of operation
+Returns **[number][128]** the total cost of operation
 
 ### refound
 
-[src/shop/Shop.js:28-38][171]
+[src/shop/Shop.js:28-38][200]
 
 #### Parameters
 
--   `name` **[string][103]** the name of product in the product list
--   `quantity` **[number][104]** the number of products to refound
+-   `name` **[string][124]** the name of product in the product list
+-   `quantity` **[number][128]** the number of products to refound
 
-Returns **[number][104]** the total amount to refund.
+Returns **[number][128]** the total amount to refund.
 
-[1]: #ability
+[1]: #abilities
 
 [2]: #parameters
 
-[3]: #name
+[3]: #get
 
-[4]: #value
+[4]: #parameters-1
 
-[5]: #base
+[5]: #has
 
-[6]: #bonus
+[6]: #parameters-2
 
-[7]: #rate
+[7]: #enhance
 
-[8]: #points
+[8]: #parameters-3
 
-[9]: #bonuses
+[9]: #decrease
 
-[10]: #parameters-1
+[10]: #parameters-4
 
-[11]: #dependency
+[11]: #addbonus
 
-[12]: #enhance
+[12]: #parameters-5
 
-[13]: #parameters-2
+[13]: #removebonus
 
-[14]: #decrease
+[14]: #parameters-6
 
-[15]: #parameters-3
+[15]: #addbonusof
 
-[16]: #addbonus
+[16]: #parameters-7
 
-[17]: #parameters-4
+[17]: #removebonusof
 
-[18]: #removebonus
+[18]: #parameters-8
 
-[19]: #parameters-5
+[19]: #ability
 
-[20]: #equal
+[20]: #parameters-9
 
-[21]: #parameters-6
+[21]: #name
 
-[22]: #fromoptions
+[22]: #value
 
-[23]: #parameters-7
+[23]: #base
 
-[24]: #charactercreator
+[24]: #bonus
 
-[25]: #_nameslists
+[25]: #rate
 
-[26]: #applyrules
+[26]: #points
 
-[27]: #parameters-8
+[27]: #bonuses
 
-[28]: #disablerule
+[28]: #parameters-10
 
-[29]: #parameters-9
+[29]: #dependency
 
-[30]: #enablerule
+[30]: #enhance-1
 
-[31]: #parameters-10
+[31]: #parameters-11
 
-[32]: #setbasicinfo
+[32]: #decrease-1
 
-[33]: #parameters-11
+[33]: #parameters-12
 
-[34]: #nonsetbasicinfo
+[34]: #addbonus-1
 
-[35]: #setpoints
+[35]: #parameters-13
 
-[36]: #parameters-12
+[36]: #removebonus-1
 
-[37]: #remainerpoints
+[37]: #parameters-14
 
-[38]: #nonsetcharacteristics
+[38]: #equal
 
-[39]: #expendpointsto
+[39]: #parameters-15
 
-[40]: #parameters-13
+[40]: #fromoptions
 
-[41]: #removepointsto
+[41]: #parameters-16
 
-[42]: #parameters-14
+[42]: #charactercreator
 
-[43]: #remainderpoints
+[43]: #_nameslists
 
-[44]: #settedphysicalcapacities
+[44]: #applyrules
 
-[45]: #settedsecondarycharacteristics
+[45]: #parameters-17
 
-[46]: #resetsecondarycharacteristic
+[46]: #disablerule
 
-[47]: #parameters-15
+[47]: #parameters-18
 
-[48]: #minheightsupported
+[48]: #enablerule
 
-[49]: #maxweightsupported
+[49]: #parameters-19
 
-[50]: #minweightsupported
+[50]: #setbasicinfo
 
-[51]: #maxheightsupported
+[51]: #parameters-20
 
-[52]: #developmentpoints
+[52]: #nonsetbasicinfo
 
-[53]: #selectcategory
+[53]: #setpoints
 
-[54]: #parameters-16
+[54]: #parameters-21
 
-[55]: #category
+[55]: #remainerpoints
 
-[56]: #enhance-1
+[56]: #nonsetcharacteristics
 
-[57]: #parameters-17
+[57]: #expendpointsto
 
-[58]: #decrease-1
+[58]: #parameters-22
 
-[59]: #parameters-18
+[59]: #removepointsto
 
-[60]: #srcdevelopmentpointsdevelopmentpointstable
+[60]: #parameters-23
 
-[61]: #add
+[61]: #remainderpoints
 
-[62]: #parameters-19
+[62]: #settedphysicalcapacities
 
-[63]: #enable
+[63]: #settedsecondarycharacteristics
 
-[64]: #parameters-20
+[64]: #resetsecondarycharacteristic
 
-[65]: #disable
+[65]: #parameters-24
 
-[66]: #parameters-21
+[66]: #minheightsupported
 
-[67]: #apply
+[67]: #maxweightsupported
 
-[68]: #parameters-22
+[68]: #minweightsupported
 
-[69]: #list
+[69]: #maxheightsupported
 
-[70]: #get
+[70]: #developmentpoints
 
-[71]: #parameters-23
+[71]: #selectcategory
 
-[72]: #srcdevelopmentpointsdevelopmentpointstable-1
+[72]: #parameters-25
 
-[73]: #add-1
+[73]: #category
 
-[74]: #parameters-24
+[74]: #enhance-2
 
-[75]: #enable-1
+[75]: #parameters-26
 
-[76]: #parameters-25
+[76]: #decrease-2
 
-[77]: #disable-1
+[77]: #parameters-27
 
-[78]: #parameters-26
+[78]: #srcdevelopmentpointsdevelopmentpointstable
 
-[79]: #apply-1
+[79]: #add
 
-[80]: #parameters-27
+[80]: #parameters-28
 
-[81]: #list-1
+[81]: #enable
 
-[82]: #get-1
+[82]: #parameters-29
 
-[83]: #parameters-28
+[83]: #disable
 
-[84]: #namedvalue
+[84]: #parameters-30
 
-[85]: #parameters-29
+[85]: #apply
 
-[86]: #name-1
+[86]: #parameters-31
 
-[87]: #value-1
+[87]: #list
 
-[88]: #namedvaluecolection
+[88]: #get-1
 
-[89]: #parameters-30
+[89]: #parameters-32
 
-[90]: #has
+[90]: #srcdevelopmentpointsdevelopmentpointstable-1
 
-[91]: #parameters-31
+[91]: #add-1
 
-[92]: #get-2
+[92]: #parameters-33
 
-[93]: #parameters-32
+[93]: #enable-1
 
-[94]: #valueof
+[94]: #parameters-34
 
-[95]: #parameters-33
+[95]: #disable-1
 
-[96]: #shop
+[96]: #parameters-35
 
-[97]: #parameters-34
+[97]: #apply-1
 
-[98]: #spend
+[98]: #parameters-36
 
-[99]: #parameters-35
+[99]: #list-1
 
-[100]: #refound
+[100]: #get-2
 
-[101]: #parameters-36
+[101]: #parameters-37
 
-[102]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L13-L219 "Source code on GitHub"
+[102]: #namedvalue
 
-[103]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[103]: #parameters-38
 
-[104]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[104]: #name-1
 
-[105]: #abilityrate
+[105]: #value-1
 
-[106]: #abilitybase
+[106]: #namedvaluecolection
 
-[107]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[107]: #parameters-39
 
-[108]: #abilityvalue
+[108]: #has-1
 
-[109]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L59-L61 "Source code on GitHub"
+[109]: #parameters-40
 
-[110]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L71-L74 "Source code on GitHub"
+[110]: #get-3
 
-[111]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L84-L87 "Source code on GitHub"
+[111]: #parameters-41
 
-[112]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L97-L100 "Source code on GitHub"
+[112]: #valueof
 
-[113]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L110-L112 "Source code on GitHub"
+[113]: #parameters-42
 
-[114]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L122-L124 "Source code on GitHub"
+[114]: #shop
 
-[115]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L134-L136 "Source code on GitHub"
+[115]: #parameters-43
 
-[116]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L146-L148 "Source code on GitHub"
+[116]: #spend
 
-[117]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L158-L164 "Source code on GitHub"
+[117]: #parameters-44
 
-[118]: #ability
+[118]: #refound
 
-[119]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L170-L177 "Source code on GitHub"
+[119]: #parameters-45
 
-[120]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L186-L195 "Source code on GitHub"
+[120]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L4-L93 "Source code on GitHub"
 
-[121]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[121]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[122]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L201-L207 "Source code on GitHub"
+[122]: #ability
 
-[123]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L213-L218 "Source code on GitHub"
+[123]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L17-L21 "Source code on GitHub"
 
-[124]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/abilities/Ability.js#L50-L53 "Source code on GitHub"
+[124]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[125]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L19-L505 "Source code on GitHub"
+[125]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L27-L29 "Source code on GitHub"
 
-[126]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L22-L27 "Source code on GitHub"
+[126]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[127]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L61-L63 "Source code on GitHub"
+[127]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L36-L41 "Source code on GitHub"
 
-[128]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L69-L72 "Source code on GitHub"
+[128]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[129]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L78-L81 "Source code on GitHub"
+[129]: #abilities
 
-[130]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L126-L128 "Source code on GitHub"
+[130]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L48-L52 "Source code on GitHub"
 
-[131]: #charactercreator
+[131]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L58-L62 "Source code on GitHub"
 
-[132]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L133-L135 "Source code on GitHub"
+[132]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[133]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L173-L176 "Source code on GitHub"
+[133]: #abilityaddbonus
 
-[134]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L200-L203 "Source code on GitHub"
+[134]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L68-L72 "Source code on GitHub"
 
-[135]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L209-L211 "Source code on GitHub"
+[135]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L79-L82 "Source code on GitHub"
 
-[136]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L296-L307 "Source code on GitHub"
+[136]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L89-L92 "Source code on GitHub"
 
-[137]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L314-L329 "Source code on GitHub"
+[137]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L13-L219 "Source code on GitHub"
 
-[138]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L334-L339 "Source code on GitHub"
+[138]: #abilityrate
 
-[139]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L345-L347 "Source code on GitHub"
+[139]: #abilitybase
 
-[140]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L353-L357 "Source code on GitHub"
+[140]: #abilityvalue
 
-[141]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L373-L378 "Source code on GitHub"
+[141]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L59-L61 "Source code on GitHub"
 
-[142]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L381-L387 "Source code on GitHub"
+[142]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L71-L74 "Source code on GitHub"
 
-[143]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L390-L394 "Source code on GitHub"
+[143]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L84-L87 "Source code on GitHub"
 
-[144]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L397-L402 "Source code on GitHub"
+[144]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L97-L100 "Source code on GitHub"
 
-[145]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L405-L409 "Source code on GitHub"
+[145]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L110-L112 "Source code on GitHub"
 
-[146]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L415-L419 "Source code on GitHub"
+[146]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L122-L124 "Source code on GitHub"
 
-[147]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L430-L433 "Source code on GitHub"
+[147]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L134-L136 "Source code on GitHub"
 
-[148]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L438-L441 "Source code on GitHub"
+[148]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L146-L148 "Source code on GitHub"
 
-[149]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L448-L460 "Source code on GitHub"
+[149]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L158-L164 "Source code on GitHub"
 
-[150]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/character/CharacterCreator.js#L467-L480 "Source code on GitHub"
+[150]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L170-L177 "Source code on GitHub"
 
-[151]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/developmentPoints/developmentPointsTable.js#L4-L8 "Source code on GitHub"
+[151]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L186-L195 "Source code on GitHub"
 
-[152]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/rulesHandler/RulesHandler.js#L35-L48 "Source code on GitHub"
+[152]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L201-L207 "Source code on GitHub"
 
-[153]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[153]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L213-L218 "Source code on GitHub"
 
-[154]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[154]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L50-L53 "Source code on GitHub"
 
-[155]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/rulesHandler/RulesHandler.js#L54-L64 "Source code on GitHub"
+[155]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L19-L505 "Source code on GitHub"
 
-[156]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/rulesHandler/RulesHandler.js#L70-L80 "Source code on GitHub"
+[156]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L22-L27 "Source code on GitHub"
 
-[157]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/rulesHandler/RulesHandler.js#L88-L101 "Source code on GitHub"
+[157]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L61-L63 "Source code on GitHub"
 
-[158]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/rulesHandler/RulesHandler.js#L111-L113 "Source code on GitHub"
+[158]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L69-L72 "Source code on GitHub"
 
-[159]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/developmentPoints/developmentPointsTable.js#L16-L19 "Source code on GitHub"
+[159]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L78-L81 "Source code on GitHub"
 
-[160]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/rulesHandler/RulesHandler.js#L2-L118 "Source code on GitHub"
+[160]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L126-L128 "Source code on GitHub"
 
-[161]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValue.js#L5-L29 "Source code on GitHub"
+[161]: #charactercreator
 
-[162]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValue.js#L15-L15 "Source code on GitHub"
+[162]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L133-L135 "Source code on GitHub"
 
-[163]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValue.js#L20-L20 "Source code on GitHub"
+[163]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L173-L176 "Source code on GitHub"
 
-[164]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValueColection.js#L7-L40 "Source code on GitHub"
+[164]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L200-L203 "Source code on GitHub"
 
-[165]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValueColection.js#L19-L21 "Source code on GitHub"
+[165]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L209-L211 "Source code on GitHub"
 
-[166]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValueColection.js#L27-L30 "Source code on GitHub"
+[166]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L296-L307 "Source code on GitHub"
 
-[167]: #namedvalue
+[167]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L314-L329 "Source code on GitHub"
 
-[168]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/NamedValue/NamedValueColection.js#L36-L39 "Source code on GitHub"
+[168]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L334-L339 "Source code on GitHub"
 
-[169]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/shop/Shop.js#L4-L96 "Source code on GitHub"
+[169]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L345-L347 "Source code on GitHub"
 
-[170]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/shop/Shop.js#L16-L22 "Source code on GitHub"
+[170]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L353-L357 "Source code on GitHub"
 
-[171]: https://github.com/pparrish/anima-yeii-core/blob/a00b8edd26a3f215565a9614a42b65959830a33d/src/shop/Shop.js#L28-L38 "Source code on GitHub"
+[171]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L373-L378 "Source code on GitHub"
+
+[172]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L381-L387 "Source code on GitHub"
+
+[173]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L390-L394 "Source code on GitHub"
+
+[174]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L397-L402 "Source code on GitHub"
+
+[175]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L405-L409 "Source code on GitHub"
+
+[176]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L415-L419 "Source code on GitHub"
+
+[177]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L430-L433 "Source code on GitHub"
+
+[178]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L438-L441 "Source code on GitHub"
+
+[179]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L448-L460 "Source code on GitHub"
+
+[180]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L467-L480 "Source code on GitHub"
+
+[181]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/developmentPoints/developmentPointsTable.js#L4-L8 "Source code on GitHub"
+
+[182]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L35-L48 "Source code on GitHub"
+
+[183]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[184]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L54-L64 "Source code on GitHub"
+
+[185]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L70-L80 "Source code on GitHub"
+
+[186]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L88-L101 "Source code on GitHub"
+
+[187]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L111-L113 "Source code on GitHub"
+
+[188]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/developmentPoints/developmentPointsTable.js#L16-L19 "Source code on GitHub"
+
+[189]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L2-L118 "Source code on GitHub"
+
+[190]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValue.js#L5-L29 "Source code on GitHub"
+
+[191]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValue.js#L15-L15 "Source code on GitHub"
+
+[192]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValue.js#L20-L20 "Source code on GitHub"
+
+[193]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L7-L40 "Source code on GitHub"
+
+[194]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L19-L21 "Source code on GitHub"
+
+[195]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L27-L30 "Source code on GitHub"
+
+[196]: #namedvalue
+
+[197]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L36-L39 "Source code on GitHub"
+
+[198]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/shop/Shop.js#L4-L96 "Source code on GitHub"
+
+[199]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/shop/Shop.js#L16-L22 "Source code on GitHub"
+
+[200]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/shop/Shop.js#L28-L38 "Source code on GitHub"
