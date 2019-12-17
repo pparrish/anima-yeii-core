@@ -17,6 +17,18 @@ const throwErrorWhenExceeds = (toExceed, message) => (value) => {
 }
 const limitValueToTen = (message) => throwErrorWhenExceeds(10, message)
 
+const checkHeightOrWeight = (value, creator, path) => {
+  const { size } = creator.settedSecondaryCharacteristics()
+  if (!size) throw new Error('size is not defined, first set strength and physique')
+  const { slim } = creator.settedBasicInfo()
+  const targetName = pathEnd(path)
+  const target = sizeTable[targetName]
+  if (!target) throw new Error('only height and weight admited')
+  if (!target.from.check(size, value, slim)) throw new Error(`${targetName} ${value} must be greatest or equal than ${creator.minHeightSupported()}`)
+  if (!target.to.check(size, value)) throw new Error(`${targetName} ${value} must be less or equal than ${creator.maxHeightSupported()}`)
+  return value
+}
+
 /* TODO change the context to get the name of characteristic */
 const theMaximunValueOfCharacteristicIsTen = (characteristic) => limitValueToTen('the maximun value of the characteristics is ten')(characteristic)
 
@@ -54,17 +66,7 @@ module.exports = () => {
 
     .add('size limitations',
       ['basicInfo/set/height', 'basicInfo/set/weight'],
-      (value, creator, path) => {
-        const { size } = creator.settedSecondaryCharacteristics()
-        if (!size) throw new Error('size is not defined, first set strength and physique')
-        const { slim } = creator.settedBasicInfo()
-        const targetName = pathEnd(path)
-        const target = sizeTable[targetName]
-        if (!target) throw new Error('only height and weight admited')
-        if (!target.from.check(size, value, slim)) throw new Error(`${targetName} ${value} must be greatest or equal than ${creator.minHeightSupported()}`)
-        if (!target.to.check(size, value)) throw new Error(`${targetName} ${value} must be less or equal than ${creator.maxHeightSupported()}`)
-        return value
-      })
+      checkHeightOrWeight)
 
   /* base -30 rule */
     .add('base -30',
