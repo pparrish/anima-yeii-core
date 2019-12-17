@@ -56,12 +56,12 @@ describe('Select points by points', () => {
         } catch {}
         expect(creator.remainderPoints()).toBe(5)
       })
-      test(' expend 11 points to dexterity Then i get a error', () => {
-        expect(() => creator.expendPointsTo('dexterity', 11)).toThrow('The limit of characteristics is 10')
+      test('expend 11 points to dexterity Then i get a error', () => {
+        expect(() => creator.expendPointsTo('dexterity', 11)).toThrow('the maximun value of the characteristics is ten')
       })
 
-      test('disable rule of "10 limit" And add 11 to dexterity then i have 11 to dexterity', () => {
-        creator.disableRule('10 limit').expendPointsTo('dexterity', 11)
+      test('disable rule of "the maximun value of the characteristics is ten" And add 11 to dexterity then i have 11 to dexterity', () => {
+        creator.disableRule('the maximun value of the characteristics is ten').expendPointsTo('dexterity', 11)
         const { dexterity } = creator.settedCharacteristics()
         expect(dexterity).toBe(11)
       })

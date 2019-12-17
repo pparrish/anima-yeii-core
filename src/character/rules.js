@@ -13,6 +13,15 @@ const addOneWhenReachTeen = addWhenItReachesTheValue(1, 10)
 const theTenCostTwoPoints = (spended) => spended.map(addOneWhenReachTeen)
 const pathEnd = path => path.split('/').pop()
 
+const throwErrorWhenExceeds = (toExceed, message) => (value) => {
+  if (value > toExceed) throw new Error(message)
+  return value
+}
+const limitValueToTen = (message) => throwErrorWhenExceeds(10, message)
+
+/* TODO change the context to get the name of characteristic */
+const theMaximunValueOfCharacteristicIsTen = (characteristic) => limitValueToTen('the maximun value of the characteristics is ten')(characteristic)
+
 module.exports = () => {
   const rules = new RulesHandler()
 
@@ -22,14 +31,9 @@ module.exports = () => {
     theTenCostTwoPoints)
 
   /* Characteristics limits */
-    .add('10 limit',
+    .add('the maximun value of the characteristics is ten',
       'characteristics/set',
-      (characteristic) => {
-        if (characteristic > 10) {
-          throw new Error('The limit of characteristics is 10')
-        }
-        return characteristic
-      })
+      theMaximunValueOfCharacteristicIsTen)
 
     .add('appearance 10 limit',
       'secondaryCharacteristics/set/appearance',
