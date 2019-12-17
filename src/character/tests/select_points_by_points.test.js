@@ -32,8 +32,8 @@ describe('Select points by points', () => {
         creator.expendPointsTo('dexterity', 10)
         expect(creator.remainderPoints()).toBe(49)
       })
-      test('When i disable the "10 cost 2" Then i have 50 points remaind to expend', () => {
-        creator.disableRule('10 cost 2')
+      test('When i disable the "the ten cost two points" Then i have 50 points remaind to expend', () => {
+        creator.disableRule('the ten cost two points')
         creator.expendPointsTo('dexterity', 10)
         expect(creator.remainderPoints()).toBe(50)
       })

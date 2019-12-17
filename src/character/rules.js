@@ -6,19 +6,20 @@ const developmentPointsTable = require('../developmentPoints/developmentPointsTa
 const categories = require('../categories')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 
-const addIfGreaterThanNine = number => number > 9 ? number + 1 : number
+const addWhenItReachesTheValue = (toAdd, toReach) => (value) => value >= toReach ? value + toAdd : value
+
+const addOneWhenReachTeen = addWhenItReachesTheValue(1, 10)
+
+const theTenCostTwoPoints = (spended) => spended.map(addOneWhenReachTeen)
 const pathEnd = path => path.split('/').pop()
 
 module.exports = () => {
   const rules = new RulesHandler()
 
   /* Characteristics */
-  rules.add('10 cost 2',
+  rules.add('the ten cost two points',
     'points/spends',
-    (spended) => {
-      spended = spended.map(addIfGreaterThanNine)
-      return spended
-    })
+    theTenCostTwoPoints)
 
   /* Characteristics limits */
     .add('10 limit',
