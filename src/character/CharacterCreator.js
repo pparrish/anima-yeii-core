@@ -7,6 +7,8 @@ const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabil
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
+const D10 = require('../dices/d10')
+const d10 = new D10()
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -32,7 +34,11 @@ class CharacterCreator {
       physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
+
+    this._appearance = d10.roll()
+
     this.developmentPointsShop = new Shop({})
+
     this._points = {
       generators: pointsGenerators,
       generatedResults: {},

@@ -1,7 +1,5 @@
 const RulesHandler = require('../rulesHandler/RulesHandler')
 
-const D10 = require('../dices/d10')
-const d10 = new D10()
 const developmentPointsTable = require('../developmentPoints/developmentPointsTable')
 const categories = require('../categories')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
@@ -46,12 +44,6 @@ module.exports = () => {
       'secondaryCharacteristics/set/appearance',
       forbitOperation('appearance cannot be set')
     )
-
-    .add('appearance is random',
-      'creator/init',
-      (creator) => {
-        creator._appearance = d10.roll()
-      })
 
     .add('the maximun value of appearance is ten',
       'secondaryCharacteristics/set/appearance',
