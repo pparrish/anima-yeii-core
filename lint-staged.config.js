@@ -4,20 +4,18 @@ module.exports = {
     return [
       'yarn test',
       `yarn standard --fix ${filenames.join(' ')}`,
-      `git add ${filenames.join(' ')}`
+      `git add ${filenames.join(' ')}`,
+      'yarn documentation build src/** -f md -o documentation.md --github',
+      'git add documentation.md'
     ]
   },
   '!(*test|*steps).js': filenames => {
     const lintDoc = []
-    const buildDoc = []
-    const addDoc = []
 
     filenames.map(file => {
       if (file.endsWith('.config.js')) return
       lintDoc.push(`documentation lint ${file}`)
-      buildDoc.push(`documentation build -f md ${file} -o ${file.replace('.js', '.doc.md')} --shallow`)
-      buildDoc.push(`git add ${file.replace('.js', '.doc.md')}`)
     })
-    return [...lintDoc, ...buildDoc, ...addDoc]
+    return lintDoc
   }
 }
