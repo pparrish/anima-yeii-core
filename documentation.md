@@ -1151,41 +1151,41 @@ Returns **[number][128]** the total amount to refund.
 
 [119]: #parameters-45
 
-[120]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L4-L93 "Source code on GitHub"
+[120]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L4-L93 "Source code on GitHub"
 
 [121]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
 [122]: #ability
 
-[123]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L17-L21 "Source code on GitHub"
+[123]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L17-L21 "Source code on GitHub"
 
 [124]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[125]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L27-L29 "Source code on GitHub"
+[125]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L27-L29 "Source code on GitHub"
 
 [126]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[127]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L36-L41 "Source code on GitHub"
+[127]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L36-L41 "Source code on GitHub"
 
 [128]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
 [129]: #abilities
 
-[130]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L48-L52 "Source code on GitHub"
+[130]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L48-L52 "Source code on GitHub"
 
-[131]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L58-L62 "Source code on GitHub"
+[131]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L58-L62 "Source code on GitHub"
 
 [132]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
 [133]: #abilityaddbonus
 
-[134]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L68-L72 "Source code on GitHub"
+[134]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L68-L72 "Source code on GitHub"
 
-[135]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L79-L82 "Source code on GitHub"
+[135]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L79-L82 "Source code on GitHub"
 
-[136]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Abilities.js#L89-L92 "Source code on GitHub"
+[136]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Abilities.js#L89-L92 "Source code on GitHub"
 
-[137]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L13-L219 "Source code on GitHub"
+[137]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L13-L219 "Source code on GitHub"
 
 [138]: #abilityrate
 
@@ -1193,122 +1193,122 @@ Returns **[number][128]** the total amount to refund.
 
 [140]: #abilityvalue
 
-[141]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L59-L61 "Source code on GitHub"
+[141]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L59-L61 "Source code on GitHub"
 
-[142]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L71-L74 "Source code on GitHub"
+[142]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L71-L74 "Source code on GitHub"
 
-[143]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L84-L87 "Source code on GitHub"
+[143]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L84-L87 "Source code on GitHub"
 
-[144]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L97-L100 "Source code on GitHub"
+[144]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L97-L100 "Source code on GitHub"
 
-[145]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L110-L112 "Source code on GitHub"
+[145]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L110-L112 "Source code on GitHub"
 
-[146]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L122-L124 "Source code on GitHub"
+[146]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L122-L124 "Source code on GitHub"
 
-[147]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L134-L136 "Source code on GitHub"
+[147]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L134-L136 "Source code on GitHub"
 
-[148]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L146-L148 "Source code on GitHub"
+[148]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L146-L148 "Source code on GitHub"
 
-[149]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L158-L164 "Source code on GitHub"
+[149]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L158-L164 "Source code on GitHub"
 
-[150]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L170-L177 "Source code on GitHub"
+[150]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L170-L177 "Source code on GitHub"
 
-[151]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L186-L195 "Source code on GitHub"
+[151]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L186-L195 "Source code on GitHub"
 
-[152]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L201-L207 "Source code on GitHub"
+[152]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L201-L207 "Source code on GitHub"
 
-[153]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L213-L218 "Source code on GitHub"
+[153]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L213-L218 "Source code on GitHub"
 
-[154]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/abilities/Ability.js#L50-L53 "Source code on GitHub"
+[154]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/abilities/Ability.js#L50-L53 "Source code on GitHub"
 
-[155]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L19-L505 "Source code on GitHub"
+[155]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L19-L505 "Source code on GitHub"
 
-[156]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L22-L27 "Source code on GitHub"
+[156]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L22-L27 "Source code on GitHub"
 
-[157]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L61-L63 "Source code on GitHub"
+[157]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L61-L63 "Source code on GitHub"
 
-[158]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L69-L72 "Source code on GitHub"
+[158]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L69-L72 "Source code on GitHub"
 
-[159]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L78-L81 "Source code on GitHub"
+[159]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L78-L81 "Source code on GitHub"
 
-[160]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L126-L128 "Source code on GitHub"
+[160]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L126-L128 "Source code on GitHub"
 
 [161]: #charactercreator
 
-[162]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L133-L135 "Source code on GitHub"
+[162]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L133-L135 "Source code on GitHub"
 
-[163]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L173-L176 "Source code on GitHub"
+[163]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L173-L176 "Source code on GitHub"
 
-[164]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L200-L203 "Source code on GitHub"
+[164]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L200-L203 "Source code on GitHub"
 
-[165]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L209-L211 "Source code on GitHub"
+[165]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L209-L211 "Source code on GitHub"
 
-[166]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L296-L307 "Source code on GitHub"
+[166]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L296-L307 "Source code on GitHub"
 
-[167]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L314-L329 "Source code on GitHub"
+[167]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L314-L329 "Source code on GitHub"
 
-[168]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L334-L339 "Source code on GitHub"
+[168]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L334-L339 "Source code on GitHub"
 
-[169]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L345-L347 "Source code on GitHub"
+[169]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L345-L347 "Source code on GitHub"
 
-[170]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L353-L357 "Source code on GitHub"
+[170]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L353-L357 "Source code on GitHub"
 
-[171]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L373-L378 "Source code on GitHub"
+[171]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L373-L378 "Source code on GitHub"
 
-[172]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L381-L387 "Source code on GitHub"
+[172]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L381-L387 "Source code on GitHub"
 
-[173]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L390-L394 "Source code on GitHub"
+[173]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L390-L394 "Source code on GitHub"
 
-[174]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L397-L402 "Source code on GitHub"
+[174]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L397-L402 "Source code on GitHub"
 
-[175]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L405-L409 "Source code on GitHub"
+[175]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L405-L409 "Source code on GitHub"
 
-[176]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L415-L419 "Source code on GitHub"
+[176]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L415-L419 "Source code on GitHub"
 
-[177]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L430-L433 "Source code on GitHub"
+[177]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L430-L433 "Source code on GitHub"
 
-[178]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L438-L441 "Source code on GitHub"
+[178]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L438-L441 "Source code on GitHub"
 
-[179]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L448-L460 "Source code on GitHub"
+[179]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L448-L460 "Source code on GitHub"
 
-[180]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/character/CharacterCreator.js#L467-L480 "Source code on GitHub"
+[180]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/character/CharacterCreator.js#L467-L480 "Source code on GitHub"
 
-[181]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/developmentPoints/developmentPointsTable.js#L4-L8 "Source code on GitHub"
+[181]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/developmentPoints/developmentPointsTable.js#L4-L8 "Source code on GitHub"
 
-[182]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L35-L48 "Source code on GitHub"
+[182]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/rulesHandler/RulesHandler.js#L35-L48 "Source code on GitHub"
 
 [183]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[184]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L54-L64 "Source code on GitHub"
+[184]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/rulesHandler/RulesHandler.js#L54-L64 "Source code on GitHub"
 
-[185]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L70-L80 "Source code on GitHub"
+[185]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/rulesHandler/RulesHandler.js#L70-L80 "Source code on GitHub"
 
-[186]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L88-L101 "Source code on GitHub"
+[186]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/rulesHandler/RulesHandler.js#L88-L101 "Source code on GitHub"
 
-[187]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L111-L113 "Source code on GitHub"
+[187]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/rulesHandler/RulesHandler.js#L111-L113 "Source code on GitHub"
 
-[188]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/developmentPoints/developmentPointsTable.js#L16-L19 "Source code on GitHub"
+[188]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/developmentPoints/developmentPointsTable.js#L16-L19 "Source code on GitHub"
 
-[189]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/rulesHandler/RulesHandler.js#L2-L118 "Source code on GitHub"
+[189]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/rulesHandler/RulesHandler.js#L2-L118 "Source code on GitHub"
 
-[190]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValue.js#L5-L29 "Source code on GitHub"
+[190]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValue.js#L5-L29 "Source code on GitHub"
 
-[191]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValue.js#L15-L15 "Source code on GitHub"
+[191]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValue.js#L15-L15 "Source code on GitHub"
 
-[192]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValue.js#L20-L20 "Source code on GitHub"
+[192]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValue.js#L20-L20 "Source code on GitHub"
 
-[193]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L7-L40 "Source code on GitHub"
+[193]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValueColection.js#L7-L40 "Source code on GitHub"
 
-[194]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L19-L21 "Source code on GitHub"
+[194]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValueColection.js#L19-L21 "Source code on GitHub"
 
-[195]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L27-L30 "Source code on GitHub"
+[195]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValueColection.js#L27-L30 "Source code on GitHub"
 
 [196]: #namedvalue
 
-[197]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/NamedValue/NamedValueColection.js#L36-L39 "Source code on GitHub"
+[197]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/NamedValue/NamedValueColection.js#L36-L39 "Source code on GitHub"
 
-[198]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/shop/Shop.js#L4-L96 "Source code on GitHub"
+[198]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/shop/Shop.js#L4-L96 "Source code on GitHub"
 
-[199]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/shop/Shop.js#L16-L22 "Source code on GitHub"
+[199]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/shop/Shop.js#L16-L22 "Source code on GitHub"
 
-[200]: https://github.com/pparrish/anima-yeii-core/blob/e6b2817c63cc1dd428f740ef17cdfa9daf0ed931/src/shop/Shop.js#L28-L38 "Source code on GitHub"
+[200]: https://github.com/pparrish/anima-yeii-core/blob/6e5086297120382832659f83d5672fbe5cee7316/src/shop/Shop.js#L28-L38 "Source code on GitHub"
