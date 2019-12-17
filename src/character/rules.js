@@ -108,6 +108,7 @@ module.exports = () => {
       ({ name, value }, creator) => {
         if (creator.combatAbilities.has(name)) { creator.combatAbilities.removeBonusOf(name, 'base -30') }
         if (creator.supernaturalAbilities.has(name)) { creator.supernaturalAbilities.removeBonusOf(name, 'base -30') }
+        if (creator.psychicAbilities.has(name)) { creator.psychicAbilities.removeBonusOf(name, 'base -30') }
         return { name, value }
       })
 
@@ -124,6 +125,13 @@ module.exports = () => {
           }
           if (creator.supernaturalAbilities.has(name)) {
             creator.supernaturalAbilities.addBonusOf(name, {
+              reason: 'base -30',
+              value: -30,
+              baseBonus: true
+            })
+          }
+          if (creator.psychicAbilities.has(name)) {
+            creator.psychicAbilities.addBonusOf(name, {
               reason: 'base -30',
               value: -30,
               baseBonus: true
@@ -204,6 +212,17 @@ module.exports = () => {
         return { name, value }
       })
 
+    .add('psychic abilities limits',
+      'pd/spend/psychicAbilities',
+      ({ name, value }, creator) => {
+        const limit = creator.developmentPoints * (creator._category.limits.psychicAbilities / 100)
+        let spended = creator.developmentPointsShop.catalog[name] * value
+        spended += creator.developmentPointsSpendedIn('psychic projection')
+        if (spended > limit) throw new Error('the limit of psychic abilities is ' + limit)
+
+        return { name, value }
+      })
+
     .add('magic projection limit',
       'pd/spend/supernaturalAbilities',
       ({ name, value }, creator) => {
@@ -215,6 +234,17 @@ module.exports = () => {
         return { name, value }
       })
 
+    .add('magic projection limit',
+      'pd/spend/psychicAbilities',
+      ({ name, value }, creator) => {
+        const limit = (creator.developmentPoints * (creator._category.limits.psychicAbilities / 100)) / 2
+        let spended = creator.developmentPointsShop.catalog[name] * value
+        spended += creator.developmentPointsSpendedIn('psychic projection')
+        if (spended > limit) throw new Error('the pd limit to spend in psychic projection is ' + limit)
+
+        return { name, value }
+      })
+
     .add('select category',
       'category/set',
       (name, creator) => {
@@ -222,6 +252,7 @@ module.exports = () => {
         if (!category) throw new Error('the category does not exist')
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.combatAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.supernaturalAbilities)
+        creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.psychicAbilities)
         return category
       })
     .add('offencive and deffensive diference limit',
@@ -265,11 +296,17 @@ module.exports = () => {
           value: -30,
           baseBonus: true
         })
+        creator.psychicAbilities.addBonus({
+          reason: 'base -30',
+          value: -30,
+          baseBonus: true
+        })
       },
       {
         disable (_, creator) {
           creator.combatAbilities.removeBonus('base -30')
           creator.supernaturalAbilities.removeBonus('base -30')
+          creator.psychicAbilities.removeBonus('base -30')
         },
         enable (_, creator) {
           creator.combatAbilities.addBonus({
@@ -278,6 +315,11 @@ module.exports = () => {
             baseBonus: true
           })
           creator.supernaturalAbilities.addBonus({
+            reason: 'base -30',
+            value: -30,
+            baseBonus: true
+          })
+          creator.psychicAbilities.addBonus({
             reason: 'base -30',
             value: -30,
             baseBonus: true

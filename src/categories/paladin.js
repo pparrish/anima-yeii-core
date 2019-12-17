@@ -4,7 +4,8 @@ module.exports = {
   primaryAbilities: {
     limits: {
       combatAbilities: 60,
-      supernaturalAbilities: 50
+      supernaturalAbilities: 50,
+      psychicAbilities: 50
     },
     combatAbilities: {
       attack: 2,
@@ -20,6 +21,9 @@ module.exports = {
       domain: 3,
       tie: 3,
       unsummon: 1
+    },
+    psychicAbilities: {
+      'psychic projection': 3
     }
 
   }
