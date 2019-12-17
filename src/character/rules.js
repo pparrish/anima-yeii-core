@@ -24,6 +24,10 @@ const theMaximunValueOfCharacteristicIsTen = (characteristic) => limitValueToTen
 
 const theMaximunValueOfAppearanceIsTen = (appearanceValue) => limitValueToTen('the maximun value of appearance is ten')(appearanceValue)
 
+const forbitOperation = (message) => () => {
+  throw new Error(message)
+}
+
 module.exports = () => {
   const rules = new RulesHandler()
 
@@ -38,11 +42,10 @@ module.exports = () => {
       theMaximunValueOfCharacteristicIsTen)
 
   /* Appearance */
-    .add('appearance blocked',
+    .add('appearance cannot be set',
       'secondaryCharacteristics/set/appearance',
-      () => {
-        throw new Error('appearance is random only')
-      })
+      forbitOperation('appearance cannot be set')
+    )
 
     .add('appearance is random',
       'creator/init',
