@@ -37,29 +37,6 @@ module.exports = () => {
       'characteristics/set',
       theMaximunValueOfCharacteristicIsTen)
 
-  /* Characteristics links */
-    .add('physique is fatigue',
-      'characteristics/set/physique',
-      (physique, aCreator) => {
-        aCreator._set('fatigue', physique, 'physicalCapacities')
-        return physique
-      })
-
-    .add('agility is movement type',
-      'characteristics/set/agility',
-      (agility, aCreator) => {
-        aCreator._set('movement type', agility, 'physicalCapacities')
-        return agility
-      })
-
-    .add('Size is strength added to physique',
-      ['characteristics/setted/strength', 'characteristics/setted/physique'],
-      (_, creator) => {
-        const { strength, physique } = creator.settedCharacteristics()
-        if (!strength || !physique) return
-        creator._set('size', strength + physique, 'secondaryCharacteristics')
-      })
-
   /* Appearance */
     .add('appearance blocked',
       'secondaryCharacteristics/set/appearance',

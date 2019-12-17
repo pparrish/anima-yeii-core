@@ -86,13 +86,40 @@ class CharacterCreator {
     return list.map(x => x)
   }
 
+  /* TODO _setWithoutRules must be _set and _set must be _setWithRules */
+  _setWithoutRules (name, value, type) {
+    const index = this._getNames(type).indexOf(name)
+    if (index === -1) throw new Error(`the ${name} name is not in ${type}`)
+    this._valuesLists[type][index] = value
+  }
+
+  /* TODO _set must return this */
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
     let newValue = this.applyRules(`${type}/set`, value)
     newValue = this.applyRules(`${type}/set/${name}`, value)
-    this._valuesLists[type][index] = newValue
-    this.applyRules(`${type}/setted/${name}`)
+    this._setWithoutRules(name, newValue, type)
+    /* Manage the secondaryCharacteristics links, rules only modify a value not set values for thad reason the lisks not are a rules
+     * TODO this feature must be manage by a link manager in the future
+     */
+    if (type === 'characteristics') {
+      // replace physique is fatigue
+      if (name === 'physique') {
+        this._setWithoutRules('fatigue', newValue, 'physicalCapacities')
+      }
+      if (name === 'agility') {
+        this._setWithoutRules('movement type', newValue, 'physicalCapacities')
+      }
+
+      if (name === 'strength' || name === 'physique') {
+        const { strength, physique } = this.settedCharacteristics()
+        if (strength && physique) {
+          this._setWithoutRules('size', strength + physique, 'secondaryCharacteristics')
+        }
+      }
+    }
+
     return true
   }
 
