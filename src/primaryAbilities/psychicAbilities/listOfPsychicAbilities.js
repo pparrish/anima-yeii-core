@@ -1,15 +1,11 @@
-module.exports = [
-  {
-    name: 'cv',
-    type: 'int'
-  },
+const createList = require('../../utils/createList')
+const PsychicAbility = require('./PsychicAbility')
+const list = [
   {
     name: 'psychic proyection',
-    type: 'int',
-    dependence: 'dexterity'
-  },
-  {
-    name: 'psychic proyection table',
-    type: 'table'
+    dependency: 'dexterity',
+    CREATOR: PsychicAbility
   }
 ]
+
+module.exports = createList(list)

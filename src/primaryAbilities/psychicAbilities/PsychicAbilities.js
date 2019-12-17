@@ -1,8 +1,8 @@
-const NamedValueColection = require('../../NamedValue/NamedValueColection')
-const PsychicAbility = require('./PsychicAbility')
+const Abilities = require('../../abilities/Abilities')
+const listOfSupernaturalAbilities = require('./listOfPsychicAbilities')
 
-module.exports = class PsysicAbilities extends NamedValueColection {
-  constructor (names, values) {
-    super(names, values, PsychicAbility)
+module.exports = class PsysicAbilities extends Abilities {
+  constructor () {
+    super(listOfSupernaturalAbilities)
   }
 }
