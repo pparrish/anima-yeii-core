@@ -2,7 +2,7 @@ const createList = require('../../utils/createList')
 const PsychicAbility = require('./PsychicAbility')
 const list = [
   {
-    name: 'psychic proyection',
+    name: 'psychic projection',
     dependency: 'dexterity',
     CREATOR: PsychicAbility
   }
