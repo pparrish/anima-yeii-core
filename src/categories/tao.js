@@ -2,7 +2,8 @@ module.exports = {
   name: 'tao',
   limits: {
     combatAbilities: 60,
-    supernaturalAbilities: 50
+    supernaturalAbilities: 50,
+    psychicAbilities: 50
   },
   primaryAbilities: {
     combatAbilities: {
@@ -19,6 +20,9 @@ module.exports = {
       domain: 3,
       tie: 3,
       unsummon: 3
+    },
+    psychicAbilities: {
+      'psychic projection': 3
     }
 
   }
