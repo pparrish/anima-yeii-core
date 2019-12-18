@@ -164,7 +164,6 @@ module.exports = () => {
         return { name, value }
       })
 
-
   /* abilities */
     .add('ability minimun 5',
       'pd/spend',
@@ -325,8 +324,6 @@ module.exports = () => {
         return { name, value }
       })
 
-  return rules
-}
     .add('psychic abilities limits',
       'pd/spend/psychicAbilities',
       ({ name, value }, creator) => {
