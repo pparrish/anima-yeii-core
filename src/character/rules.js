@@ -35,10 +35,34 @@ const BASE_BONUS = {
   baseBonus: true
 }
 
-const addBaseBonus = creator => {
+const addBaseBonusToAll = creator => {
   creator.combatAbilities.addBonus(BASE_BONUS)
   creator.supernaturalAbilities.addBonus(BASE_BONUS)
   creator.psychicAbilities.addBonus(BASE_BONUS)
+}
+
+const removeBaseBonusToAll = creator => {
+  creator.combatAbilities.removeBonus('base -30')
+  creator.supernaturalAbilities.removeBonus('base -30')
+  creator.psychicAbilities.removeBonus('base -30')
+}
+
+const addBaseBonusTo = (name, creator) => {
+  if (creator.combatAbilities.has(name)) {
+    creator.combatAbilities.addBonusOf(name, BASE_BONUS)
+  }
+  if (creator.supernaturalAbilities.has(name)) {
+    creator.supernaturalAbilities.addBonusOf(name, BASE_BONUS)
+  }
+  if (creator.psychicAbilities.has(name)) {
+    creator.psychicAbilities.addBonusOf(name, BASE_BONUS)
+  }
+}
+
+const removeBaseBonusTo = (name, creator) => {
+  if (creator.combatAbilities.has(name)) { creator.combatAbilities.removeBonusOf(name, BASE_BONUS.reason) }
+  if (creator.supernaturalAbilities.has(name)) { creator.supernaturalAbilities.removeBonusOf(name, BASE_BONUS.reason) }
+  if (creator.psychicAbilities.has(name)) { creator.psychicAbilities.removeBonusOf(name, BASE_BONUS.reason) }
 }
 
 /* TODO change the context to get the name of characteristic */
@@ -83,55 +107,18 @@ module.exports = () => {
   /* base -30 rule */
     .add('base -30',
       'creator/init',
-      (_, creator) => {
-        creator.combatAbilities.addBonus({
-          reason: 'base -30',
-          value: -30,
-          baseBonus: true
-        })
-        creator.supernaturalAbilities.addBonus({
-          reason: 'base -30',
-          value: -30,
-          baseBonus: true
-        })
-        creator.psychicAbilities.addBonus({
-          reason: 'base -30',
-          value: -30,
-          baseBonus: true
-        })
-      },
+      (_, creator) => addBaseBonusToAll(creator),
       {
-        disable (_, creator) {
-          creator.combatAbilities.removeBonus('base -30')
-          creator.supernaturalAbilities.removeBonus('base -30')
-          creator.psychicAbilities.removeBonus('base -30')
-        },
-        enable (_, creator) {
-          creator.combatAbilities.addBonus({
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
-          creator.supernaturalAbilities.addBonus({
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
-          creator.psychicAbilities.addBonus({
-            reason: 'base -30',
-            value: -30,
-            baseBonus: true
-          })
-        },
+        disable: (_, creator) => removeBaseBonusToAll(creator),
+        /* TODO when enabled only add bonus to abilities with not enhanced */
+        enable: (_, creator) => addBaseBonusToAll(creator),
         childs: ['refound all points add -30 bonus', 'spenden in a ability remove -30 bonus']
       })
 
     .add('spenden in a ability remove -30 bonus',
       'pd/spend',
       ({ name, value }, creator) => {
-        if (creator.combatAbilities.has(name)) { creator.combatAbilities.removeBonusOf(name, 'base -30') }
-        if (creator.supernaturalAbilities.has(name)) { creator.supernaturalAbilities.removeBonusOf(name, 'base -30') }
-        if (creator.psychicAbilities.has(name)) { creator.psychicAbilities.removeBonusOf(name, 'base -30') }
+        removeBaseBonusTo(name, creator)
         return { name, value }
       })
 
@@ -139,27 +126,7 @@ module.exports = () => {
       'pd/refound',
       ({ name, value }, creator) => {
         if (creator.developmentPointsShop.buyList[name] && creator.developmentPointsShop.buyList[name] - value === 0) {
-          if (creator.combatAbilities.has(name)) {
-            creator.combatAbilities.addBonusOf(name, {
-              reason: 'base -30',
-              value: -30,
-              baseBonus: true
-            })
-          }
-          if (creator.supernaturalAbilities.has(name)) {
-            creator.supernaturalAbilities.addBonusOf(name, {
-              reason: 'base -30',
-              value: -30,
-              baseBonus: true
-            })
-          }
-          if (creator.psychicAbilities.has(name)) {
-            creator.psychicAbilities.addBonusOf(name, {
-              reason: 'base -30',
-              value: -30,
-              baseBonus: true
-            })
-          }
+          addBaseBonusTo(name, creator)
         }
         return { name, value }
       })
