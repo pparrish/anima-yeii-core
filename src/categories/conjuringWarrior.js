@@ -2,7 +2,8 @@ module.exports = {
   name: 'conjuring warrior',
   limits: {
     combatAbilities: 50,
-    supernaturalAbilities: 50
+    supernaturalAbilities: 50,
+    psychicAbilities: 50
   },
   primaryAbilities: {
     combatAbilities: {
@@ -19,6 +20,9 @@ module.exports = {
       domain: 1,
       tie: 1,
       unsummon: 1
+    },
+    psychicAbilities: {
+      'psychic projection': 3
     }
 
   }

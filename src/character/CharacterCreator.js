@@ -5,6 +5,7 @@ const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOf
 const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
+const PsychicAbilities = require('../primaryAbilities/psychicAbilities/PsychicAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 const D10 = require('../dices/d10')
@@ -50,6 +51,7 @@ class CharacterCreator {
 
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
+    this.psychicAbilities = new PsychicAbilities()
 
     this.rules = rules()
 
@@ -488,6 +490,10 @@ class CharacterCreator {
       context = this.applyRules('pd/spend/supernaturalAbilities', context)
       this.supernaturalAbilities.enhance(context.name, context.value)
     }
+    if (this.psychicAbilities.has(name)) {
+      context = this.applyRules('pd/spend/psychicAbilities', context)
+      this.psychicAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
     return this
   }
@@ -507,6 +513,10 @@ class CharacterCreator {
     if (this.supernaturalAbilities.has(name)) {
       context = this.applyRules('pd/refound/supernaturalAbilities', context)
       this.supernaturalAbilities.decrease(context.name, context.value)
+    }
+    if (this.psychicAbilities.has(name)) {
+      context = this.applyRules('pd/spend/psychicAbilities', context)
+      this.psychicAbilities.enhance(context.name, context.value)
     }
     this.developmentPointsShop.refound(context.name, context.value)
     return this

@@ -2,7 +2,8 @@ module.exports = {
   name: 'mentalist sorcerer',
   limits: {
     combatAbilities: 50,
-    supernaturalAbilities: 50
+    supernaturalAbilities: 50,
+    psychicAbilities: 50
   },
   primaryAbilities: {
     combatAbilities: {
@@ -19,6 +20,9 @@ module.exports = {
       domain: 2,
       tie: 2,
       unsummon: 2
+    },
+    psychicAbilities: {
+      'psychic projection': 2
     }
 
   }
