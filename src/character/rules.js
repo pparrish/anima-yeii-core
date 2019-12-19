@@ -157,6 +157,8 @@ module.exports = () => {
       (name, creator) => {
         const category = categories.find(cat => cat.name === name)
         if (!category) throw new Error('the category does not exist')
+        /* TODO merge all catalogs function */
+        /* TODO all merges must be part of CharacterCreator */
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.combatAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.supernaturalAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.psychicAbilities)
