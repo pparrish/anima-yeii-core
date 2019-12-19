@@ -1,12 +1,17 @@
 #Next
 * Create secondaryCharacteristics and manage in the same maner than the primary
 * Create a sistem to link the bonus of the characteristics to to the bonus of all abilities
+
 # Linked bonus sistem
+
 * The characteristics, and Named Value must be a like of duck tape of Ability **some like a Value Object  inmutability, etc...**
 * When the CharacterCreator  init All characteristics bonus must be added to all dependencies.
 * when a characteristic change all dependencies bonus must change.
 * maibe not to be dependencies, maibe is named linked, because not only the bonus is change when a characteristic change
+* But there are more complex links like the size, than uses two characteristics values in thad case the links must be diferent.
+
 # Primary and secondary abilities
+
 ## Character Creator
 * Manage primary abilities
  * ✔manage combat abilities
