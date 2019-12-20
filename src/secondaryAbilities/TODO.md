@@ -3,7 +3,8 @@
 * Add type property to SecondaryCharacteristic
 * Create the SecondaryCharacteristics Class
 * Create the SecondaryCharacteristics list
-* Add the SecondaryCharacteristics cost to Categories
+* Change secondaryCharacteristics to use the secondaryCharacteristics list
+* Add the secondaryCharacteristics cost to Categories
 * Add SecondaryCharacteristic property to CharacterCreator
 * Add expandCostOfTypeList function
   Expances all secondary characteristics with her costs ex. altletics: 2 => { acrobacy: 2, swing :2, ayletism: 2} ...
