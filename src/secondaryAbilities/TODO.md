@@ -1,7 +1,7 @@
 # Secondary Abilities
 * ✔ Create the SecondaryAbility Class
 * ✔ Add type property to SecondaryAbility
-* Create the SecondaryCharacteAbilities Class
+* ✔ Create the SecondaryCharacteAbilities Class
 * Create the SecondaryAbilities list
 * Change secondaryCharacteristics to use the secondaryCharacteristics list
 * add the pasive property to SecondaryAbility
