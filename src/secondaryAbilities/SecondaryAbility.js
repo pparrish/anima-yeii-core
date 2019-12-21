@@ -1,17 +1,16 @@
 const Ability = require('../abilities/Ability')
 const readOnly = (name) => { throw new Error(`${name} read only`) }
 /** Represents a secondary ability
-   *t@param { string } category - the category of te secondaryAbilitie
+   *@param { string } category - the category of te secondaryAbilitie
  */
 module.exports = class SecondaryAbility extends Ability {
-  constructor (name, points, dependency, bonuses, rate, category = '') {
+  constructor (name, points, dependency, rate, bonuses, category = '') {
     super(name, points, dependency, rate, bonuses)
     this._.category = category
   }
 
   /* The category of the secondary ability ex.atletics
    * @type { string }
-   * @readOnly
    */
   get category () {
     return this._.category
