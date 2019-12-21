@@ -1,9 +1,15 @@
 # Secondary Abilities
 * ✔ Create the SecondaryAbility Class
 * ✔ Add type property to SecondaryAbility
-* Create the SecondaryCharacteristics Class
-* Create the SecondaryCharacteristics list
+* Create the SecondaryCharacteAbilities Class
+* Create the SecondaryAbilities list
 * Change secondaryCharacteristics to use the secondaryCharacteristics list
+* add the pasive property to SecondaryAbility
+* add pasive to the items of listOfSecondaryAbilities
+* add Knowledge property to SecondaryAbility
+* add Knowledge to the items of listOfSecondaryAbilities
+* add specialization to secondaryAbilities
+* add specialization to the items of listOfSecondaryAbilities
 * Add the secondaryCharacteristics cost to Categories
 * Add SecondaryCharacteristic property to CharacterCreator
 * Add expandCostOfTypeList function
