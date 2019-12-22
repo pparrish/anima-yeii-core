@@ -4,7 +4,7 @@
 * ✔ Create the SecondaryCharacteAbilities Class
 * ✔ Create the SecondaryAbilities list
 * ✔ Change secondaryCharacteristics to use the secondaryCharacteristics list
-* Add the secondaryAbility cost to Categories
+* ✔ Add the secondaryAbility cost to Categories
 * Add SecondaryAbility property to CharacterCreator
 * Add expandCostOfTypeList function
   Expances all secondary Ability with her costs ex. altletics: 2 => { acrobacy: 2, swing :2, ayletism: 2} ...
