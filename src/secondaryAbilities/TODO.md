@@ -6,7 +6,7 @@
 * ✔ Change secondaryCharacteristics to use the secondaryCharacteristics list
 * ✔ Add the secondaryAbility cost to Categories
 * ✔ Add SecondaryAbilities property to CharacterCreator
-* Add expandCostOfTypeList function
+* ✔ Add expandCostOfTypeList function
   Expances all secondary Ability with her costs ex. altletics: 2 => { acrobacy: 2, swing :2, ayletism: 2} ...
 * Merge into CharacterCreator#developmentPointsShop#Catalog the secondary cAbility costs
 * Merge into CharacterCreator#developmentPointsShop#catalog Categories#reducedCost
