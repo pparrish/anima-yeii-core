@@ -2,9 +2,9 @@ const required = (name = 'is') => { throw new Error(`Param ${name} missed`) }
 const readOnly = (name) => { throw new Error(`${name} read only`) }
 /** Class representing a ability
    * @param {string} name - The name of the ability
+   * @param { number } points - The points of ability is used with {@link Ability#rate} to get the {@link Ability#base} value
    * @param { string } dependency - The name of characteristic on wich it depends
    * @param { number } rate - The rate of rise with every point
-   * @param { number } points - The points of ability is used with {@link Ability#rate} to get the {@link Ability#base} value
    * @param { Bonus[] } bonuses - A array of bonus, to be added with {@link Ability#base} to get {@link Ability#value}
    * @param { string } bonuses[].reason - String with the reason of the bonus
    * @param { number } bonuses[].value - the bonus value.
