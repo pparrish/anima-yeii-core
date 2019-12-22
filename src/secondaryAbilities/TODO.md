@@ -8,8 +8,8 @@
 * ✔ Add SecondaryAbilities property to CharacterCreator
 * ✔ Add expandCostOfTypeList function
   Expances all secondary Ability with her costs ex. altletics: 2 => { acrobacy: 2, swing :2, ayletism: 2} ...
-* Merge into CharacterCreator#developmentPointsShop#Catalog the secondary cAbility costs
-* Merge into CharacterCreator#developmentPointsShop#catalog Categories#reducedCost
+* ✔ Merge into CharacterCreator#developmentPointsShop#Catalog the secondary cAbility costs
+* ✔ Merge into CharacterCreator#developmentPointsShop#catalog Categories#reducedCost
 * Change base -30 rule to manage SecondaryAbility
 
 * add the pasive property to SecondaryAbility

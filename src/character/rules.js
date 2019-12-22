@@ -1,8 +1,8 @@
 const RulesHandler = require('../rulesHandler/RulesHandler')
-
 const developmentPointsTable = require('../developmentPoints/developmentPointsTable')
 const categories = require('../categories')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
+const expandCostOfSecondaryAbilitiesCategories = require('../categories/expandCostOfSecondaryAbilitiesCategories')
 
 const addWhenItReachesTheValue = (toAdd, toReach) => (value) => value >= toReach ? value + toAdd : value
 
@@ -162,6 +162,14 @@ module.exports = () => {
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.combatAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.supernaturalAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.psychicAbilities)
+        creator.developmentPointsShop.mergeCatalog(
+          expandCostOfSecondaryAbilitiesCategories(
+            category.secondaryAbilities.categories
+          )
+        )
+        creator.developmentPointsShop.mergeCatalog(
+          category.secondaryAbilities.reducedCost
+        )
         return category
       })
 
