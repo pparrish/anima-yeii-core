@@ -10,7 +10,7 @@
   Expances all secondary Ability with her costs ex. altletics: 2 => { acrobacy: 2, swing :2, ayletism: 2} ...
 * ✔ Merge into CharacterCreator#developmentPointsShop#Catalog the secondary cAbility costs
 * ✔ Merge into CharacterCreator#developmentPointsShop#catalog Categories#reducedCost
-* Change base -30 rule to manage SecondaryAbility
+* ✔ Change base -30 rule to manage SecondaryAbility
 
 * add the pasive property to SecondaryAbility
 * add pasive to the items of listOfSecondaryAbilities
@@ -18,4 +18,5 @@
 * add Knowledge to the items of listOfSecondaryAbilities
 * add specialization to secondaryAbilities
 * add specialization to the items of listOfSecondaryAbilities
+
 This points must be the base of the secondaryAbilities to work equal tha the primary Abilities.

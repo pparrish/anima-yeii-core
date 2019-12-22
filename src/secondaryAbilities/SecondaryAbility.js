@@ -42,6 +42,8 @@ module.exports = class SecondaryAbility extends Ability {
   }
 
   _promote (ability) {
-    return new SecondaryAbility(ability.name, ability.points, ability.dependency, ability.rate, ability.bonuses, this.category)
+    const bonuses = ability.bonuses
+    bonuses.push(ability._.baseBonus)
+    return new SecondaryAbility(ability.name, ability.points, ability.dependency, ability.rate, bonuses, this.category)
   }
 }

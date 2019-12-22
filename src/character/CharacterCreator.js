@@ -496,6 +496,10 @@ class CharacterCreator {
       context = this.applyRules('pd/spend/psychicAbilities', context)
       this.psychicAbilities.enhance(context.name, context.value)
     }
+    if (this.secondaryAbilities.has(name)) {
+      context = this.applyRules('pd/spend/secondaryAbilities', context)
+      this.secondaryAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
     return this
   }
@@ -517,8 +521,12 @@ class CharacterCreator {
       this.supernaturalAbilities.decrease(context.name, context.value)
     }
     if (this.psychicAbilities.has(name)) {
-      context = this.applyRules('pd/spend/psychicAbilities', context)
-      this.psychicAbilities.enhance(context.name, context.value)
+      context = this.applyRules('pd/refound/psychicAbilities', context)
+      this.psychicAbilities.decrease(context.name, context.value)
+    }
+    if (this.secondaryAbilities.has(name)) {
+      context = this.applyRules('pd/refound/secondaryAbilities', context)
+      this.secondaryAbilities.decrease(context.name, context.value)
     }
     this.developmentPointsShop.refound(context.name, context.value)
     return this
