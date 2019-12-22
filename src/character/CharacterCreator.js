@@ -6,6 +6,7 @@ const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const PsychicAbilities = require('../primaryAbilities/psychicAbilities/PsychicAbilities')
+const SecondaryAbilities = require('../secondaryAbilities/SecondaryAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 const D10 = require('../dices/d10')
@@ -52,6 +53,7 @@ class CharacterCreator {
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
+    this.secondaryAbilities = new SecondaryAbilities()
 
     this.rules = rules()
 
