@@ -182,6 +182,12 @@ const list = [
     CREATOR: SecondaryAbility
   },
   {
+    name: 'trapping',
+    dependency: 'dexterity',
+    category: 'subterfuge',
+    CREATOR: SecondaryAbility
+  },
+  {
     name: 'poisons',
     dependency: 'inteligence',
     category: 'subterfuge',
