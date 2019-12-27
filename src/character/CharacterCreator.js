@@ -6,8 +6,11 @@ const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const PsychicAbilities = require('../primaryAbilities/psychicAbilities/PsychicAbilities')
+const SecondaryAbilities = require('../secondaryAbilities/SecondaryAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
+const D10 = require('../dices/d10')
+const d10 = new D10()
 
 function getNames (listObject) {
   return listObject.map(x => x.name)
@@ -33,7 +36,11 @@ class CharacterCreator {
       physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
+
+    this._appearance = d10.roll()
+
     this.developmentPointsShop = new Shop({})
+
     this._points = {
       generators: pointsGenerators,
       generatedResults: {},
@@ -46,6 +53,7 @@ class CharacterCreator {
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
+    this.secondaryAbilities = new SecondaryAbilities()
 
     this.rules = rules()
 
@@ -88,13 +96,40 @@ class CharacterCreator {
     return list.map(x => x)
   }
 
+  /* TODO _setWithoutRules must be _set and _set must be _setWithRules */
+  _setWithoutRules (name, value, type) {
+    const index = this._getNames(type).indexOf(name)
+    if (index === -1) throw new Error(`the ${name} name is not in ${type}`)
+    this._valuesLists[type][index] = value
+  }
+
+  /* TODO _set must return this */
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
     let newValue = this.applyRules(`${type}/set`, value)
     newValue = this.applyRules(`${type}/set/${name}`, value)
-    this._valuesLists[type][index] = newValue
-    this.applyRules(`${type}/setted/${name}`)
+    this._setWithoutRules(name, newValue, type)
+    /* Manage the secondaryCharacteristics links, rules only modify a value not set values for thad reason the lisks not are a rules
+     * TODO this feature must be manage by a link manager in the future
+     */
+    if (type === 'characteristics') {
+      // replace physique is fatigue
+      if (name === 'physique') {
+        this._setWithoutRules('fatigue', newValue, 'physicalCapacities')
+      }
+      if (name === 'agility') {
+        this._setWithoutRules('movement type', newValue, 'physicalCapacities')
+      }
+
+      if (name === 'strength' || name === 'physique') {
+        const { strength, physique } = this.settedCharacteristics()
+        if (strength && physique) {
+          this._setWithoutRules('size', strength + physique, 'secondaryCharacteristics')
+        }
+      }
+    }
+
     return true
   }
 
@@ -461,6 +496,10 @@ class CharacterCreator {
       context = this.applyRules('pd/spend/psychicAbilities', context)
       this.psychicAbilities.enhance(context.name, context.value)
     }
+    if (this.secondaryAbilities.has(name)) {
+      context = this.applyRules('pd/spend/secondaryAbilities', context)
+      this.secondaryAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
     return this
   }
@@ -482,8 +521,12 @@ class CharacterCreator {
       this.supernaturalAbilities.decrease(context.name, context.value)
     }
     if (this.psychicAbilities.has(name)) {
-      context = this.applyRules('pd/spend/psychicAbilities', context)
-      this.psychicAbilities.enhance(context.name, context.value)
+      context = this.applyRules('pd/refound/psychicAbilities', context)
+      this.psychicAbilities.decrease(context.name, context.value)
+    }
+    if (this.secondaryAbilities.has(name)) {
+      context = this.applyRules('pd/refound/secondaryAbilities', context)
+      this.secondaryAbilities.decrease(context.name, context.value)
     }
     this.developmentPointsShop.refound(context.name, context.value)
     return this

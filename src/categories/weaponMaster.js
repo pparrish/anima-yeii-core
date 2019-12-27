@@ -24,6 +24,18 @@ module.exports = {
     psychicAbilities: {
       'psychic projection': 3
     }
-
+  },
+  secondaryAbilities: {
+    categories: {
+      atletics: '2',
+      social: '2',
+      perceptive: '2',
+      intellectual: '3',
+      vigor: '1',
+      subterfuge: '3',
+      creative: '2'
+    },
+    reducedCost: {
+    }
   }
 }

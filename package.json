@@ -7,7 +7,8 @@
     "lint": "yarn standard --globals expect",
     "fix": "yarn lint --fix",
     "test": "jest --coverage ",
-    "fixAndTest": "yarn fix && yarn test"
+    "fixAndTest": "yarn fix && yarn test",
+    "documentate": "yarn documentation build src/** -f md -o documentation.md"
   },
   "husky": {
     "hooks": {
@@ -16,6 +17,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "documentation": "^12.1.4",
     "husky": "^3.0.8",
     "jest": "^24.9.0",
     "jest-cucumber": "^2.0.11",
