@@ -79,19 +79,19 @@
         -   [Parameters][75]
     -   [decrease][76]
         -   [Parameters][77]
--   [src/developmentPoints/developmentPointsTable][78]
-    -   [add][79]
-        -   [Parameters][80]
-    -   [enable][81]
-        -   [Parameters][82]
-    -   [disable][83]
-        -   [Parameters][84]
-    -   [apply][85]
-        -   [Parameters][86]
-    -   [list][87]
-    -   [get][88]
+-   [NamedValue][78]
+    -   [Parameters][79]
+    -   [name][80]
+    -   [value][81]
+-   [NamedValueColection][82]
+    -   [Parameters][83]
+    -   [has][84]
+        -   [Parameters][85]
+    -   [get][86]
+        -   [Parameters][87]
+    -   [valueOf][88]
         -   [Parameters][89]
--   [src/developmentPoints/developmentPointsTable][90]
+-   [RulesHandler][90]
     -   [add][91]
         -   [Parameters][92]
     -   [enable][93]
@@ -101,26 +101,15 @@
     -   [apply][97]
         -   [Parameters][98]
     -   [list][99]
-    -   [get][100]
-        -   [Parameters][101]
--   [NamedValue][102]
-    -   [Parameters][103]
-    -   [name][104]
-    -   [value][105]
--   [NamedValueColection][106]
-    -   [Parameters][107]
-    -   [has][108]
-        -   [Parameters][109]
-    -   [get][110]
-        -   [Parameters][111]
-    -   [valueOf][112]
-        -   [Parameters][113]
--   [Shop][114]
-    -   [Parameters][115]
-    -   [spend][116]
-        -   [Parameters][117]
-    -   [refound][118]
-        -   [Parameters][119]
+-   [SecondaryAbilities][100]
+-   [SecondaryAbility][101]
+    -   [Parameters][102]
+-   [Shop][103]
+    -   [Parameters][104]
+    -   [spend][105]
+        -   [Parameters][106]
+    -   [refound][107]
+        -   [Parameters][108]
 
 ## Abilities
 
@@ -128,7 +117,7 @@ Represents a collection of abilities
 
 ### Parameters
 
--   `list` **[Array][120]&lt;[Ability][121]>** Abilities to store
+-   `list` **[Array][109]&lt;[Ability][110]>** Abilities to store
 
 ### get
 
@@ -136,9 +125,9 @@ Get a [Ability][19] in the collection
 
 #### Parameters
 
--   `name` **[string][122]** the name of ability
+-   `name` **[string][111]** the name of ability
 
-Returns **[Ability][121]** 
+Returns **[Ability][110]** 
 
 ### has
 
@@ -146,9 +135,9 @@ Inform the existence of a ability in the collection
 
 #### Parameters
 
--   `name` **[string][122]** the name of the ability to check.
+-   `name` **[string][111]** the name of the ability to check.
 
-Returns **[boolean][123]** 
+Returns **[boolean][112]** 
 
 ### enhance
 
@@ -156,10 +145,10 @@ Enhance a ability
 
 #### Parameters
 
--   `name` **[string][122]** the name ability to enhance
--   `points` **[number][124]** the points to enhance, must be positive
+-   `name` **[string][111]** the name ability to enhance
+-   `points` **[number][113]** the points to enhance, must be positive
 
-Returns **[Abilities][125]** this
+Returns **[Abilities][114]** this
 
 ### decrease
 
@@ -167,10 +156,10 @@ decrease a ability
 
 #### Parameters
 
--   `name` **[string][122]** the name of ability to decrease
--   `points` **[number][124]** the points to decrease, must be positive
+-   `name` **[string][111]** the name of ability to decrease
+-   `points` **[number][113]** the points to decrease, must be positive
 
-Returns **[Abilities][125]** this
+Returns **[Abilities][114]** this
 
 ### addBonus
 
@@ -178,9 +167,9 @@ add bonus to all abilities in collection
 
 #### Parameters
 
--   `bonus` **[Object][126]** the same as [Ability#addBonus][127]
+-   `bonus` **[Object][115]** the same as [Ability#addBonus][116]
 
-Returns **[Abilities][125]** this
+Returns **[Abilities][114]** this
 
 ### removeBonus
 
@@ -188,9 +177,9 @@ Remove bonus to all abilities in collection
 
 #### Parameters
 
--   `bonusName` **[string][122]** name of bonus to remove
+-   `bonusName` **[string][111]** name of bonus to remove
 
-Returns **[Abilities][125]** this
+Returns **[Abilities][114]** this
 
 ### addBonusOf
 
@@ -198,10 +187,10 @@ add bonus to a abilities in collection
 
 #### Parameters
 
--   `name` **[string][122]** the name of a ability to add bonus
--   `bonus` **[Object][126]** the same as [Ability#addBonus][127]
+-   `name` **[string][111]** the name of a ability to add bonus
+-   `bonus` **[Object][115]** the same as [Ability#addBonus][116]
 
-Returns **[Abilities][125]** this
+Returns **[Abilities][114]** this
 
 ### removeBonusOf
 
@@ -209,10 +198,10 @@ Remove bonus to a abilities in collection
 
 #### Parameters
 
--   `name` **[string][122]** the name of a ability to remove bonus
--   `bonusName` **[string][122]** the name of the bonus to remove
+-   `name` **[string][111]** the name of a ability to remove bonus
+-   `bonusName` **[string][111]** the name of the bonus to remove
 
-Returns **[Abilities][125]** this
+Returns **[Abilities][114]** this
 
 ## Ability
 
@@ -220,56 +209,56 @@ Class representing a ability
 
 ### Parameters
 
--   `name` **[string][122]** The name of the ability
--   `dependency` **[string][122]** The name of characteristic on wich it depends
--   `rate` **[number][124]** The rate of rise with every point
--   `points` **[number][124]** The points of ability is used with [Ability#rate][128] to get the [Ability#base][129] value
--   `bonuses` **[Array][120]&lt;Bonus>** A array of bonus, to be added with [Ability#base][129] to get [Ability#value][130]
-    -   `bonuses[].reason` **[string][122]** String with the reason of the bonus
-    -   `bonuses[].value` **[number][124]** the bonus value.
+-   `name` **[string][111]** The name of the ability
+-   `points` **[number][113]** The points of ability is used with [Ability#rate][117] to get the [Ability#base][118] value
+-   `dependency` **[string][111]** The name of characteristic on wich it depends
+-   `rate` **[number][113]** The rate of rise with every point
+-   `bonuses` **[Array][109]&lt;Bonus>** A array of bonus, to be added with [Ability#base][118] to get [Ability#value][119]
+    -   `bonuses[].reason` **[string][111]** String with the reason of the bonus
+    -   `bonuses[].value` **[number][113]** the bonus value.
     -   `bonuses[].baseBonus` **bolean** the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
 ### name
 
 the name of Ability
 
-Type: [string][122]
+Type: [string][111]
 
 ### value
 
 the value of the ability, calculed by the bomusses added to baae.
 
-Type: [number][124]
+Type: [number][113]
 
 ### base
 
 The baae is the points multiplied by rate
 
-Type: [number][124]
+Type: [number][113]
 
 ### bonus
 
 The total of bonusses values
 
-Type: [number][124]
+Type: [number][113]
 
 ### rate
 
 The rate of enhance, this is multiplied by points
 
-Type: [number][124]
+Type: [number][113]
 
 ### points
 
 The points of the ability, this is multiplied by rate to obtain the base
 
-Type: [number][124]
+Type: [number][113]
 
 ### bonuses
 
 Bonuses aplied to the Ability
 
-Type: [Array][120]
+Type: [Array][109]
 
 #### Parameters
 
@@ -279,7 +268,7 @@ Type: [Array][120]
 
 the name of the characteristic dependency of the ability
 
-Type: [number][124]
+Type: [number][113]
 
 ### enhance
 
@@ -287,9 +276,9 @@ enhance a ability
 
 #### Parameters
 
--   `value` **[number][124]** A number of points to add. (optional, default `required('value')`)
+-   `value` **[number][113]** A number of points to add. (optional, default `required('value')`)
 
-Returns **[Ability][121]** new Ability with enhance
+Returns **[Ability][110]** new Ability with enhance
 
 ### decrease
 
@@ -297,9 +286,9 @@ decrease a ability
 
 #### Parameters
 
--   `value` **[number][124]** A number of points to remove from a ability. (optional, default `required('value')`)
+-   `value` **[number][113]** A number of points to remove from a ability. (optional, default `required('value')`)
 
-Returns **[Ability][121]** new Ability decreased
+Returns **[Ability][110]** new Ability decreased
 
 ### addBonus
 
@@ -307,12 +296,12 @@ add a bonus
 
 #### Parameters
 
--   `bonus` **[Object][126]**  (optional, default `required('bonus')`)
-    -   `bonus.reason` **[string][122]** The reason of the bonus or the name of the bonus
-    -   `bonus.value` **[number][124]** The value of the bonus.
+-   `bonus` **[Object][115]**  (optional, default `required('bonus')`)
+    -   `bonus.reason` **[string][111]** The reason of the bonus or the name of the bonus
+    -   `bonus.value` **[number][113]** The value of the bonus.
     -   `bonus[].baseBonus` **bolean** the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
-Returns **[Ability][121]** Ability with the new bonus
+Returns **[Ability][110]** Ability with the new bonus
 
 ### removeBonus
 
@@ -320,7 +309,7 @@ Remove all bonus of one reazon
 
 #### Parameters
 
--   `reason` **[string][122]** String to search the bonus to remove, all bonus with the same reason is removed
+-   `reason` **[string][111]** String to search the bonus to remove, all bonus with the same reason is removed
     returns { Ability } The Ability without the bonus removed. (optional, default `required('reason')`)
 
 ### equal
@@ -329,7 +318,7 @@ Check the equality of habilities, must be the same name, value, dependency and r
 
 #### Parameters
 
--   `toTest` **[Ability][121]** The ability to test equality (optional, default `require('toTest')`)
+-   `toTest` **[Ability][110]** The ability to test equality (optional, default `require('toTest')`)
 
 Returns **bolean** 
 
@@ -339,14 +328,14 @@ Return a [Ability][19] from options object.
 
 #### Parameters
 
--   `options` **[Object][126]** options object (optional, default `required('options')`)
-    -   `options.name` **[string][122]** The name of the ability
-    -   `options.dependency` **[string][122]** The name of characteristic on wich it depends
-    -   `options.rate` **[number][124]** The rate of rise with every point
-    -   `options.points` **[number][124]** The points of ability is used with [Ability#rate][128] to get the [Ability#base][129] value
-    -   `options.bonuses` **[Array][120]&lt;Bonus>** A array of bonus, to be added with [Ability#base][129] to get [Ability#value][130]
-    -   `options.bonuses` **[string][122]** \[].reason - String with the reason of the bonus
-    -   `options.bonuses` **[number][124]** \[].value - the bonus value.
+-   `options` **[Object][115]** options object (optional, default `required('options')`)
+    -   `options.name` **[string][111]** The name of the ability
+    -   `options.dependency` **[string][111]** The name of characteristic on wich it depends
+    -   `options.rate` **[number][113]** The rate of rise with every point
+    -   `options.points` **[number][113]** The points of ability is used with [Ability#rate][117] to get the [Ability#base][118] value
+    -   `options.bonuses` **[Array][109]&lt;Bonus>** A array of bonus, to be added with [Ability#base][118] to get [Ability#value][119]
+    -   `options.bonuses` **[string][111]** \[].reason - String with the reason of the bonus
+    -   `options.bonuses` **[number][113]** \[].value - the bonus value.
     -   `options.bonuses` **bolean** \[].baseBonus - the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
 
 ## CharacterCreator
@@ -363,10 +352,10 @@ storage of names
 
 #### Parameters
 
--   `path` **[string][122]** is a path to find the rules any strong is vald but by convention is a path like string
+-   `path` **[string][111]** is a path to find the rules any strong is vald but by convention is a path like string
 -   `context` **any** is the value by working the rule
 
-Returns **[Object][126]** the modified value of operation
+Returns **[Object][115]** the modified value of operation
 
 ### disableRule
 
@@ -374,10 +363,10 @@ disable a rule
 
 #### Parameters
 
--   `rule` **[string][122]** the name of rule to diable
+-   `rule` **[string][111]** the name of rule to diable
 -   `context`  
 
-Returns **[Object][126]** this
+Returns **[Object][115]** this
 
 ### enableRule
 
@@ -385,10 +374,10 @@ enable a rule
 
 #### Parameters
 
--   `rule` **[string][122]** rule to enable
+-   `rule` **[string][111]** rule to enable
 -   `context`  
 
-Returns **[Object][126]** this
+Returns **[Object][115]** this
 
 ### setBasicInfo
 
@@ -396,16 +385,16 @@ Set a value of a character basic Info
 
 #### Parameters
 
--   `name` **[string][122]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
+-   `name` **[string][111]** The name of the basic info to set can use nonSetBasicInfo to get what names are supported
 -   `value` **any** The value of the basic info to set.
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][120]** this
 
 ### nonSetBasicInfo
 
 Return the names of basic info than are not setted
 
-Returns **[Array][120]** BasicInfoNames
+Returns **[Array][109]** BasicInfoNames
 
 ### setPoints
 
@@ -413,9 +402,9 @@ Set the number of points than type 5 generator used, use this before use a type 
 
 #### Parameters
 
--   `points` **[number][124]** number of points for generate
+-   `points` **[number][113]** number of points for generate
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][120]** this
 
 ### remainerPoints
 
@@ -428,7 +417,7 @@ Returns **[CharacterCreator][131]** this
 
 Returns a array of the non setted characteristics names
 
-Returns **[Array][120]** Array of strings
+Returns **[Array][109]** Array of strings
 
 ### expendPointsTo
 
@@ -436,10 +425,10 @@ Add the amount of points to a characteristic and spend it from remainder points.
 
 #### Parameters
 
--   `characteristic` **[string][122]** The characteristic to add value
--   `amount` **[number][124]** The value to be added in characteristic and expended from remainder points.
+-   `characteristic` **[string][111]** The characteristic to add value
+-   `amount` **[number][113]** The value to be added in characteristic and expended from remainder points.
 
-Returns **[Object][126]** this
+Returns **[Object][115]** this
 
 ### removePointsTo
 
@@ -447,28 +436,28 @@ Subtracts or remove the points of a characteristic
 
 #### Parameters
 
--   `characteristic` **[string][122]** The name of the characteristic to substract or remove
--   `amount` **[number][124]?** The value to substract, if not setted then remove all points to characteristic
+-   `characteristic` **[string][111]** The name of the characteristic to substract or remove
+-   `amount` **[number][113]?** The value to substract, if not setted then remove all points to characteristic
 
-Returns **[Object][126]** this
+Returns **[Object][115]** this
 
 ### remainderPoints
 
 Returns the number of points left to spend in the characteristics
 
-Returns **[number][124]** remainder points
+Returns **[number][113]** remainder points
 
 ### settedPhysicalCapacities
 
 get the setted physicalCapacities, the physicalCapacities is setted when the linked characteristic is setted
 
-Returns **[Object][126]** the physicalCapacities names with value
+Returns **[Object][115]** the physicalCapacities names with value
 
 ### settedSecondaryCharacteristics
 
 get the secondaryCharacteristics than are setted already with the value. Maibe some are setted when the creator is created.
 
-Returns **[Object][126]** the secondary characteristics names with values
+Returns **[Object][115]** the secondary characteristics names with values
 
 ### resetSecondaryCharacteristic
 
@@ -476,31 +465,31 @@ reset a secondary charactetistic (null or origibal value)
 
 #### Parameters
 
--   `name` **[string][122]** the name of sexondary characteristic to reset
+-   `name` **[string][111]** the name of sexondary characteristic to reset
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][120]** this
 
 ### minHeightSupported
 
-Returns **[number][124]** the min height supported by the size
+Returns **[number][113]** the min height supported by the size
 
 ### maxWeightSupported
 
-Returns **[number][124]** the max height supported by the size
+Returns **[number][113]** the max height supported by the size
 
 ### minWeightSupported
 
-Returns **[number][124]** the min weight supported by the size, if basic info slim is setted, the value is size -2
+Returns **[number][113]** the min weight supported by the size, if basic info slim is setted, the value is size -2
 
 ### maxHeightSupported
 
-Returns **[number][124]** max height supported by the size.
+Returns **[number][113]** max height supported by the size.
 
 ### developmentPoints
 
 the total of development points
 
-Type: [number][124]
+Type: [number][113]
 
 ### selectCategory
 
@@ -508,13 +497,13 @@ Select the category of the character
 
 #### Parameters
 
--   `name` **[string][122]** the name of category
+-   `name` **[string][111]** the name of category
 
 ### category
 
 ñ name of the category selected
 
-Type: [string][122]
+Type: [string][111]
 
 ### enhance
 
@@ -522,10 +511,10 @@ Enhance a ability
 
 #### Parameters
 
--   `name` **[string][122]** the name of the ability
--   `value` **[number][124]** the value to enhance
+-   `name` **[string][111]** the name of the ability
+-   `value` **[number][113]** the value to enhance
 
-Returns **[CharacterCreator][131]** this
+Returns **[CharacterCreator][120]** this
 
 ### decrease
 
@@ -533,152 +522,10 @@ decrease a ability
 
 #### Parameters
 
--   `name` **[string][122]** the name of ability
--   `value` **[number][124]** the value to decrease
+-   `name` **[string][111]** the name of ability
+-   `value` **[number][113]** the value to decrease
 
-Returns **[CharacterCreator][131]** this
-
-## src/developmentPoints/developmentPointsTable
-
-A table with the pd based on level
-
-### add
-
-add a rule to a rule handler
-
-#### Parameters
-
--   `name` **[string][122]** unique the name of a rule.
--   `path` **([string][122] \| [Array][120]&lt;[string][122]>)** path or paths to fire the rule.
--   `rule` **[function][132]** the function handler rule, reibes a context, a emiter, and a path
--   `options` **[Object][126]** modifiers to rule (optional, default `{}`)
-    -   `options.enabled` **[boolean][123]** default is true, when is false the rule not be used. (optional, default `true`)
-    -   `options.hidden` **[boolean][123]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
-    -   `options.enable` **[function][132]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
-    -   `options.disable` **functios** function called when a object is disabled (optional, default `()=>{}`)
-    -   `options.childs` **[Array][120]&lt;[string][122]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
-
-### enable
-
-Enable a rule if the rule have childs all childs are enabled
-
-#### Parameters
-
--   `name` **[string][122]** The name of the rule
--   `context`  
--   `emiter`  
-
-Returns **RulesHandler** this
-
-### disable
-
-Disable a rule if the rule have childs all childs are disabled
-
-#### Parameters
-
--   `name` **[string][122]** The name of the rule
--   `context`  
--   `emiter`  
-
-Returns **RulesHandler** this
-
-### apply
-
-Applies all rules of one path to a value
-
-#### Parameters
-
--   `path` **[string][122]** is a path to find the rules any string is vald but by convention is a path like string
--   `context` **any** is the value by working the rule
--   `source` **any** is the object to wich the rule will be applied
-
-Returns **[Object][126]** the modified context of operation
-
-### list
-
-List of all tules exept the hidden rules
-type {string\[]}
-
-### get
-
-Get the development points based on levels
-
-#### Parameters
-
--   `level` **[number][124]** A positive number
-
-Returns **[number][124]** Value of development points
-
-## src/developmentPoints/developmentPointsTable
-
-Represents a rules handler
-
-### add
-
-add a rule to a rule handler
-
-#### Parameters
-
--   `name` **[string][122]** unique the name of a rule.
--   `path` **([string][122] \| [Array][120]&lt;[string][122]>)** path or paths to fire the rule.
--   `rule` **[function][132]** the function handler rule, reibes a context, a emiter, and a path
--   `options` **[Object][126]** modifiers to rule (optional, default `{}`)
-    -   `options.enabled` **[boolean][123]** default is true, when is false the rule not be used. (optional, default `true`)
-    -   `options.hidden` **[boolean][123]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
-    -   `options.enable` **[function][132]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
-    -   `options.disable` **functios** function called when a object is disabled (optional, default `()=>{}`)
-    -   `options.childs` **[Array][120]&lt;[string][122]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
-
-### enable
-
-Enable a rule if the rule have childs all childs are enabled
-
-#### Parameters
-
--   `name` **[string][122]** The name of the rule
--   `context`  
--   `emiter`  
-
-Returns **RulesHandler** this
-
-### disable
-
-Disable a rule if the rule have childs all childs are disabled
-
-#### Parameters
-
--   `name` **[string][122]** The name of the rule
--   `context`  
--   `emiter`  
-
-Returns **RulesHandler** this
-
-### apply
-
-Applies all rules of one path to a value
-
-#### Parameters
-
--   `path` **[string][122]** is a path to find the rules any string is vald but by convention is a path like string
--   `context` **any** is the value by working the rule
--   `source` **any** is the object to wich the rule will be applied
-
-Returns **[Object][126]** the modified context of operation
-
-### list
-
-List of all tules exept the hidden rules
-type {string\[]}
-
-### get
-
-Get the development points based on levels
-
-#### Parameters
-
--   `level` **[number][124]** A positive number
-
-Returns **[number][124]** Value of development points
+Returns **[CharacterCreator][120]** this
 
 ## NamedValue
 
@@ -686,14 +533,14 @@ Class than represent a name asociated to a value
 
 ### Parameters
 
--   `name` **[string][122]** the name for asociated a value
+-   `name` **[string][111]** the name for asociated a value
 -   `value` **any** any value to asociate
 
 ### name
 
 the name of the named value
 
-Type: [string][122]
+Type: [string][111]
 
 ### value
 
@@ -703,12 +550,12 @@ Type: any
 
 ## NamedValueColection
 
-Represents a colection of [NamedValue][102] objects
+Represents a colection of [NamedValue][78] objects
 
 ### Parameters
 
--   `names` **[Array][120]&lt;[string][122]>** A array of names of each [NamedValue][102]
--   `values` **[Array][120]&lt;any>** A array of any values to use in each [NamedValue][102]
+-   `names` **[Array][109]&lt;[string][111]>** A array of names of each [NamedValue][78]
+-   `values` **[Array][109]&lt;any>** A array of any values to use in each [NamedValue][78]
 -   `InamedValue`   (optional, default `NamedValue`)
 
 ### has
@@ -717,19 +564,19 @@ inform the existence of a name in the collection
 
 #### Parameters
 
--   `name` **[string][122]** the name to search
+-   `name` **[string][111]** the name to search
 
-Returns **[boolean][123]** true if the name is in the collection
+Returns **[boolean][112]** true if the name is in the collection
 
 ### get
 
-get a [NamedValue][102] in the collection
+get a [NamedValue][78] in the collection
 
 #### Parameters
 
--   `name` **[string][122]** the name of the [NamedValue][102] in the collection
+-   `name` **[string][111]** the name of the [NamedValue][78] in the collection
 
-Returns **([NamedValue][133] | null)** if the name is not in collection return null
+Returns **([NamedValue][121] | null)** if the name is not in collection return null
 
 ### valueOf
 
@@ -737,9 +584,86 @@ value asociated by a name
 
 #### Parameters
 
--   `name` **[string][122]** the name in the collection to get the value
+-   `name` **[string][111]** the name in the collection to get the value
 
-Returns **([NamedValue][133] | null)** if name is not in collection return null
+Returns **([NamedValue][121] | null)** if name is not in collection return null
+
+## RulesHandler
+
+Represents a rules handler
+
+### add
+
+add a rule to a rule handler
+
+#### Parameters
+
+-   `name` **[string][111]** unique the name of a rule.
+-   `path` **([string][111] \| [Array][109]&lt;[string][111]>)** path or paths to fire the rule.
+-   `rule` **[function][122]** the function handler rule, reibes a context, a emiter, and a path
+-   `options` **[Object][115]** modifiers to rule (optional, default `{}`)
+    -   `options.enabled` **[boolean][112]** default is true, when is false the rule not be used. (optional, default `true`)
+    -   `options.hidden` **[boolean][112]** default false, when a rule is hidden it work but cant be listed by ruleHandler (optional, default `false`)
+    -   `options.enable` **[function][122]** function called when a rule is enabled, recibes a context and a emiter (optional, default `()=>{}`)
+    -   `options.disable` **functios** function called when a object is disabled (optional, default `()=>{}`)
+    -   `options.childs` **[Array][109]&lt;[string][111]>** name of the childs of the rule, when a rule is disabled or enabled all chiles are enabled or disabled. (optional, default `[]`)
+
+### enable
+
+Enable a rule if the rule have childs all childs are enabled
+
+#### Parameters
+
+-   `name` **[string][111]** The name of the rule
+-   `context`  
+-   `emiter`  
+
+Returns **[RulesHandler][123]** this
+
+### disable
+
+Disable a rule if the rule have childs all childs are disabled
+
+#### Parameters
+
+-   `name` **[string][111]** The name of the rule
+-   `context`  
+-   `emiter`  
+
+Returns **[RulesHandler][123]** this
+
+### apply
+
+Applies all rules of one path to a value
+
+#### Parameters
+
+-   `path` **[string][111]** is a path to find the rules any string is vald but by convention is a path like string
+-   `context` **any** is the value by working the rule
+-   `source` **any** is the object to wich the rule will be applied
+
+Returns **[Object][115]** the modified context of operation
+
+### list
+
+List of all tules exept the hidden rules
+type {string\[]}
+
+## SecondaryAbilities
+
+**Extends Abilities**
+
+A collection of SecondaryAbilities
+
+## SecondaryAbility
+
+**Extends Ability**
+
+Represents a secondary ability
+
+### Parameters
+
+-   `category` **[string][111]** the category of te secondaryAbilitie
 
 ## Shop
 
@@ -747,25 +671,25 @@ Represent a shop
 
 ### Parameters
 
--   `productsList` **[Object][126]** contains product: price of all products of the shop
+-   `productsList` **[Object][115]** contains product: price of all products of the shop
 
 ### spend
 
 #### Parameters
 
--   `name` **[string][122]** the name of product must be in a product list
--   `quantity` **[number][124]** number of products to buy
+-   `name` **[string][111]** the name of product must be in a product list
+-   `quantity` **[number][113]** number of products to buy
 
-Returns **[number][124]** the total cost of operation
+Returns **[number][113]** the total cost of operation
 
 ### refound
 
 #### Parameters
 
--   `name` **[string][122]** the name of product in the product list
--   `quantity` **[number][124]** the number of products to refound
+-   `name` **[string][111]** the name of product in the product list
+-   `quantity` **[number][113]** the number of products to refound
 
-Returns **[number][124]** the total amount to refund.
+Returns **[number][113]** the total amount to refund.
 
 [1]: #abilities
 
@@ -921,114 +845,94 @@ Returns **[number][124]** the total amount to refund.
 
 [77]: #parameters-27
 
-[78]: #srcdevelopmentpointsdevelopmentpointstable
+[78]: #namedvalue
 
-[79]: #add
+[79]: #parameters-28
 
-[80]: #parameters-28
+[80]: #name-1
 
-[81]: #enable
+[81]: #value-1
 
-[82]: #parameters-29
+[82]: #namedvaluecolection
 
-[83]: #disable
+[83]: #parameters-29
 
-[84]: #parameters-30
+[84]: #has-1
 
-[85]: #apply
+[85]: #parameters-30
 
-[86]: #parameters-31
+[86]: #get-1
 
-[87]: #list
+[87]: #parameters-31
 
-[88]: #get-1
+[88]: #valueof
 
 [89]: #parameters-32
 
-[90]: #srcdevelopmentpointsdevelopmentpointstable-1
+[90]: #ruleshandler
 
-[91]: #add-1
+[91]: #add
 
 [92]: #parameters-33
 
-[93]: #enable-1
+[93]: #enable
 
 [94]: #parameters-34
 
-[95]: #disable-1
+[95]: #disable
 
 [96]: #parameters-35
 
-[97]: #apply-1
+[97]: #apply
 
 [98]: #parameters-36
 
-[99]: #list-1
+[99]: #list
 
-[100]: #get-2
+[100]: #secondaryabilities
 
-[101]: #parameters-37
+[101]: #secondaryability
 
-[102]: #namedvalue
+[102]: #parameters-37
 
-[103]: #parameters-38
+[103]: #shop
 
-[104]: #name-1
+[104]: #parameters-38
 
-[105]: #value-1
+[105]: #spend
 
-[106]: #namedvaluecolection
+[106]: #parameters-39
 
-[107]: #parameters-39
+[107]: #refound
 
-[108]: #has-1
+[108]: #parameters-40
 
-[109]: #parameters-40
+[109]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[110]: #get-3
+[110]: #ability
 
-[111]: #parameters-41
+[111]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[112]: #valueof
+[112]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[113]: #parameters-42
+[113]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[114]: #shop
+[114]: #abilities
 
-[115]: #parameters-43
+[115]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[116]: #spend
+[116]: #abilityaddbonus
 
-[117]: #parameters-44
+[117]: #abilityrate
 
-[118]: #refound
+[118]: #abilitybase
 
-[119]: #parameters-45
+[119]: #abilityvalue
 
-[120]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[120]: #charactercreator
 
-[121]: #ability
+[121]: #namedvalue
 
-[122]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[122]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[123]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
-
-[124]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
-
-[125]: #abilities
-
-[126]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
-
-[127]: #abilityaddbonus
-
-[128]: #abilityrate
-
-[129]: #abilitybase
-
-[130]: #abilityvalue
-
-[131]: #charactercreator
-
-[132]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
-
-[133]: #namedvalue
+[123]: #ruleshandler

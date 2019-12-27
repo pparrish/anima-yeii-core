@@ -1,8 +1,8 @@
 const RulesHandler = require('../rulesHandler/RulesHandler')
-
 const developmentPointsTable = require('../developmentPoints/developmentPointsTable')
 const categories = require('../categories')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
+const expandCostOfSecondaryAbilitiesCategories = require('../categories/expandCostOfSecondaryAbilitiesCategories')
 
 const addWhenItReachesTheValue = (toAdd, toReach) => (value) => value >= toReach ? value + toAdd : value
 
@@ -39,12 +39,14 @@ const addBaseBonusToAll = creator => {
   creator.combatAbilities.addBonus(BASE_BONUS)
   creator.supernaturalAbilities.addBonus(BASE_BONUS)
   creator.psychicAbilities.addBonus(BASE_BONUS)
+  creator.secondaryAbilities.addBonus(BASE_BONUS)
 }
 
 const removeBaseBonusToAll = creator => {
   creator.combatAbilities.removeBonus('base -30')
   creator.supernaturalAbilities.removeBonus('base -30')
   creator.psychicAbilities.removeBonus('base -30')
+  creator.secondaryAbilities.removeBonus('base -30')
 }
 
 const addBaseBonusTo = (name, creator) => {
@@ -57,12 +59,16 @@ const addBaseBonusTo = (name, creator) => {
   if (creator.psychicAbilities.has(name)) {
     creator.psychicAbilities.addBonusOf(name, BASE_BONUS)
   }
+  if (creator.secondaryAbilities.has(name)) {
+    creator.secondaryAbilities.addBonusOf(name, BASE_BONUS)
+  }
 }
 
 const removeBaseBonusTo = (name, creator) => {
   if (creator.combatAbilities.has(name)) { creator.combatAbilities.removeBonusOf(name, BASE_BONUS.reason) }
   if (creator.supernaturalAbilities.has(name)) { creator.supernaturalAbilities.removeBonusOf(name, BASE_BONUS.reason) }
   if (creator.psychicAbilities.has(name)) { creator.psychicAbilities.removeBonusOf(name, BASE_BONUS.reason) }
+  if (creator.secondaryAbilities.has(name)) { creator.secondaryAbilities.removeBonusOf(name, BASE_BONUS.reason) }
 }
 
 /* TODO change the context to get the name of characteristic */
@@ -162,6 +168,14 @@ module.exports = () => {
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.combatAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.supernaturalAbilities)
         creator.developmentPointsShop.mergeCatalog(category.primaryAbilities.psychicAbilities)
+        creator.developmentPointsShop.mergeCatalog(
+          expandCostOfSecondaryAbilitiesCategories(
+            category.secondaryAbilities.categories
+          )
+        )
+        creator.developmentPointsShop.mergeCatalog(
+          category.secondaryAbilities.reducedCost
+        )
         return category
       })
 

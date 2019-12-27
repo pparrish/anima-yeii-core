@@ -6,6 +6,7 @@ const Shop = require('../shop/Shop')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const PsychicAbilities = require('../primaryAbilities/psychicAbilities/PsychicAbilities')
+const SecondaryAbilities = require('../secondaryAbilities/SecondaryAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 const D10 = require('../dices/d10')
@@ -52,6 +53,7 @@ class CharacterCreator {
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
+    this.secondaryAbilities = new SecondaryAbilities()
 
     this.rules = rules()
 
@@ -494,6 +496,10 @@ class CharacterCreator {
       context = this.applyRules('pd/spend/psychicAbilities', context)
       this.psychicAbilities.enhance(context.name, context.value)
     }
+    if (this.secondaryAbilities.has(name)) {
+      context = this.applyRules('pd/spend/secondaryAbilities', context)
+      this.secondaryAbilities.enhance(context.name, context.value)
+    }
     this.developmentPointsShop.spend(context.name, context.value)
     return this
   }
@@ -515,8 +521,12 @@ class CharacterCreator {
       this.supernaturalAbilities.decrease(context.name, context.value)
     }
     if (this.psychicAbilities.has(name)) {
-      context = this.applyRules('pd/spend/psychicAbilities', context)
-      this.psychicAbilities.enhance(context.name, context.value)
+      context = this.applyRules('pd/refound/psychicAbilities', context)
+      this.psychicAbilities.decrease(context.name, context.value)
+    }
+    if (this.secondaryAbilities.has(name)) {
+      context = this.applyRules('pd/refound/secondaryAbilities', context)
+      this.secondaryAbilities.decrease(context.name, context.value)
     }
     this.developmentPointsShop.refound(context.name, context.value)
     return this
