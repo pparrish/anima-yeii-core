@@ -1,5 +1,4 @@
-const required = (name = 'is') => { throw new Error(`Param ${name} missed`) }
-const readOnly = (name) => { throw new Error(`${name} read only`) }
+const { required, readOnly } = require('../utils').classUtils
 /** Class representing a ability
    * @param {string} name - The name of the ability
    * @param { number } points - The points of ability is used with {@link Ability#rate} to get the {@link Ability#base} value
