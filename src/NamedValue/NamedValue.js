@@ -56,5 +56,9 @@ class NamedValue {
     const { name, value } = options
     return new NamedValue(name, value)
   }
+
+  fromOptions (options) {
+    return NamedValue.fromOptions(options)
+  }
 }
 module.exports = NamedValue

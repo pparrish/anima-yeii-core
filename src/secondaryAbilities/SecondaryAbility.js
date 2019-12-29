@@ -21,29 +21,15 @@ module.exports = class SecondaryAbility extends Ability {
   }
 
   static fromOptions (options) {
-    const ability = super.fromOptions(options)
-    return new SecondaryAbility(ability.name, ability.points, ability.dependency, ability.rate, ability.bonuses, options.category)
+    const { name, points, dependency, rate, bonuses, category } = options
+    return new SecondaryAbility(name, points, dependency, rate, bonuses, category)
   }
 
-  enhance (value) {
-    return this._promote(super.enhance(value))
-  }
-
-  decrease (value) {
-    return this._promote(super.decrease(value))
-  }
-
-  addBonus (bonus) {
-    return this._promote(super.addBonus(bonus))
-  }
-
-  removeBonus (reason) {
-    return this._promote(super.removeBonus(reason))
-  }
-
-  _promote (ability) {
-    const bonuses = ability.bonuses
-    bonuses.push(ability._.baseBonus)
-    return new SecondaryAbility(ability.name, ability.points, ability.dependency, ability.rate, bonuses, this.category)
+  _promote (changes) {
+    changes = super._promote(changes)
+    return {
+      ...changes,
+      category: changes.category || this.changes
+    }
   }
 }
