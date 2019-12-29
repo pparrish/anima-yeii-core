@@ -18,7 +18,7 @@ class NamedValueColection {
    * @returns {boolean} true if the name is in the collection
    */
   has (name = required('name')) {
-    return this._storage.has(name)
+    return this._.storage.has(name)
   }
 
   /** get a {@link NamedValue} in the collection
@@ -27,7 +27,7 @@ class NamedValueColection {
    */
   get (name = required('name')) {
     if (!this.has(name)) return null
-    return this._storage.get(name)
+    return this._.storage.get(name)
   }
 
   /** value asociated by a name
@@ -36,7 +36,7 @@ class NamedValueColection {
    */
   valueOf (name = required('name')) {
     if (!this.has(name)) return null
-    return this._storage.get(name).value
+    return this._.storage.get(name).value
   }
 }
 

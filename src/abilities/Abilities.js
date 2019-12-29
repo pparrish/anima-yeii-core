@@ -1,31 +1,12 @@
+const { required } = require('../utils').classUtils
+const NamedValueColection = require('../NamedValue/NamedValueColection')
 /** Represents a collection of abilities
  * @param {Ability[]} list - Abilities to store
  */
-module.exports = class Abilities {
-  constructor (list) {
-    this._ = {}
-    this._.storage = new Map()
-    list.map(ability => {
-      this._.storage.set(ability.name, ability)
-    })
-  }
-
-  /** Get a {@link Ability} in the collection
-   * @param {string} name - the name of ability
-   * @returns {Ability}
-   */
+module.exports = class Abilities extends NamedValueColection {
   get (name) {
-    const ability = this._.storage.get(name)
-    if (!ability) throw new Error(`the ${name} ability does not exist`)
-    return ability
-  }
-
-  /** Inform the existence of a ability in the collection
-   * @param {string} name - the name of the ability to check.
-   * @returns {boolean}
-   */
-  has (name) {
-    return this._.storage.has(name)
+    if (!this.has(name)) throw new Error(`the ${name} ability does not exist`)
+    return super.get(name)
   }
 
   /** Enhance a ability
@@ -33,9 +14,8 @@ module.exports = class Abilities {
    * @param {number} points - the points to enhance, must be positive
    * @returns {Abilities} this
    */
-  enhance (name, points) {
-    const ability = this._.storage.get(name)
-    if (!ability) throw new Error(`the ${name} ability does not exist`)
+  enhance (name, points = required('points')) {
+    const ability = this.get(name)
     this._.storage.set(name, ability.enhance(points))
     return this
   }
@@ -45,7 +25,7 @@ module.exports = class Abilities {
    * @param {number} points - the points to decrease, must be positive
    * @returns {Abilities} this
    */
-  decrease (name, points) {
+  decrease (name, points = required('points')) {
     const ability = this.get(name)
     this._.storage.set(name, ability.decrease(points))
     return this
@@ -55,19 +35,19 @@ module.exports = class Abilities {
    * @param {Object} bonus - the same as {@link Ability#addBonus}
    * @returns {Abilities} this
    */
-  addBonus (bonus) {
+  addBonus (bonus = required('bonus')) {
     this._.storage.forEach((ability, name) => {
       this._.storage.set(name, ability.addBonus(bonus))
     })
   }
 
   /** Remove bonus to all abilities in collection
-   * @param {string} bonusName - name of bonus to remove
+   * @param {string} reason - name of bonus to remove
    * @returns {Abilities} this
    */
-  removeBonus (bonusName) {
+  removeBonus (reason = required('reason')) {
     this._.storage.forEach((ability, name) => {
-      this._.storage.set(name, ability.removeBonus(bonusName))
+      this._.storage.set(name, ability.removeBonus(reason))
     })
   }
 
@@ -76,18 +56,18 @@ module.exports = class Abilities {
    * @param {Object} bonus - the same as {@link Ability#addBonus}
    * @returns {Abilities} this
    */
-  addBonusOf (name, bonus) {
+  addBonusOf (name, bonus = required('bonus')) {
     const ability = this.get(name)
     this._.storage.set(name, ability.addBonus(bonus))
   }
 
   /** Remove bonus to a abilities in collection
    * @param {string} name - the name of a ability to remove bonus
-   * @param {string} bonusName - the name of the bonus to remove
+   * @param {string} reason - the name of the bonus to remove
    * @returns {Abilities} this
    */
-  removeBonusOf (name, bonusName) {
+  removeBonusOf (name, reason = required('reason')) {
     const ability = this.get(name)
-    this._.storage.set(name, ability.removeBonus(bonusName))
+    this._.storage.set(name, ability.removeBonus(reason))
   }
 }
