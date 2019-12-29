@@ -28,7 +28,7 @@ describe('Creation of a character', () => {
   }
 
   test('when the creation begings all the basic info is not seted', () => {
-    expect(characterCreator.nonSetBasicInfo()).toEqual(expect.arrayContaining(listOfBasicInfo))
+    expect(characterCreator.nonSetBasicInfo()).toEqual(expect.arrayContaining(listOfBasicInfo.map(x => x.name)))
   })
   test('before i set the name then i see the name ass null', () => {
     const { name } = characterCreator.settedBasicInfo()

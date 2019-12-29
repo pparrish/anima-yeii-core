@@ -1,8 +1,8 @@
-const basicInfoList = require('../characterBasicInfo/listOfCharacterBasicInfo')
 const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
+const CharacterBasicInfo = require('../characterBasicInfo/CharacterBasicInfo')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
 const PsychicAbilities = require('../primaryAbilities/psychicAbilities/PsychicAbilities')
@@ -24,14 +24,12 @@ class CharacterCreator {
   constructor () {
     /** storage of names */
     this._namesLists = {
-      basicInfo: basicInfoList.map(x => x),
       characteristics: characteristicsList.map(x => x),
       physicalCapacities: getNames(physicalCapacities),
       secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
 
     this._valuesLists = {
-      basicInfo: this._getNames('basicInfo').map(() => null),
       characteristics: this._getNames('characteristics').map(() => null),
       physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
@@ -50,6 +48,7 @@ class CharacterCreator {
       remainer: null
     }
 
+    this.basicInfo = new CharacterBasicInfo()
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
@@ -161,21 +160,25 @@ class CharacterCreator {
    * @returns {CharacterCreator} - this
    */
   setBasicInfo (name, value) {
-    return this._set(name, value, 'basicInfo')
+    let newValue = this.applyRules('basicInfo/set', value)
+    newValue = this.applyRules('basicInfo/set/' + name, value)
+    if (!this.basicInfo.has(name)) throw new Error('the ' + name + ' is not in basic info')
+    this.basicInfo.changeValueOf(name, newValue).markSetted(name)
+    return this
   }
 
   /** Return the names of basic info than are not setted
    * @return {Array} BasicInfoNames
    */
   nonSetBasicInfo () {
-    return this._nonSetValues('basicInfo')
+    return this.basicInfo.nonSetted
   }
 
   /* Get a Object with all already setted values of Basic info an her values
    * @returns {Object} Already setted Values
    */
   settedBasicInfo () {
-    return this._settedValues('basicInfo')
+    return this.basicInfo.settedValues
   }
 
   // POINTS

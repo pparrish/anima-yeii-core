@@ -6,11 +6,14 @@ const { required } = require('../utils').classUtils
 class NamedValueColection {
   constructor (list = required('list')) {
     this._ = {
-      storage: new Map()
+      storage: new Map(),
+      setted: [],
+      nonSetted: []
     }
     list.map(ability => {
       this._.storage.set(ability.name, ability)
     })
+    this._.nonSetted = list.map(namedValue => namedValue.name)
   }
 
   /** inform the existence of a name in the collection
@@ -37,6 +40,32 @@ class NamedValueColection {
   valueOf (name = required('name')) {
     if (!this.has(name)) return null
     return this._.storage.get(name).value
+  }
+
+  markSetted (name = required('name')) {
+    if (!this.has(name)) return null
+    this._.nonSetted = this._.nonSetted.filter(namedValue => namedValue !== name)
+    this._.setted.push(name)
+    return this
+  }
+
+  markUnsetted (name = required('name')) {
+    if (!this.has(name)) return null
+    this._.setted = this._.setted.filter(namedValue => namedValue !== name)
+    this._.nonSetted.push(name)
+    return this
+  }
+
+  get settedValues () {
+    const settedValues = {}
+    this._.storage.forEach(namedValue => {
+      if (this._.setted[this._.setted.indexOf(namedValue.name)]) settedValues[namedValue.name] = namedValue.value
+    })
+    return settedValues
+  }
+
+  get nonSetted () {
+    return this._.nonSetted.map(x => x)
   }
 }
 
