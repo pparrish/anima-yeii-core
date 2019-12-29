@@ -1,14 +1,15 @@
-const NamedValue = require('./NamedValue')
+const { required } = require('../utils').classUtils
 
 /** Represents a colection of {@link NamedValue} objects
- * @param {string[]} names - A array of names of each {@link NamedValue }
- * @param {any[]} values - A array of any values to use in each {@link NamedValue}
+ * @param {any[]} list - A array of any values to use in each {@link NamedValue}
  */
 class NamedValueColection {
-  constructor (names, values, InamedValue = NamedValue) {
-    this._storage = new Map()
-    names.map((name, nameIndex) => {
-      this._storage.set(name, new InamedValue(name, values[nameIndex]))
+  constructor (list = required('list')) {
+    this._ = {
+      storage: new Map()
+    }
+    list.map(ability => {
+      this._.storage.set(ability.name, ability)
     })
   }
 
@@ -16,7 +17,7 @@ class NamedValueColection {
    * @param {string} name - the name to search
    * @returns {boolean} true if the name is in the collection
    */
-  has (name) {
+  has (name = required('name')) {
     return this._storage.has(name)
   }
 
@@ -24,7 +25,7 @@ class NamedValueColection {
    * @param {string} name - the name of the {@link NamedValue} in the collection
    * @returns {(NamedValue|null)} if the name is not in collection return null
    */
-  get (name) {
+  get (name = required('name')) {
     if (!this.has(name)) return null
     return this._storage.get(name)
   }
@@ -33,7 +34,7 @@ class NamedValueColection {
    * @param {string} name - the name in the collection to get the value
    * @returns {(NamedValue|null)} if name is not in collection return null
    */
-  valueOf (name) {
+  valueOf (name = required('name')) {
     if (!this.has(name)) return null
     return this._storage.get(name).value
   }
