@@ -1,24 +1,28 @@
+const { readOnly } = require('../utils').classUtils
+const NamedValue = require('../NamedValue/NamedValue')
 const bonusFunction = require('./bonusValueOfCharacteristics')
-class Characteristic {
+
+class Characteristic extends NamedValue {
   constructor (name, value) {
-    this._name = name
-    this._value = value
+    super(name, value)
+    this._.bonus = bonusFunction(this.value)
   }
 
-  set name (val) {
-    throw new Error('Characteristic name is read only')
+  get bonus () {
+    return this._.bonus
   }
 
-  get name () { return this._name }
-  set value (val) {
-    throw new Error('Characteristic value is read only')
+  set bonus (_) {
+    readOnly('bonus')
   }
 
-  get value () { return this._value }
-  set bonusValue (val) {
-    throw new Error('Charactrristic bonusValue is read only')
+  static fromOptions (options) {
+    const { name, value } = options
+    return new Characteristic(name, value)
   }
 
-  get bonusValue () { return bonusFunction(this.value) }
+  fromOptions (options) {
+    return Characteristic.fromOptions(options)
+  }
 }
 module.exports = Characteristic
