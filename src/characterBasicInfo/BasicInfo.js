@@ -6,6 +6,9 @@ class BasicInfo extends NamedValue {
     return new BasicInfo(name, value)
   }
 
+  static fromOptions(options) {
+    return new BasicInfo(options.name, options.value)
+  }
   fromOptions (options) {
     return BasicInfo.fromOptions(options)
   }
