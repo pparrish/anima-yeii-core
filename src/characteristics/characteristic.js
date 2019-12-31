@@ -3,7 +3,7 @@ const NamedValue = require('../NamedValue/NamedValue')
 const bonusFunction = require('./bonusValueOfCharacteristics')
 
 class Characteristic extends NamedValue {
-  constructor (name, value) {
+  constructor (name, value = 0) {
     super(name, value)
     this._.bonus = bonusFunction(this.value)
   }
@@ -14,6 +14,19 @@ class Characteristic extends NamedValue {
 
   set bonus (_) {
     readOnly('bonus')
+  }
+
+  enhance (points) {
+    if (points < 0) throw new Error('The value must be positive')
+    const value = this.value + points
+    return this.fromOptions(this._promote({ value }))
+  }
+
+  decrease (points) {
+    if (points < 0) throw new Error('The value must be positive')
+    const value = this.points - points
+    if (points < 0) throw new Error('The points cannot be negative')
+    return this.fromOptions(this._promote({ value }))
   }
 
   static fromOptions (options) {
