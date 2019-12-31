@@ -2,6 +2,8 @@ const characteristicsList = require('../characteristics/listOfAnimaCharacteristi
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
+const ValuesShop = require('../shop/valuesShop')
+const PointsGenerator = require('../generatePoints/PointsGenerator')
 const CharacterBasicInfo = require('../characterBasicInfo/CharacterBasicInfo')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
@@ -16,19 +18,16 @@ function getNames (listObject) {
   return listObject.map(x => x.name)
 }
 
-const pointsGenerators = require('../generatePoints')
-
 /** class represents a creator of a character with a rules.of anima
  */
 class CharacterCreator {
   constructor () {
-    /** storage of names */
+    /* storage of names */
     this._namesLists = {
       characteristics: characteristicsList.map(x => x),
       physicalCapacities: getNames(physicalCapacities),
       secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
-
     this._valuesLists = {
       characteristics: this._getNames('characteristics').map(() => null),
       physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
@@ -36,18 +35,15 @@ class CharacterCreator {
     }
 
     this._appearance = d10.roll()
+    this._pd = null
 
+    /* shops */
     this.developmentPointsShop = new Shop({})
-
-    this._points = {
-      generators: pointsGenerators,
-      generatedResults: {},
-      generatorSelected: null,
-      nonSettedValues: [],
-      pointsToGenerate: null,
-      remainer: null
-    }
-
+    this.pointsGenerator = new PointsGenerator()
+    this.pointsGenerator.setValuesToGenerate(this._namesLists.characteristics.length)
+      .setPointsToGenerate(60)
+    this.valuesShop = new ValuesShop([])
+    /* Abilities */
     this.basicInfo = new CharacterBasicInfo()
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
@@ -56,12 +52,11 @@ class CharacterCreator {
 
     this.rules = rules()
 
-    this._pd = null
-
     this.applyRules('creator/init', this)
   }
 
-  /** ñapplies all rules of one path to a value
+  /* RULES */
+  /** Applies all rules of one path to a value
    * @protected
    * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
    * @param {any} context - is the value by working the rule
@@ -88,6 +83,8 @@ class CharacterCreator {
     this.rules.enable(rule, context, this)
     return this
   }
+
+  /* VALUES */
 
   _getNames (type) {
     const list = this._namesLists[type]
@@ -182,27 +179,14 @@ class CharacterCreator {
   }
 
   // POINTS
+  // TODO THE POINTS MUST BE MANAGE BY POINTS SHOP
   /* Generate point to be setted in characteristics
    * @param {number} typeNumber - The type of generation for now allows [1,2,3] of value types and [4,5] of points type
    * @returns {CharacterCreator} this
    */
-  generatePoints (typeNumber) {
-    const generatedTypes = Object.keys(this._points.generators)
-    const generateName = generatedTypes[typeNumber - 1]
-    this._valuesLists.characteristics = this._getNames('characteristics').map(x => null)
-    this._points.remainer = null
-    this._points.generatorSelected = generateName
-    if (generateName === 'type5') {
-      if (!this._points.pointsToGenerate) throw new Error('Must select before the points to generate')
-      this._points.generatedResults[generateName] = this._points.generators[generateName](this._points.pointsToGenerate)
-      this._points.remainer = this._points.generatedResults[generateName].points
-    } else if (generateName === 'type4') {
-      this._points.generatedResults[generateName] = this._points.generators[generateName](this._getNames('characteristics').length)
-      this._points.remainer = this._points.generatedResults[generateName].points
-    } else if (!this._points.generatedResults[generateName]) {
-      this._points.generatedResults[generateName] = this._points.generators[generateName](this._getNames('characteristics').length)
-    }
-    this._points.nonSettedValues = this._points.generatedResults[generateName].points
+  generatePoints (type) {
+    this.pointsGenerator.selectGenerator(type).generate()
+    if (this.pointsGenerator.type === 'values') { this.valuesShop = new ValuesShop(this.pointsGenerator.result.points) }
     return this
   }
 
@@ -211,38 +195,25 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   setPoints (points) {
-    this._points.pointsToGenerate = points
+    this.pointsGenerator.setPointsToGenerate(points)
     return this
   }
 
   isPoinsAlreadyGenerated () {
-    return (Object.keys(this._points.generatedResults).length !== 0)
+    if (!this.pointsGenerator.isGeneratoraSelected()) return false
+    return this.pointsGenerator.isAlreadyGenerated(this.pointsGenerator.generator.name)
   }
 
   getGeneratedPointsResult () {
-    return { ...this._points.generatedResults[this._points.generationType] }
+    return this.pointsGenerator.result
   }
 
   generationType () {
-    if (!this.isPoinsAlreadyGenerated()) throw new Error('The points is not generated, use genetatePoints(type) before')
-    const generator = this._points.generatedResults[this._points.generatorSelected].points
-    if (Array.isArray(generator)) {
-      return 'values'
-    }
-    if (typeof generator === 'number') {
-      return 'points'
-    }
-    throw new Error('The generator set of points generator is not a valid type')
-  }
-
-  /** @deprecated
-   */
-  remainerPoints () {
-    if (this._points.remainer === null) throw new Error('points is not generated')
-    return this._points.remainer
+    return this.pointsGenerator.type
   }
 
   // Characteristic
+  // TODO change characteristicd to a collections
   /** Returns a array of the non setted characteristics names
    * @returns {Array} Array of strings
    */
@@ -252,13 +223,12 @@ class CharacterCreator {
 
   getGreatestNonSetValue () {
     if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
-    const greatest = this._points.nonSettedValues.reduce((greatest, actual) => greatest > actual ? greatest : actual, -Infinity)
-    return greatest
+    return this.valuesShop.greatestInStock
   }
 
   getSmalestNonSetValue () {
     if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
-    return this._points.nonSettedValues.reduce((smalest, actual) => smalest < actual ? smalest : actual, Infinity)
+    return this.valuesShop.smalestInStock
   }
 
   _getIndex (value, array) {
@@ -277,10 +247,8 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   selectValueTo (name, value) {
-    const indexOfValue = this._getIndex(value, this._points.nonSettedValues)
-    if (indexOfValue === -1) throw new Error('the value is not in nonSettedValues')
+    this.valuesShop.spend(value)
     this._set(name, value, 'characteristics')
-    this._points.nonSettedValues.splice(indexOfValue, 1)
     return this
   }
 
@@ -306,7 +274,7 @@ class CharacterCreator {
    * @returns {Array} array of numbes of non setted values
    */
   nonSetGenerationValues () {
-    return this._points.nonSettedValues.map(x => x)
+    return this.valuesShop.catalog
   }
 
   /* Remove a value to a characteristic and move again to the aviable values
@@ -317,7 +285,7 @@ class CharacterCreator {
     const index = this.indexOfCharacteristic(name)
     const value = this._valuesLists.characteristics[index]
     this._valuesLists.characteristics[index] = null
-    this._points.nonSettedValues.push(value)
+    this.valuesShop.refound(value)
     return this
   }
 
@@ -372,7 +340,7 @@ class CharacterCreator {
    * @returns {number} remainder points
    */
   remainderPoints () {
-    const totalPoints = this._points.pointsToGenerate
+    const totalPoints = this.pointsGenerator.pointsToGenerate
     const spendCharacteristics = this.applyRules('points/spends', Object.values(this.settedCharacteristics()))
     const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints

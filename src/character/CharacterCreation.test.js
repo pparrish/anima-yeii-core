@@ -61,13 +61,13 @@ describe('Creation of a character', () => {
 
   test('when generate points.type 4 i get points less or equal 70', () => {
     const generatedPoints = characterCreator.generatePoints(4)
-    expect(generatedPoints.remainerPoints()).toBeLessThanOrEqual(70)
+    expect(generatedPoints.remainderPoints()).toBeLessThanOrEqual(70)
   })
 
   test('when select 60 points i have 60 points', () => {
     characterCreator.setPoints(60)
     characterCreator.generatePoints(5)
-    expect(characterCreator.remainerPoints()).toBe(60)
+    expect(characterCreator.remainderPoints()).toBe(60)
   })
 
   test('when i generate points again i get the same values', () => {

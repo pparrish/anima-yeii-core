@@ -1,4 +1,4 @@
-const type1 = require('./type1.js')
+const type1 = require('./type1.js').generator
 /* eslint-env jest */
 describe('type 1 generator', () => {
   test('when generate a 8 characteristics i get 8 values', () => {

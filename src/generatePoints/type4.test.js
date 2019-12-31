@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const generator = require('./type4')
+const generator = require('./type4').generator
 describe('type 4 point generator', () => {
   test('when use a generator with 8 i have points value between 7 and 70', () => {
     const { points } = generator(7)
