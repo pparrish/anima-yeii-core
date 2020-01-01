@@ -67,6 +67,10 @@ class NamedValueColection {
   get nonSetted () {
     return this._.nonSetted.map(x => x)
   }
+
+  get length () {
+    return this._.storage.size
+  }
 }
 
 module.exports = NamedValueColection

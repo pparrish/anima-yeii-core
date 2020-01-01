@@ -11,6 +11,12 @@ class Characteristics extends NamedValueColection {
     return super.get(name)
   }
 
+  set (name, value = required('value')) {
+    const characteristic = this.get(name)
+    this._.storage.set(name, characteristic.fromOptions({ name, value }))
+    return this
+  }
+
   enhance (name, points = required('points')) {
     const characteristic = this.get(name)
     this._.storage.set(name, characteristic.enhance(points))

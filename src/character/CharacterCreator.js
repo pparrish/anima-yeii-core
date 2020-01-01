@@ -1,4 +1,4 @@
-const characteristicsList = require('../characteristics/listOfAnimaCharacteristics').map(x => x.name)
+const Characteristics = require('../characteristics/characteristics')
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
@@ -24,12 +24,10 @@ class CharacterCreator {
   constructor () {
     /* storage of names */
     this._namesLists = {
-      characteristics: characteristicsList.map(x => x),
       physicalCapacities: getNames(physicalCapacities),
       secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
     this._valuesLists = {
-      characteristics: this._getNames('characteristics').map(() => null),
       physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
@@ -37,18 +35,19 @@ class CharacterCreator {
     this._appearance = d10.roll()
     this._pd = null
 
-    /* shops */
-    this.developmentPointsShop = new Shop({})
-    this.pointsGenerator = new PointsGenerator()
-    this.pointsGenerator.setValuesToGenerate(this._namesLists.characteristics.length)
-      .setPointsToGenerate(60)
-    this.valuesShop = new ValuesShop([])
     /* Abilities */
+    this.characteristics = new Characteristics()
     this.basicInfo = new CharacterBasicInfo()
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
     this.secondaryAbilities = new SecondaryAbilities()
+    /* shops */
+    this.developmentPointsShop = new Shop({})
+    this.pointsGenerator = new PointsGenerator()
+    this.pointsGenerator.setValuesToGenerate(this.characteristics.length)
+      .setPointsToGenerate(60)
+    this.valuesShop = new ValuesShop([])
 
     this.rules = rules()
 
@@ -84,6 +83,13 @@ class CharacterCreator {
     return this
   }
 
+  _applyRules (value, base, operation, especified) {
+    let newValue = value
+    newValue = this.rules.apply(base + '/' + operation, newValue, this)
+    if (especified) newValue = this.rules.apply(base + '/' + operation + '/' + especified, newValue, this)
+    return newValue
+  }
+
   /* VALUES */
 
   _getNames (type) {
@@ -106,27 +112,29 @@ class CharacterCreator {
     let newValue = this.applyRules(`${type}/set`, value)
     newValue = this.applyRules(`${type}/set/${name}`, value)
     this._setWithoutRules(name, newValue, type)
+    return true
+  }
+
+  /* Temporal waiting to a link manager */
+  _setLinks (name, value) {
     /* Manage the secondaryCharacteristics links, rules only modify a value not set values for thad reason the lisks not are a rules
      * TODO this feature must be manage by a link manager in the future
      */
-    if (type === 'characteristics') {
-      // replace physique is fatigue
-      if (name === 'physique') {
-        this._setWithoutRules('fatigue', newValue, 'physicalCapacities')
-      }
-      if (name === 'agility') {
-        this._setWithoutRules('movement type', newValue, 'physicalCapacities')
-      }
-
-      if (name === 'strength' || name === 'physique') {
-        const { strength, physique } = this.settedCharacteristics()
-        if (strength && physique) {
-          this._setWithoutRules('size', strength + physique, 'secondaryCharacteristics')
-        }
-      }
+    // replace physique is fatigue
+    if (name === 'physique') {
+      this._setWithoutRules('fatigue', value, 'physicalCapacities')
+    }
+    if (name === 'agility') {
+      this._setWithoutRules('movement type', value, 'physicalCapacities')
     }
 
-    return true
+    if (name === 'strength' || name === 'physique') {
+      const { strength, physique } = this.settedCharacteristics()
+      if (strength && physique) {
+        this._setWithoutRules('size', strength + physique, 'secondaryCharacteristics')
+      }
+    }
+    return this
   }
 
   _nonSetValues (type) {
@@ -157,10 +165,8 @@ class CharacterCreator {
    * @returns {CharacterCreator} - this
    */
   setBasicInfo (name, value) {
-    let newValue = this.applyRules('basicInfo/set', value)
-    newValue = this.applyRules('basicInfo/set/' + name, value)
     if (!this.basicInfo.has(name)) throw new Error('the ' + name + ' is not in basic info')
-    this.basicInfo.changeValueOf(name, newValue).markSetted(name)
+    this.basicInfo.changeValueOf(name, this._applyRules(value, 'basicInfo', 'set', name)).markSetted(name)
     return this
   }
 
@@ -187,6 +193,7 @@ class CharacterCreator {
   generatePoints (type) {
     this.pointsGenerator.selectGenerator(type).generate()
     if (this.pointsGenerator.type === 'values') { this.valuesShop = new ValuesShop(this.pointsGenerator.result.points) }
+    this.characteristics = new Characteristics()
     return this
   }
 
@@ -195,6 +202,7 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   setPoints (points) {
+    this.characteristics = new Characteristics()
     this.pointsGenerator.setPointsToGenerate(points)
     return this
   }
@@ -218,7 +226,7 @@ class CharacterCreator {
    * @returns {Array} Array of strings
    */
   nonSetCharacteristics () {
-    return this._nonSetValues('characteristics')
+    return this.characteristics.nonSetted
   }
 
   getGreatestNonSetValue () {
@@ -247,8 +255,11 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   selectValueTo (name, value) {
-    this.valuesShop.spend(value)
-    this._set(name, value, 'characteristics')
+    const newValue = this._applyRules(value, 'characteristics', 'set', name)
+    this.valuesShop.spend(newValue)
+    this.characteristics.set(name, newValue)
+    this.characteristics.markSetted(name)
+    this._setLinks(name, newValue)
     return this
   }
 
@@ -282,10 +293,11 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   removeValueTo (name) {
-    const index = this.indexOfCharacteristic(name)
-    const value = this._valuesLists.characteristics[index]
-    this._valuesLists.characteristics[index] = null
-    this.valuesShop.refound(value)
+    const valueToRefound = this.characteristics.get(name).value
+    this.characteristics.set(name, 0)
+    this.characteristics.markUnsetted(name)
+    this._setLinks(name, 0)
+    this.valuesShop.refound(valueToRefound)
     return this
   }
 
@@ -293,7 +305,7 @@ class CharacterCreator {
    * @returns {Object} the characteristics setted
    */
   settedCharacteristics () {
-    return this._settedValues('characteristics')
+    return this.characteristics.settedValues
   }
 
   /** Add the amount of points to a characteristic and spend it from remainder points. Uses the rule path of "set/characteristics"
@@ -302,13 +314,17 @@ class CharacterCreator {
    * @returns {Object} this
    */
   expendPointsTo (characteristic, amount) {
-    let actualCharacteristicValue = this.settedCharacteristics()[characteristic]
-    if (!actualCharacteristicValue) {
-      actualCharacteristicValue = 0
-    }
-    this._set(characteristic, amount + actualCharacteristicValue, 'characteristics')
+    const actualCharacteristicValue = this.settedCharacteristics()[characteristic] || 0
+    let newValue = this._applyRules(actualCharacteristicValue + amount, 'characteristics', 'set', characteristic)
+    this.characteristics.set(characteristic, newValue)
+      .markSetted(characteristic)
+    this._setLinks(characteristic, newValue)
     if (this.remainderPoints() < 0) {
-      this._set(characteristic, actualCharacteristicValue, 'characteristics')
+      newValue = this._applyRules(actualCharacteristicValue, 'characteristics', 'set', characteristic)
+      this.characteristics.set(characteristic, newValue)
+        .markUnsetted(characteristic)
+      this._setLinks(characteristic, newValue)
+      if (!this.remainderPoints()) this.characteristics.markUnsetted(characteristic, newValue)
       throw new Error('points to expend exeded')
     }
     return this
@@ -323,16 +339,16 @@ class CharacterCreator {
     const beforeValue = this.settedCharacteristics()[characteristic]
     if (!beforeValue) throw new Error(`the ${characteristic} not have any value`)
     if (!amount) {
-      this._set(characteristic, null, 'characteristics')
+      this.characteristics.set(characteristic, this._applyRules(0, 'characteristics', 'set', characteristic))
+        .markUnsetted(characteristic)
+      this._setLinks(characteristic, 0)
       return this
     }
     const newValue = beforeValue - amount
     if (newValue < 0) throw new Error(`You are trying to remove ${amount} to ${characteristic} but only have ${beforeValue}`)
-    if (newValue === 0) {
-      this._set(characteristic, null, 'characteristics')
-      return this
-    }
-    this._set(characteristic, newValue, 'characteristics')
+    this.characteristics.set(characteristic, this._applyRules(newValue, 'characteristics', 'set', characteristic))
+    this._setLinks(characteristic, 0)
+    if (!newValue) this.characteristics.markUnsetted(characteristic)
     return this
   }
 

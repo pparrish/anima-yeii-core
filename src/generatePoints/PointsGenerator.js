@@ -31,6 +31,7 @@ module.exports = class PointsGenerator {
         : undefined
 
     this._.results[generator.name] = generator.generator(need)
+    return this
   }
 
   selectGenerator (type) {
