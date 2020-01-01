@@ -1,7 +1,7 @@
 /* eslint-env jest */
 const CharacterCreator = require('./CharacterCreator')
 const listOfBasicInfo = require('../characterBasicInfo/listOfCharacterBasicInfo')
-const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics')
+const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics').map(x => x.name)
 describe('Creation of a character', () => {
   const characterCreator = new CharacterCreator()
   const newCreator = () => new CharacterCreator()

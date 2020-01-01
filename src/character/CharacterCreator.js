@@ -1,4 +1,4 @@
-const characteristicsList = require('../characteristics/listOfAnimaCharacteristics')
+const characteristicsList = require('../characteristics/listOfAnimaCharacteristics').map(x => x.name)
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
