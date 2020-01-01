@@ -1,8 +1,8 @@
 const NamedValueCollection = require('../NamedValue/NamedValueColection')
-const PhysicalCapacity = require('./PhysicalCapacity')
+const listOfPhysicalCapacities = require('./listOfPhysicalCapacities')
 class PhysicalCapacities extends NamedValueCollection {
-  constructor (names, values) {
-    super(names, values, PhysicalCapacity)
+  constructor () {
+    super(listOfPhysicalCapacities)
   }
 }
 
