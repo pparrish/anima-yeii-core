@@ -1,4 +1,5 @@
 const Characteristics = require('../characteristics/characteristics')
+// TODO Create a PhysicalCapacitiesClass and replace
 const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
@@ -24,10 +25,12 @@ class CharacterCreator {
   constructor () {
     /* storage of names */
     this._namesLists = {
+      // TODO REMOVE
       physicalCapacities: getNames(physicalCapacities),
       secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
     this._valuesLists = {
+      // TODO remove
       physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
@@ -122,9 +125,11 @@ class CharacterCreator {
      */
     // replace physique is fatigue
     if (name === 'physique') {
+      // TODO replace
       this._setWithoutRules('fatigue', value, 'physicalCapacities')
     }
     if (name === 'agility') {
+      // TODO replace
       this._setWithoutRules('movement type', value, 'physicalCapacities')
     }
 
@@ -185,7 +190,6 @@ class CharacterCreator {
   }
 
   // POINTS
-  // TODO THE POINTS MUST BE MANAGE BY POINTS SHOP
   /* Generate point to be setted in characteristics
    * @param {number} typeNumber - The type of generation for now allows [1,2,3] of value types and [4,5] of points type
    * @returns {CharacterCreator} this
@@ -243,6 +247,7 @@ class CharacterCreator {
     return array.indexOf(value)
   }
 
+  // TODO remove this
   indexOfCharacteristic (name) {
     const index = this._getIndex(name, this._getNames('characteristics'))
     if (index === -1) throw new Error('The characteristic is not in characteristics list')
@@ -367,6 +372,7 @@ class CharacterCreator {
    * @returns {Object} the physicalCapacities names with value
    */
   settedPhysicalCapacities () {
+  // TODO replace this
     return this._settedValues('physicalCapacities')
   }
 
@@ -375,6 +381,7 @@ class CharacterCreator {
    *  @returns {Object} the secondary characteristics names with values
    */
   settedSecondaryCharacteristics () {
+  // TODO replace this
     const setted = this._settedValues('secondaryCharacteristics')
     if (!setted.appearance) setted.appearance = this._appearance
     return setted
@@ -386,6 +393,7 @@ class CharacterCreator {
    * returns {CharacterCreator} this
    */
   setSecondaryCharacteristic (name, value) {
+  // TODO replace this
     this._set(name, value, 'secondaryCharacteristics')
     return this
   }
@@ -395,6 +403,7 @@ class CharacterCreator {
    * @return {CharacterCreator} this
    */
   resetSecondaryCharacteristic (name) {
+  // TODO replace this
     const secondaryIndex = this._getIndex(name, this._getNames('secondaryCharacteristics'))
     if (secondaryIndex === -1) throw new Error(`${name} is not a secondaryCharacteristic`)
     this._valuesLists.secondaryCharacteristics[secondaryIndex] = null
