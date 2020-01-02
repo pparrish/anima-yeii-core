@@ -1,6 +1,5 @@
 const Characteristics = require('../characteristics/characteristics')
-// TODO Create a PhysicalCapacitiesClass and replace
-const physicalCapacities = require('../physicalCapacities/listOfPhysicalCapacities')
+const PhysicalCapacities = require('../physicalCapacities/PhysicalCapacities')
 const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
 const Shop = require('../shop/Shop')
 const ValuesShop = require('../shop/valuesShop')
@@ -15,23 +14,15 @@ const sizeTable = require('../secondaryCharacteristics/sizeTable')
 const D10 = require('../dices/d10')
 const d10 = new D10()
 
-function getNames (listObject) {
-  return listObject.map(x => x.name)
-}
-
 /** class represents a creator of a character with a rules.of anima
  */
 class CharacterCreator {
   constructor () {
     /* storage of names */
     this._namesLists = {
-      // TODO REMOVE
-      physicalCapacities: getNames(physicalCapacities),
       secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
     }
     this._valuesLists = {
-      // TODO remove
-      physicalCapacities: this._namesLists.physicalCapacities.map(() => null),
       secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
     }
 
@@ -41,6 +32,7 @@ class CharacterCreator {
     /* Abilities */
     this.characteristics = new Characteristics()
     this.basicInfo = new CharacterBasicInfo()
+    this.physicalCapacities = new PhysicalCapacities()
     this.combatAbilities = new CombatAbilities()
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
@@ -108,7 +100,6 @@ class CharacterCreator {
     this._valuesLists[type][index] = value
   }
 
-  /* TODO _set must return this */
   _set (name, value, type) {
     const index = this._getNames(type).indexOf(name)
     if (index === -1) return false
@@ -125,12 +116,14 @@ class CharacterCreator {
      */
     // replace physique is fatigue
     if (name === 'physique') {
-      // TODO replace
-      this._setWithoutRules('fatigue', value, 'physicalCapacities')
+      this.physicalCapacities.set('fatigue', this._applyRules(value, 'physicalCapacities', 'set', 'fatigue'))
+      if (this.physicalCapacities.get('fatigue')) this.physicalCapacities.markSetted('fatigue')
+      else this.physicalCapacities.markUnsetted('fatigue')
     }
     if (name === 'agility') {
-      // TODO replace
-      this._setWithoutRules('movement type', value, 'physicalCapacities')
+      this.physicalCapacities.set('movement type', this._applyRules(value, 'physicalCapacities', 'set', 'movement type'))
+      if (this.physicalCapacities.get('movement type')) this.physicalCapacities.markSetted('movement type')
+      else this.physicalCapacities.markUnsetted('movement type')
     }
 
     if (name === 'strength' || name === 'physique') {
@@ -225,7 +218,6 @@ class CharacterCreator {
   }
 
   // Characteristic
-  // TODO change characteristicd to a collections
   /** Returns a array of the non setted characteristics names
    * @returns {Array} Array of strings
    */
@@ -245,13 +237,6 @@ class CharacterCreator {
 
   _getIndex (value, array) {
     return array.indexOf(value)
-  }
-
-  // TODO remove this
-  indexOfCharacteristic (name) {
-    const index = this._getIndex(name, this._getNames('characteristics'))
-    if (index === -1) throw new Error('The characteristic is not in characteristics list')
-    return index
   }
 
   /* set a Value to a chacacteristic the value must be in the generated values. You can get the abiable values by non set generation values
@@ -372,8 +357,7 @@ class CharacterCreator {
    * @returns {Object} the physicalCapacities names with value
    */
   settedPhysicalCapacities () {
-  // TODO replace this
-    return this._settedValues('physicalCapacities')
+    return this.physicalCapacities.settedValues
   }
 
   // Secondary characteristics
@@ -403,7 +387,6 @@ class CharacterCreator {
    * @return {CharacterCreator} this
    */
   resetSecondaryCharacteristic (name) {
-  // TODO replace this
     const secondaryIndex = this._getIndex(name, this._getNames('secondaryCharacteristics'))
     if (secondaryIndex === -1) throw new Error(`${name} is not a secondaryCharacteristic`)
     this._valuesLists.secondaryCharacteristics[secondaryIndex] = null
