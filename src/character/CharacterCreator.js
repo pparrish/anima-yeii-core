@@ -1,6 +1,6 @@
 const Characteristics = require('../characteristics/characteristics')
 const PhysicalCapacities = require('../physicalCapacities/PhysicalCapacities')
-const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics')
+const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics').map(x => x.name)
 const Shop = require('../shop/Shop')
 const ValuesShop = require('../shop/valuesShop')
 const PointsGenerator = require('../generatePoints/PointsGenerator')
