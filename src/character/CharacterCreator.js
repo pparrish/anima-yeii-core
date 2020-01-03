@@ -1,6 +1,6 @@
 const Characteristics = require('../characteristics/characteristics')
 const PhysicalCapacities = require('../physicalCapacities/PhysicalCapacities')
-const secondaryCharacteristicsList = require('../secondaryCharacteristics/listOfAnimaSecondaryCharacteristics').map(x => x.name)
+const SecondaryCharacteristics = require('../secondaryCharacteristics/SecondaryCharacteristics')
 const Shop = require('../shop/Shop')
 const ValuesShop = require('../shop/valuesShop')
 const PointsGenerator = require('../generatePoints/PointsGenerator')
@@ -18,19 +18,12 @@ const d10 = new D10()
  */
 class CharacterCreator {
   constructor () {
-    /* storage of names */
-    this._namesLists = {
-      secondaryCharacteristics: secondaryCharacteristicsList.map(x => x)
-    }
-    this._valuesLists = {
-      secondaryCharacteristics: this._getNames('secondaryCharacteristics').map(() => null)
-    }
-
     this._appearance = d10.roll()
     this._pd = null
 
     /* Abilities */
     this.characteristics = new Characteristics()
+    this.secondaryCharacteristics = new SecondaryCharacteristics()
     this.basicInfo = new CharacterBasicInfo()
     this.physicalCapacities = new PhysicalCapacities()
     this.combatAbilities = new CombatAbilities()
@@ -129,7 +122,8 @@ class CharacterCreator {
     if (name === 'strength' || name === 'physique') {
       const { strength, physique } = this.settedCharacteristics()
       if (strength && physique) {
-        this._setWithoutRules('size', strength + physique, 'secondaryCharacteristics')
+        this.secondaryCharacteristics.set('size', this._applyRules(strength + physique, 'secondaryCharacteristics', 'set', 'size'))
+          .markSetted('size')
       }
     }
     return this
@@ -365,8 +359,8 @@ class CharacterCreator {
    *  @returns {Object} the secondary characteristics names with values
    */
   settedSecondaryCharacteristics () {
-  // TODO replace this
-    const setted = this._settedValues('secondaryCharacteristics')
+    const setted = this.secondaryCharacteristics.settedValues
+    // TODO manage appearance with secondaryCharacteristics
     if (!setted.appearance) setted.appearance = this._appearance
     return setted
   }
@@ -377,8 +371,8 @@ class CharacterCreator {
    * returns {CharacterCreator} this
    */
   setSecondaryCharacteristic (name, value) {
-  // TODO replace this
-    this._set(name, value, 'secondaryCharacteristics')
+    this.secondaryCharacteristics.set(name, this._applyRules(value, 'secondaryCharacteristics', 'set', name))
+      .markSetted(name)
     return this
   }
 
@@ -387,9 +381,8 @@ class CharacterCreator {
    * @return {CharacterCreator} this
    */
   resetSecondaryCharacteristic (name) {
-    const secondaryIndex = this._getIndex(name, this._getNames('secondaryCharacteristics'))
-    if (secondaryIndex === -1) throw new Error(`${name} is not a secondaryCharacteristic`)
-    this._valuesLists.secondaryCharacteristics[secondaryIndex] = null
+    this.secondaryCharacteristics.set(name, null)
+      .markUnsetted(name)
     return this
   }
 
