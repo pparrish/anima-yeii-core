@@ -78,30 +78,6 @@ class CharacterCreator {
     return newValue
   }
 
-  /* VALUES */
-
-  _getNames (type) {
-    const list = this._namesLists[type]
-    if (!list) throw new Error(`the ${type} list not exists`)
-    return list.map(x => x)
-  }
-
-  /* TODO _setWithoutRules must be _set and _set must be _setWithRules */
-  _setWithoutRules (name, value, type) {
-    const index = this._getNames(type).indexOf(name)
-    if (index === -1) throw new Error(`the ${name} name is not in ${type}`)
-    this._valuesLists[type][index] = value
-  }
-
-  _set (name, value, type) {
-    const index = this._getNames(type).indexOf(name)
-    if (index === -1) return false
-    let newValue = this.applyRules(`${type}/set`, value)
-    newValue = this.applyRules(`${type}/set/${name}`, value)
-    this._setWithoutRules(name, newValue, type)
-    return true
-  }
-
   /* Temporal waiting to a link manager */
   _setLinks (name, value) {
     /* Manage the secondaryCharacteristics links, rules only modify a value not set values for thad reason the lisks not are a rules
@@ -127,27 +103,6 @@ class CharacterCreator {
       }
     }
     return this
-  }
-
-  _nonSetValues (type) {
-    const nonSet = []
-    this._getNames(type).map((name, index) => {
-      if (this._valuesLists[type][index] === undefined || this._valuesLists[type][index] === null) {
-        nonSet.push(name)
-      }
-    })
-    return nonSet
-  }
-
-  _settedValues (type) {
-    const settedValues = {}
-    this._getNames(type).reduce((settedValues, name, index) => {
-      if (this._valuesLists[type][index] !== undefined && this._valuesLists[type][index] !== null) {
-        settedValues[name] = this._valuesLists[type][index]
-      }
-      return settedValues
-    }, settedValues)
-    return settedValues
   }
 
   // BASICINFO
@@ -227,10 +182,6 @@ class CharacterCreator {
   getSmalestNonSetValue () {
     if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
     return this.valuesShop.smalestInStock
-  }
-
-  _getIndex (value, array) {
-    return array.indexOf(value)
   }
 
   /* set a Value to a chacacteristic the value must be in the generated values. You can get the abiable values by non set generation values

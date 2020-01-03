@@ -132,7 +132,6 @@ describe('Creation of a character', () => {
 
     test('Given a creator with type1 And i select a value to dexterity Then the value is on dexterity', () => {
       const creator = creatorWithType1()
-      console.log(creator.nonSetGenerationValues())
       const firstValue = creator.nonSetGenerationValues()[0]
       creator.selectValueTo('dexterity', firstValue)
       const { dexterity } = creator.settedCharacteristics()
