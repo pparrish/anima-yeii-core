@@ -39,19 +39,10 @@ class CharacterCreator {
 
     this.rules = rules()
 
-    this.applyRules('creator/init', this)
+    this._applyRules(this, 'creator', 'init')
   }
 
   /* RULES */
-  /** Applies all rules of one path to a value
-   * @protected
-   * @param {string} path - is a path to find the rules any strong is vald but by convention is a path like string
-   * @param {any} context - is the value by working the rule
-   * @return {Object} the modified value of operation
-   */
-  applyRules (path, context) {
-    return this.rules.apply(path, context, this)
-  }
 
   /** disable a rule
    * @param {string} rule - the name of rule to diable
@@ -292,7 +283,7 @@ class CharacterCreator {
    */
   remainderPoints () {
     const totalPoints = this.pointsGenerator.pointsToGenerate
-    const spendCharacteristics = this.applyRules('points/spends', Object.values(this.settedCharacteristics()))
+    const spendCharacteristics = this._applyRules(Object.values(this.settedCharacteristics()), 'points', 'spends')
     const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
     return totalPoints - spendedPoints
   }
@@ -373,13 +364,13 @@ class CharacterCreator {
    * @type {number}
    */
   get developmentPoints () {
-    const pd = this.applyRules('pd/get', this._pd)
+    const pd = this._applyRules(this._pd, 'pd', 'get')
     if (pd === null) throw new Error('Development points is not setted')
     return this._pd
   }
 
   set developmentPoints (recibedPD) {
-    const newPD = this.applyRules('pd/set', recibedPD, this)
+    const newPD = this._applyRules(recibedPD, 'pd', 'set')
     this._pd = newPD
     return recibedPD
   }
@@ -388,7 +379,7 @@ class CharacterCreator {
    * @param {string} name - the name of category
    */
   selectCategory (name) {
-    this._category = this.applyRules('category/set', name)
+    this._category = this._applyRules(name, 'category', 'set')
     return this
   }
 
@@ -406,21 +397,21 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   enhance (name, value) {
-    let context = this.applyRules('pd/spend', { name, value }, this)
+    let context = this._applyRules({ name, value }, 'pd', 'spend')
     if (this.combatAbilities.has(name)) {
-      context = this.applyRules('pd/spend/combatAbilities', context)
+      context = this._applyRules(context, 'pd', 'spend', 'combatAbilities')
       this.combatAbilities.enhance(context.name, context.value)
     }
     if (this.supernaturalAbilities.has(name)) {
-      context = this.applyRules('pd/spend/supernaturalAbilities', context)
+      context = this._applyRules(context, 'pd', 'spend', 'supernaturalAbilities')
       this.supernaturalAbilities.enhance(context.name, context.value)
     }
     if (this.psychicAbilities.has(name)) {
-      context = this.applyRules('pd/spend/psychicAbilities', context)
+      context = this._applyRules(context, 'pd', 'spend', 'psychicAbilities')
       this.psychicAbilities.enhance(context.name, context.value)
     }
     if (this.secondaryAbilities.has(name)) {
-      context = this.applyRules('pd/spend/secondaryAbilities', context)
+      context = this._applyRules(context, 'pd', 'spend', 'secondaryAbilities')
       this.secondaryAbilities.enhance(context.name, context.value)
     }
     this.developmentPointsShop.spend(context.name, context.value)
@@ -434,21 +425,21 @@ class CharacterCreator {
    */
   decrease (name, value) {
     if (this.developmentPointsShop.buyList[name] && this.developmentPointsShop.buyList[name] - value < 0) throw new Error('decrease bellow 0')
-    let context = this.applyRules('pd/refound', { name, value }, this)
+    let context = this._applyRules({ name, value }, 'pd', 'refound')
     if (this.combatAbilities.has(name)) {
-      context = this.applyRules('pd/refound/combatAbilities', context)
+      context = this._applyRules(context, 'pd', 'refound', 'combatAbilities')
       this.combatAbilities.decrease(context.name, context.value)
     }
     if (this.supernaturalAbilities.has(name)) {
-      context = this.applyRules('pd/refound/supernaturalAbilities', context)
+      context = this._applyRules(context, 'pd', 'refound', 'supernaturalAbilities')
       this.supernaturalAbilities.decrease(context.name, context.value)
     }
     if (this.psychicAbilities.has(name)) {
-      context = this.applyRules('pd/refound/psychicAbilities', context)
+      context = this._applyRules(context, 'pd', 'refound', 'psychicAbilities')
       this.psychicAbilities.decrease(context.name, context.value)
     }
     if (this.secondaryAbilities.has(name)) {
-      context = this.applyRules('pd/refound/secondaryAbilities', context)
+      context = this._applyRules(context, 'pd', 'refound', 'secondaryAbilities')
       this.secondaryAbilities.decrease(context.name, context.value)
     }
     this.developmentPointsShop.refound(context.name, context.value)
