@@ -12,7 +12,7 @@ const list = [
     CREATOR: supernaturalAbility
   },
   {
-    name: 'domination',
+    name: 'domain',
     dependency: 'will',
     CREATOR: supernaturalAbility
   },

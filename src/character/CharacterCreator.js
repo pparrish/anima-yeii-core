@@ -398,22 +398,30 @@ class CharacterCreator {
    */
   enhance (name, value) {
     let context = this._applyRules({ name, value }, 'pd', 'spend')
+    let especified = ''
+    let IAbilityCollection = null
     if (this.combatAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'spend', 'combatAbilities')
-      this.combatAbilities.enhance(context.name, context.value)
+      especified = 'combatAbilities'
+      IAbilityCollection = this.combatAbilities
     }
     if (this.supernaturalAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'spend', 'supernaturalAbilities')
-      this.supernaturalAbilities.enhance(context.name, context.value)
+      especified = 'supernaturalAbilities'
+      IAbilityCollection = this.supernaturalAbilities
     }
     if (this.psychicAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'spend', 'psychicAbilities')
-      this.psychicAbilities.enhance(context.name, context.value)
+      especified = 'psychicAbilities'
+      IAbilityCollection = this.psychicAbilities
     }
     if (this.secondaryAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'spend', 'secondaryAbilities')
-      this.secondaryAbilities.enhance(context.name, context.value)
+      especified = 'secondaryAbilities'
+      IAbilityCollection = this.secondaryAbilities
     }
+    if (!IAbilityCollection) {
+      console.log(this.supernaturalAbilities)
+      throw new Error(name + ' is not a ability' + especified)
+    }
+    context = this._applyRules(context, 'pd', 'spend', especified)
+    IAbilityCollection.enhance(context.name, context.value)
     this.developmentPointsShop.spend(context.name, context.value)
     return this
   }
@@ -426,22 +434,26 @@ class CharacterCreator {
   decrease (name, value) {
     if (this.developmentPointsShop.buyList[name] && this.developmentPointsShop.buyList[name] - value < 0) throw new Error('decrease bellow 0')
     let context = this._applyRules({ name, value }, 'pd', 'refound')
+    let especified = ''
+    let IAbilityCollection = null
     if (this.combatAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'refound', 'combatAbilities')
-      this.combatAbilities.decrease(context.name, context.value)
+      especified = 'combatAbilities'
+      IAbilityCollection = this.combatAbilities
     }
     if (this.supernaturalAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'refound', 'supernaturalAbilities')
-      this.supernaturalAbilities.decrease(context.name, context.value)
+      especified = 'supernaturalAbilities'
+      IAbilityCollection = this.supernaturalAbilities
     }
     if (this.psychicAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'refound', 'psychicAbilities')
-      this.psychicAbilities.decrease(context.name, context.value)
+      especified = 'psychicAbilities'
+      IAbilityCollection = this.psychicAbilities
     }
     if (this.secondaryAbilities.has(name)) {
-      context = this._applyRules(context, 'pd', 'refound', 'secondaryAbilities')
-      this.secondaryAbilities.decrease(context.name, context.value)
+      especified = 'secondaryAbilities'
+      IAbilityCollection = this.secondaryAbilities
     }
+    context = this._applyRules(context, 'pd', 'refound', especified)
+    IAbilityCollection.decrease(context.name, context.value)
     this.developmentPointsShop.refound(context.name, context.value)
     return this
   }
