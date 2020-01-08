@@ -194,7 +194,7 @@ module.exports = class Ability extends NamedValue {
   addBonus (bonus = required('bonus')) {
     if (typeof bonus !== 'object') throw new Error('The bonus must be a object')
     if (!bonus.reason) throw new Error('The bonus must have a reason property')
-    if (!bonus.value) throw new Error('The bonus must have a value property')
+    if (bonus.value === null || bonus.value === undefined) throw new Error('The bonus must have a value property')
     if (isNaN(bonus.value)) throw new Error('The bonus must be a number')
     const bonuses = this.bonuses
     bonuses.push(bonus)

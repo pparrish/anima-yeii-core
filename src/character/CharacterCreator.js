@@ -71,6 +71,7 @@ class CharacterCreator {
 
   /* Temporal waiting to a link manager */
   _setLinks (name, value) {
+    this.updateBonusses()
     /* Manage the secondaryCharacteristics links, rules only modify a value not set values for thad reason the lisks not are a rules
      * TODO this feature must be manage by a link manager in the future
      */
@@ -471,7 +472,20 @@ class CharacterCreator {
    * @returns {Ability}
    */
   ability (name) {
-    return this.combatAbilities.get(name)
+    let IAbilityCollection = null
+    if (this.combatAbilities.has(name)) {
+      IAbilityCollection = this.combatAbilities
+    }
+    if (this.supernaturalAbilities.has(name)) {
+      IAbilityCollection = this.supernaturalAbilities
+    }
+    if (this.psychicAbilities.has(name)) {
+      IAbilityCollection = this.psychicAbilities
+    }
+    if (this.secondaryAbilities.has(name)) {
+      IAbilityCollection = this.secondaryAbilities
+    }
+    return IAbilityCollection.get(name)
   }
 
   /* Get the total of development points spended in a ability
@@ -480,6 +494,27 @@ class CharacterCreator {
    */
   developmentPointsSpendedIn (name) {
     return this.developmentPointsShop.balanceOf(name)
+  }
+
+  updateBonusses () {
+    const setted = Object.keys(this.characteristics.settedValues)
+    const nonSetted = this.characteristics.nonSetted
+    for (const name of setted) {
+      const characteristic = this.characteristics.get(name)
+      const bonus = { reason: 'characteristic', value: characteristic.bonus }
+      this.combatAbilities.addBonusWhoDepensOn(name, bonus)
+      this.supernaturalAbilities.addBonusWhoDepensOn(name, bonus)
+      this.psychicAbilities.addBonusWhoDepensOn(name, bonus)
+      this.secondaryAbilities.addBonusWhoDepensOn(name, bonus)
+    }
+    for (const name of nonSetted) {
+      const characteristic = this.characteristics.get(name)
+      const bonus = { reason: 'characteristic', value: characteristic.bonus }
+      this.combatAbilities.removeBonusWhoDependsOn(name, bonus)
+      this.supernaturalAbilities.removeBonusWhoDependsOn(name, bonus)
+      this.psychicAbilities.removeBonusWhoDependsOn(name, bonus)
+      this.secondaryAbilities.removeBonusWhoDependsOn(name, bonus)
+    }
   }
 }
 

@@ -51,6 +51,22 @@ module.exports = class Abilities extends NamedValueColection {
     })
   }
 
+  addBonusWhoDepensOn (dependency, bonus) {
+    this._.storage.forEach((ability, name) => {
+      if (ability.dependency === dependency) {
+        this._.storage.set(name, ability.addBonus(bonus))
+      }
+    })
+  }
+
+  removeBonusWhoDependsOn (dependency, reason) {
+    this._.storage.forEach((ability, name) => {
+      if (ability.dependency === dependency) {
+        this._.storage.set(name, ability.removeBonus(reason))
+      }
+    })
+  }
+
   /** add bonus to a abilities in collection
    * @param {string} name - the name of a ability to add bonus
    * @param {Object} bonus - the same as {@link Ability#addBonus}
