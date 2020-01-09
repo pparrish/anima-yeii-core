@@ -3,6 +3,7 @@ module.exports = class RulesHandler {
   constructor () {
     this.rulesPaths = {}
     this.rules = {}
+    this.emiter = {}
   }
 
   createRulesPath (path) {
@@ -52,6 +53,7 @@ module.exports = class RulesHandler {
    * @returns {RulesHandler} this
    */
   enable (name, context, emiter) {
+    emiter = emiter || this.defaultEmiter
     if (!this.rules[name]) throw new Error(`the rule ${name} does not exist`)
     this.rules[name].enabled = true
     if (this.rules[name].enable) this.rules[name].enable(context, emiter)
@@ -68,6 +70,7 @@ module.exports = class RulesHandler {
    * @returns {RulesHandler} this
    */
   disable (name, context, emiter) {
+    emiter = emiter || this.defaultEmiter
     if (!this.rules[name]) throw new Error(`the rule ${name} does not exist`)
     this.rules[name].enabled = false
     if (this.rules[name].disable) this.rules[name].disable(context, emiter)
@@ -86,6 +89,7 @@ module.exports = class RulesHandler {
    * @return {Object} the modified context of operation
    */
   apply (path, context, source) {
+    source = source || this.emiter
     let newContext = context
     const rulesPath = this.getRulesfrom(path)
     if (!rulesPath) return newContext
@@ -98,6 +102,14 @@ module.exports = class RulesHandler {
     }
 
     return newContext
+  }
+
+  applyRules (value, base, operation, especified, emiter) {
+    emiter = emiter || this.defaultEmiter
+    let newValue = value
+    newValue = this.apply(base + '/' + operation, newValue, emiter)
+    if (especified) newValue = this.apply(base + '/' + operation + '/' + especified, newValue, emiter)
+    return newValue
   }
 
   isEnabled (name) {
@@ -114,5 +126,9 @@ module.exports = class RulesHandler {
 
   set list (_) {
     throw new Error('list is read only')
+  }
+
+  set defaultEmiter (emiter) {
+    this.emiter = this.emiter
   }
 }

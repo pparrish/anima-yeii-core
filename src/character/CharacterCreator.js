@@ -38,6 +38,7 @@ class CharacterCreator {
     this.valuesShop = new ValuesShop([])
 
     this.rules = rules()
+    this.rules.defaultEmiter = this
 
     this._applyRules(this, 'creator', 'init')
   }
