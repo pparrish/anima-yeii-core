@@ -22,9 +22,6 @@ class CharacterCreator {
     this.characteristicsSelection = new CharacteristicsSelection(this, this.rules)
     this._setLinks()
 
-    this._appearance = d10.roll()
-    this._pd = null
-
     /* Abilities */
     this.secondaryCharacteristics = new SecondaryCharacteristics()
     this.basicInfo = new CharacterBasicInfo()
@@ -33,8 +30,12 @@ class CharacterCreator {
     this.supernaturalAbilities = new SupernaturalAbilities()
     this.psychicAbilities = new PsychicAbilities()
     this.secondaryAbilities = new SecondaryAbilities()
+
     /* shops */
     this.developmentPointsShop = new Shop({})
+
+    this._appearance = d10.roll()
+    this._pd = null
 
     this.rules.applyRules(this, 'creator', 'init')
   }
