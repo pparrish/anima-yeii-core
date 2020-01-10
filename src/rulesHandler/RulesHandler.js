@@ -129,6 +129,6 @@ module.exports = class RulesHandler {
   }
 
   set defaultEmiter (emiter) {
-    this.emiter = this.emiter
+    this.emiter = emiter
   }
 }

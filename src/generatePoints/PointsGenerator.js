@@ -60,13 +60,13 @@ module.exports = class PointsGenerator {
     return !!this._.results[name]
   }
 
-  isGeneratoraSelected () {
+  isGeneratorSelected () {
     if (this._.selected === null) return false
     return true
   }
 
   get generator () {
-    if (!this.isGeneratoraSelected()) throw new Error('To get generator first select one')
+    if (!this.isGeneratorSelected()) throw new Error('To get generator first select one')
     return { ...this._.selected }
   }
 

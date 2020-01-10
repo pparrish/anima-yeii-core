@@ -1,9 +1,7 @@
-const Characteristics = require('../characteristics/characteristics')
+const CharacteristicsSelection = require('./CharacteristicsSelection')
 const PhysicalCapacities = require('../physicalCapacities/PhysicalCapacities')
 const SecondaryCharacteristics = require('../secondaryCharacteristics/SecondaryCharacteristics')
 const Shop = require('../shop/Shop')
-const ValuesShop = require('../shop/valuesShop')
-const PointsGenerator = require('../generatePoints/PointsGenerator')
 const CharacterBasicInfo = require('../characterBasicInfo/CharacterBasicInfo')
 const CombatAbilities = require('../primaryAbilities/combatAbilities/CombatHabilities')
 const SupernaturalAbilities = require('../primaryAbilities/supernaturalAbilities/SupernaturalAbilities')
@@ -18,11 +16,16 @@ const d10 = new D10()
  */
 class CharacterCreator {
   constructor () {
+    this.rules = rules()
+    this.rules.defaultEmiter = this
+
+    this.characteristicsSelection = new CharacteristicsSelection(this, this.rules)
+    this._setLinks()
+
     this._appearance = d10.roll()
     this._pd = null
 
     /* Abilities */
-    this.characteristics = new Characteristics()
     this.secondaryCharacteristics = new SecondaryCharacteristics()
     this.basicInfo = new CharacterBasicInfo()
     this.physicalCapacities = new PhysicalCapacities()
@@ -32,15 +35,8 @@ class CharacterCreator {
     this.secondaryAbilities = new SecondaryAbilities()
     /* shops */
     this.developmentPointsShop = new Shop({})
-    this.pointsGenerator = new PointsGenerator()
-    this.pointsGenerator.setValuesToGenerate(this.characteristics.length)
-      .setPointsToGenerate(60)
-    this.valuesShop = new ValuesShop([])
 
-    this.rules = rules()
-    this.rules.defaultEmiter = this
-
-    this._applyRules(this, 'creator', 'init')
+    this.rules.applyRules(this, 'creator', 'init')
   }
 
   /* RULES */
@@ -63,39 +59,52 @@ class CharacterCreator {
     return this
   }
 
-  _applyRules (value, base, operation, especified) {
-    let newValue = value
-    newValue = this.rules.apply(base + '/' + operation, newValue, this)
-    if (especified) newValue = this.rules.apply(base + '/' + operation + '/' + especified, newValue, this)
-    return newValue
-  }
+  _setLinks () {
+    // Bonusses links
+    this.characteristicsSelection.addLink((name, _, creator) => {
+      const characteristic = creator.characteristicsSelection.characteristics.get(name)
 
-  /* Temporal waiting to a link manager */
-  _setLinks (name, value) {
-    this.updateBonusses()
-    /* Manage the secondaryCharacteristics links, rules only modify a value not set values for thad reason the lisks not are a rules
-     * TODO this feature must be manage by a link manager in the future
-     */
-    // replace physique is fatigue
-    if (name === 'physique') {
-      this.physicalCapacities.set('fatigue', this._applyRules(value, 'physicalCapacities', 'set', 'fatigue'))
-      if (this.physicalCapacities.get('fatigue')) this.physicalCapacities.markSetted('fatigue')
-      else this.physicalCapacities.markUnsetted('fatigue')
-    }
-    if (name === 'agility') {
-      this.physicalCapacities.set('movement type', this._applyRules(value, 'physicalCapacities', 'set', 'movement type'))
-      if (this.physicalCapacities.get('movement type')) this.physicalCapacities.markSetted('movement type')
-      else this.physicalCapacities.markUnsetted('movement type')
-    }
-
-    if (name === 'strength' || name === 'physique') {
-      const { strength, physique } = this.settedCharacteristics()
-      if (strength && physique) {
-        this.secondaryCharacteristics.set('size', this._applyRules(strength + physique, 'secondaryCharacteristics', 'set', 'size'))
-          .markSetted('size')
+      if (name in creator.settedCharacteristics()) {
+        const bonus = { reason: 'characteristic', value: characteristic.bonus }
+        creator.combatAbilities.addBonusWhoDepensOn(name, bonus)
+        creator.supernaturalAbilities.addBonusWhoDepensOn(name, bonus)
+        creator.psychicAbilities.addBonusWhoDepensOn(name, bonus)
+        creator.secondaryAbilities.addBonusWhoDepensOn(name, bonus)
+        return
       }
-    }
-    return this
+
+      creator.combatAbilities.removeBonusWhoDependsOn(name, 'characteristic')
+      creator.supernaturalAbilities.removeBonusWhoDependsOn(name, 'characteristic')
+      creator.psychicAbilities.removeBonusWhoDependsOn(name, 'characteristic')
+      creator.secondaryAbilities.removeBonusWhoDependsOn(name, 'characteristic')
+    })
+
+    // psysique link
+    this.characteristicsSelection.addLink((name, value, creator) => {
+      if (name === 'physique') {
+        creator.physicalCapacities.set('fatigue', creator.rules.applyRules(value, 'physicalCapacities', 'set', 'fatigue'))
+        if (creator.physicalCapacities.get('fatigue')) creator.physicalCapacities.markSetted('fatigue')
+        else creator.physicalCapacities.markUnsetted('fatigue')
+      }
+    })
+
+    this.characteristicsSelection.addLink((name, value, creator) => {
+      if (name === 'agility') {
+        creator.physicalCapacities.set('movement type', creator.rules.applyRules(value, 'physicalCapacities', 'set', 'movement type'))
+        if (creator.physicalCapacities.get('movement type')) creator.physicalCapacities.markSetted('movement type')
+        else creator.physicalCapacities.markUnsetted('movement type')
+      }
+    })
+
+    this.characteristicsSelection.addLink((name, _, creator) => {
+      if (name === 'strength' || name === 'physique') {
+        const { strength, physique } = creator.settedCharacteristics()
+        if (strength && physique) {
+          this.secondaryCharacteristics.set('size', creator.rules.applyRules(strength + physique, 'secondaryCharacteristics', 'set', 'size'))
+            .markSetted('size')
+        }
+      }
+    })
   }
 
   // BASICINFO
@@ -106,7 +115,7 @@ class CharacterCreator {
    */
   setBasicInfo (name, value) {
     if (!this.basicInfo.has(name)) throw new Error('the ' + name + ' is not in basic info')
-    this.basicInfo.changeValueOf(name, this._applyRules(value, 'basicInfo', 'set', name)).markSetted(name)
+    this.basicInfo.changeValueOf(name, this.rules.applyRules(value, 'basicInfo', 'set', name)).markSetted(name)
     return this
   }
 
@@ -130,9 +139,7 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   generatePoints (type) {
-    this.pointsGenerator.selectGenerator(type).generate()
-    if (this.pointsGenerator.type === 'values') { this.valuesShop = new ValuesShop(this.pointsGenerator.result.points) }
-    this.characteristics = new Characteristics()
+    this.characteristicsSelection.generatePoints(type)
     return this
   }
 
@@ -141,14 +148,12 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   setPoints (points) {
-    this.characteristics = new Characteristics()
-    this.pointsGenerator.setPointsToGenerate(points)
+    this.characteristicsSelection.points = points
     return this
   }
 
   isPoinsAlreadyGenerated () {
-    if (!this.pointsGenerator.isGeneratoraSelected()) return false
-    return this.pointsGenerator.isAlreadyGenerated(this.pointsGenerator.generator.name)
+    return this.characteristicsSelection.pointsAlreadyGenerated
   }
 
   getGeneratedPointsResult () {
@@ -156,7 +161,7 @@ class CharacterCreator {
   }
 
   generationType () {
-    return this.pointsGenerator.type
+    return this.characteristicsSelection.generatorType
   }
 
   // Characteristic
@@ -164,17 +169,15 @@ class CharacterCreator {
    * @returns {Array} Array of strings
    */
   nonSetCharacteristics () {
-    return this.characteristics.nonSetted
+    return this.characteristicsSelection.nonSet
   }
 
   getGreatestNonSetValue () {
-    if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
-    return this.valuesShop.greatestInStock
+    return this.characteristicsSelection.greatestNonSetValue
   }
 
   getSmalestNonSetValue () {
-    if (this.generationType() === 'points') throw new Error('the generation type is points use another generation')
-    return this.valuesShop.smalestInStock
+    return this.characteristicsSelection.smalestNonSetValue
   }
 
   /* set a Value to a chacacteristic the value must be in the generated values. You can get the abiable values by non set generation values
@@ -183,11 +186,7 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   selectValueTo (name, value) {
-    const newValue = this._applyRules(value, 'characteristics', 'set', name)
-    this.valuesShop.spend(newValue)
-    this.characteristics.set(name, newValue)
-    this.characteristics.markSetted(name)
-    this._setLinks(name, newValue)
+    this.characteristicsSelection.selectValueTo(name, value)
     return this
   }
 
@@ -213,7 +212,7 @@ class CharacterCreator {
    * @returns {Array} array of numbes of non setted values
    */
   nonSetGenerationValues () {
-    return this.valuesShop.catalog
+    return this.characteristicsSelection.nonSetValues
   }
 
   /* Remove a value to a characteristic and move again to the aviable values
@@ -221,11 +220,7 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   removeValueTo (name) {
-    const valueToRefound = this.characteristics.get(name).value
-    this.characteristics.set(name, 0)
-    this.characteristics.markUnsetted(name)
-    this._setLinks(name, 0)
-    this.valuesShop.refound(valueToRefound)
+    this.characteristicsSelection.removeValueTo(name)
     return this
   }
 
@@ -233,7 +228,7 @@ class CharacterCreator {
    * @returns {Object} the characteristics setted
    */
   settedCharacteristics () {
-    return this.characteristics.settedValues
+    return this.characteristicsSelection.setted
   }
 
   /** Add the amount of points to a characteristic and spend it from remainder points. Uses the rule path of "set/characteristics"
@@ -242,19 +237,7 @@ class CharacterCreator {
    * @returns {Object} this
    */
   expendPointsTo (characteristic, amount) {
-    const actualCharacteristicValue = this.settedCharacteristics()[characteristic] || 0
-    let newValue = this._applyRules(actualCharacteristicValue + amount, 'characteristics', 'set', characteristic)
-    this.characteristics.set(characteristic, newValue)
-      .markSetted(characteristic)
-    this._setLinks(characteristic, newValue)
-    if (this.remainderPoints() < 0) {
-      newValue = this._applyRules(actualCharacteristicValue, 'characteristics', 'set', characteristic)
-      this.characteristics.set(characteristic, newValue)
-        .markUnsetted(characteristic)
-      this._setLinks(characteristic, newValue)
-      if (!this.remainderPoints()) this.characteristics.markUnsetted(characteristic, newValue)
-      throw new Error('points to expend exeded')
-    }
+    this.characteristicsSelection.expendPointsTo(characteristic, amount)
     return this
   }
 
@@ -264,19 +247,7 @@ class CharacterCreator {
    * @return {Object} this
    */
   removePointsTo (characteristic, amount) {
-    const beforeValue = this.settedCharacteristics()[characteristic]
-    if (!beforeValue) throw new Error(`the ${characteristic} not have any value`)
-    if (!amount) {
-      this.characteristics.set(characteristic, this._applyRules(0, 'characteristics', 'set', characteristic))
-        .markUnsetted(characteristic)
-      this._setLinks(characteristic, 0)
-      return this
-    }
-    const newValue = beforeValue - amount
-    if (newValue < 0) throw new Error(`You are trying to remove ${amount} to ${characteristic} but only have ${beforeValue}`)
-    this.characteristics.set(characteristic, this._applyRules(newValue, 'characteristics', 'set', characteristic))
-    this._setLinks(characteristic, 0)
-    if (!newValue) this.characteristics.markUnsetted(characteristic)
+    this.characteristicsSelection.removePointsTo(characteristic, amount)
     return this
   }
 
@@ -284,10 +255,7 @@ class CharacterCreator {
    * @returns {number} remainder points
    */
   remainderPoints () {
-    const totalPoints = this.pointsGenerator.pointsToGenerate
-    const spendCharacteristics = this._applyRules(Object.values(this.settedCharacteristics()), 'points', 'spends')
-    const spendedPoints = spendCharacteristics.reduce((total, actual) => total + actual, 0)
-    return totalPoints - spendedPoints
+    return this.characteristicsSelection.remainingPoints
   }
 
   // PhysicalCapacities
@@ -304,7 +272,6 @@ class CharacterCreator {
    */
   settedSecondaryCharacteristics () {
     const setted = this.secondaryCharacteristics.settedValues
-    // TODO manage appearance with secondaryCharacteristics
     if (!setted.appearance) setted.appearance = this._appearance
     return setted
   }
@@ -315,7 +282,7 @@ class CharacterCreator {
    * returns {CharacterCreator} this
    */
   setSecondaryCharacteristic (name, value) {
-    this.secondaryCharacteristics.set(name, this._applyRules(value, 'secondaryCharacteristics', 'set', name))
+    this.secondaryCharacteristics.set(name, this.rules.applyRules(value, 'secondaryCharacteristics', 'set', name))
       .markSetted(name)
     return this
   }
@@ -366,13 +333,13 @@ class CharacterCreator {
    * @type {number}
    */
   get developmentPoints () {
-    const pd = this._applyRules(this._pd, 'pd', 'get')
+    const pd = this.rules.applyRules(this._pd, 'pd', 'get')
     if (pd === null) throw new Error('Development points is not setted')
     return this._pd
   }
 
   set developmentPoints (recibedPD) {
-    const newPD = this._applyRules(recibedPD, 'pd', 'set')
+    const newPD = this.rules.applyRules(recibedPD, 'pd', 'set')
     this._pd = newPD
     return recibedPD
   }
@@ -381,7 +348,7 @@ class CharacterCreator {
    * @param {string} name - the name of category
    */
   selectCategory (name) {
-    this._category = this._applyRules(name, 'category', 'set')
+    this._category = this.rules.applyRules(name, 'category', 'set')
     return this
   }
 
@@ -399,7 +366,7 @@ class CharacterCreator {
    * @returns {CharacterCreator} this
    */
   enhance (name, value) {
-    let context = this._applyRules({ name, value }, 'pd', 'spend')
+    let context = this.rules.applyRules({ name, value }, 'pd', 'spend')
     let especified = ''
     let IAbilityCollection = null
     if (this.combatAbilities.has(name)) {
@@ -422,7 +389,7 @@ class CharacterCreator {
       console.log(this.supernaturalAbilities)
       throw new Error(name + ' is not a ability' + especified)
     }
-    context = this._applyRules(context, 'pd', 'spend', especified)
+    context = this.rules.applyRules(context, 'pd', 'spend', especified)
     IAbilityCollection.enhance(context.name, context.value)
     this.developmentPointsShop.spend(context.name, context.value)
     return this
@@ -435,7 +402,7 @@ class CharacterCreator {
    */
   decrease (name, value) {
     if (this.developmentPointsShop.buyList[name] && this.developmentPointsShop.buyList[name] - value < 0) throw new Error('decrease bellow 0')
-    let context = this._applyRules({ name, value }, 'pd', 'refound')
+    let context = this.rules.applyRules({ name, value }, 'pd', 'refound')
     let especified = ''
     let IAbilityCollection = null
     if (this.combatAbilities.has(name)) {
@@ -454,7 +421,7 @@ class CharacterCreator {
       especified = 'secondaryAbilities'
       IAbilityCollection = this.secondaryAbilities
     }
-    context = this._applyRules(context, 'pd', 'refound', especified)
+    context = this.rules.applyRules(context, 'pd', 'refound', especified)
     IAbilityCollection.decrease(context.name, context.value)
     this.developmentPointsShop.refound(context.name, context.value)
     return this
@@ -495,27 +462,6 @@ class CharacterCreator {
    */
   developmentPointsSpendedIn (name) {
     return this.developmentPointsShop.balanceOf(name)
-  }
-
-  updateBonusses () {
-    const setted = Object.keys(this.characteristics.settedValues)
-    const nonSetted = this.characteristics.nonSetted
-    for (const name of setted) {
-      const characteristic = this.characteristics.get(name)
-      const bonus = { reason: 'characteristic', value: characteristic.bonus }
-      this.combatAbilities.addBonusWhoDepensOn(name, bonus)
-      this.supernaturalAbilities.addBonusWhoDepensOn(name, bonus)
-      this.psychicAbilities.addBonusWhoDepensOn(name, bonus)
-      this.secondaryAbilities.addBonusWhoDepensOn(name, bonus)
-    }
-    for (const name of nonSetted) {
-      const characteristic = this.characteristics.get(name)
-      const bonus = { reason: 'characteristic', value: characteristic.bonus }
-      this.combatAbilities.removeBonusWhoDependsOn(name, bonus)
-      this.supernaturalAbilities.removeBonusWhoDependsOn(name, bonus)
-      this.psychicAbilities.removeBonusWhoDependsOn(name, bonus)
-      this.secondaryAbilities.removeBonusWhoDependsOn(name, bonus)
-    }
   }
 }
 
