@@ -3,9 +3,10 @@ const NamedValue = require('../NamedValue/NamedValue')
 const bonusFunction = require('./bonusValueOfCharacteristics')
 
 class Characteristic extends NamedValue {
-  constructor (name, value = 0) {
+  constructor (name, value = 0, category = '') {
     super(name, value)
     this._.bonus = bonusFunction(this.value)
+    this._.category = category
   }
 
   get bonus () {
@@ -30,12 +31,16 @@ class Characteristic extends NamedValue {
   }
 
   static fromOptions (options) {
-    const { name, value } = options
-    return new Characteristic(name, value)
+    const { name, value, category } = options
+    return new Characteristic(name, value, category)
   }
 
   fromOptions (options) {
     return Characteristic.fromOptions(options)
+  }
+
+  isFromCategory (categoryName) {
+    return this._.category === categoryName
   }
 }
 module.exports = Characteristic
