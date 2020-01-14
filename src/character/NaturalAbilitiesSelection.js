@@ -1,7 +1,6 @@
 module.exports = class NaturalAbilitiesSelection {
-  constructor (secondaryAbilities, basicInfo) {
+  constructor (secondaryAbilities) {
     this.secondaryAbilities = secondaryAbilities
-    this.basicInfo = basicInfo
     this.bonus = {
       reason: 'natural ability',
       value: 10
