@@ -10,6 +10,7 @@ const SecondaryAbilities = require('../secondaryAbilities/SecondaryAbilities')
 const rules = require('./rules')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
 const NaturalAbilitiesSelection = require('./NaturalAbilitiesSelection')
+const NaturalBonusSelection = require('./NaturalBonusSelection')
 const D10 = require('../dices/d10')
 const d10 = new D10()
 
@@ -36,6 +37,7 @@ class CharacterCreator {
     this.developmentPointsShop = new Shop({})
 
     this.naturalAbilitiesSelection = new NaturalAbilitiesSelection(this.secondaryAbilities, this.basicInfo)
+    this.naturalAbilitiesSelection = new NaturalBonusSelection(this.characteristicsSelection, this.secondaryAbilities)
 
     this._appearance = d10.roll()
     this._pd = null
