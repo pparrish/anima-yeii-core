@@ -1,0 +1,74 @@
+{
+  "warrior": {
+    "archetype": "",
+    "pv": 15,
+    "turn": 5,
+    "martial knowledge": 25,
+    "innate cv": {
+      "value": 1,
+      "each": 3
+    },
+    "limits": {
+      "combat": 60,
+      "supernatural":50,
+      "psychic": 50
+    },
+    "costs": {
+      "basics": {
+        "life multiplied": 15
+      },
+      "primary": {
+        "combat": {
+          "attack": 2,
+          "stop": 2,
+          "dodge": 2
+        },
+        "supernatural": {
+          "zeon": 2,
+          "ACT multiplied": 60,
+          "magic projection": 3,
+          "domain": 3,
+          "summon": 3,
+          "tie": 3,
+          "unsummon": 3
+        },
+        "psychic": {
+          "CV": 1,
+          "psychic projection": 3
+        }
+      },
+      "secondary": {
+        "atletics": 2,
+        "social": 2,
+        "perceptive": 2,
+        "intellectual": 3,
+        "vigor": 2,
+        "subterfuge": 2,
+        "creative": 2
+      },
+      "reducedCosts": {
+        "feats of strength": 1
+      }
+    },
+    "bonus": {
+      "primaryAbilities": {
+          "attack": {
+            "value": 5,
+            "max" : 50
+          },
+          "stop": {
+            "value": 5,
+            "max": 50
+          },
+          "suit armor": {
+            "value": 5
+          }
+        },
+      "secondary": {
+        "feats of strength": {
+          "value": 5
+        }
+      }
+    }
+  }
+}
