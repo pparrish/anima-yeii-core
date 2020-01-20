@@ -7,6 +7,7 @@ export default class BonusHandler {
   constructor() {
     this.collections = {}
     this.bonus = {}
+    this.dependsOn = {}
   }
 
   addCollection(
@@ -121,7 +122,6 @@ export default class BonusHandler {
       frobiden(
         `The ${colection}} colection does not exist`
       )
-    console.log(this.bonus)
     if (!this.bonus[colection].bonus)
       frobiden(
         `${colection} does not have any bonus`
@@ -131,5 +131,62 @@ export default class BonusHandler {
         `The ${reason}} reason does not exist`
       )
     return this.bonus[colection].bonus[reason]
+  }
+
+  addBonusWhoDepens(
+    dependency = required('dependency'),
+    bonus = required('bonus')
+  ) {
+    if (!this.dependsOn[dependency])
+      this.dependsOn[dependency] = {}
+    if (this.dependsOn[dependency][bonus.reason])
+      return this
+    this.dependsOn[dependency][
+      bonus.reason
+    ] = bonus
+    Object.keys(this.collections).map(
+      colection => {
+        return this.collections[
+          colection
+        ].addBonusWhoDepensOn(dependency, bonus)
+      }
+    )
+    return this
+  }
+
+  removeBonusWhoDepens(
+    dependency = required('dependency'),
+    reason = required('dependency')
+  ) {
+    if (!this.dependsOn[dependency]) return this
+    if (!this.dependsOn[dependency][reason])
+      return this
+    Object.keys(this.collections).map(
+      colection => {
+        return this.collections[
+          colection
+        ].removeBonusWhoDepensOn(
+          dependency,
+          reason
+        )
+      }
+    )
+    this.dependsOn[dependency][reason] = undefined
+    return this
+  }
+
+  getBonusWhoDepends(
+    dependency = required('dependency'),
+    reason = required('reason')
+  ) {
+    if (!this.dependsOn[dependency])
+      frobiden(
+        `there not are bonus with ${dependency} dependency`
+      )
+    if (!this.dependsOn[dependency][reason])
+      frobiden(
+        `there not are any bonus with ${reason} reason`
+      )
+    return this.dependsOn[dependency][reason]
   }
 }
