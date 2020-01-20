@@ -1,8 +1,6 @@
 const RulesHandler = require('../rulesHandler/RulesHandler')
 const developmentPointsTable = require('../developmentPoints/developmentPointsTable')
-const categories = require('../categories')
 const sizeTable = require('../secondaryCharacteristics/sizeTable')
-const expandCostOfSecondaryAbilitiesCategories = require('../categories/expandCostOfSecondaryAbilitiesCategories')
 
 const addWhenItReachesTheValue = (
   toAdd,
@@ -321,45 +319,6 @@ module.exports = () => {
         return { name, value }
       }
     )
-
-    /* Categories */
-    .add(
-      'select category',
-      'category/set',
-      (name, creator) => {
-        const category = categories.find(
-          cat => cat.name === name
-        )
-        if (!category)
-          throw new Error(
-            'the category does not exist'
-          )
-        /* TODO merge all catalogs function */
-        /* TODO all merges must be part of CharacterCreator */
-        creator.developmentPointsShop.mergeCatalog(
-          category.primaryAbilities
-            .combatAbilities
-        )
-        creator.developmentPointsShop.mergeCatalog(
-          category.primaryAbilities
-            .supernaturalAbilities
-        )
-        creator.developmentPointsShop.mergeCatalog(
-          category.primaryAbilities
-            .psychicAbilities
-        )
-        creator.developmentPointsShop.mergeCatalog(
-          expandCostOfSecondaryAbilitiesCategories(
-            category.secondaryAbilities.categories
-          )
-        )
-        creator.developmentPointsShop.mergeCatalog(
-          category.secondaryAbilities.reducedCost
-        )
-        return category
-      }
-    )
-
     /* development points */
     .add(
       'pd linked to level',
@@ -398,11 +357,15 @@ module.exports = () => {
       )
     })
 
+    // TODO maibe in another place
     .add(
       'select category to spend pd',
       'pd/spend',
       ({ name, value }, creator) => {
-        if (!creator.category)
+        if (
+          !creator.categorySelector
+            .isAlreadySelected
+        )
           throw new Error(
             'select category to spend development points'
           )
@@ -554,37 +517,34 @@ module.exports = () => {
       'combat abilities limit',
       'pd/spend/combatAbilities',
       ({ name, value }, creator) => {
-        if (
-          name in
-          creator._category.primaryAbilities
-            .combatAbilities
-        ) {
-          const limit =
-            creator.developmentPoints *
-            (creator._category.limits
-              .combatAbilities /
-              100)
-          let spended =
-            creator.developmentPointsShop.catalog[
-              name
-            ] * value
-          for (const ability in creator
-            .developmentPointsShop.buyList) {
-            if (
-              ability in
-              creator._category.primaryAbilities
-                .combatAbilities
-            ) {
-              spended += creator.developmentPointsSpendedIn(
-                name
-              )
-            }
-          }
-          if (spended > limit)
-            throw new Error(
-              `the limit of pd for combat abilities is ${limit}`
+        const combatLimits =
+          creator.categorySelector.selected.limits
+            .combat
+        const {
+          buyList,
+        } = creator.developmentPointsShop
+        const limit =
+          creator.developmentPoints *
+          (combatLimits / 100)
+        let spended =
+          creator.developmentPointsShop.catalog[
+            name
+          ] * value
+        Object.keys(buyList).map(abilityName => {
+          if (
+            creator.combatAbilities.has(
+              abilityName
             )
-        }
+          )
+            spended += creator.developmentPointsSpendedIn(
+              abilityName
+            )
+          return spended
+        })
+        if (spended > limit)
+          throw new Error(
+            `the limit of pd for combat abilities is ${limit}`
+          )
         return { name, value }
       }
     )
@@ -595,8 +555,8 @@ module.exports = () => {
       ({ name, value }, creator) => {
         const limit =
           creator.developmentPoints *
-          (creator._category.limits
-            .supernaturalAbilities /
+          (creator.categorySelector.selected
+            .limits.supernatural /
             100)
         let spended =
           creator.developmentPointsShop.catalog[
@@ -632,8 +592,8 @@ module.exports = () => {
       ({ name, value }, creator) => {
         const limit =
           (creator.developmentPoints *
-            (creator._category.limits
-              .supernaturalAbilities /
+            (creator.categorySelector.selected
+              .limits.supernatural /
               100)) /
           2
         let spended =
@@ -658,8 +618,8 @@ module.exports = () => {
       ({ name, value }, creator) => {
         const limit =
           creator.developmentPoints *
-          (creator._category.limits
-            .psychicAbilities /
+          (creator.categorySelector.selected
+            .limits.psychic /
             100)
         let spended =
           creator.developmentPointsShop.catalog[
@@ -683,8 +643,8 @@ module.exports = () => {
       ({ name, value }, creator) => {
         const limit =
           (creator.developmentPoints *
-            (creator._category.limits
-              .psychicAbilities /
+            (creator.categorySelector.selected
+              .limits.psychic /
               100)) /
           2
         let spended =

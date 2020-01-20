@@ -1,4 +1,5 @@
 import BonusHandler from './BonusHandler'
+import CategorySelector from './CategorySelector'
 
 const CharacteristicsSelection = require('./CharacteristicsSelection')
 const PhysicalCapacities = require('../physicalCapacities/PhysicalCapacities')
@@ -73,6 +74,10 @@ class CharacterCreator {
       this.characteristicsSelection,
       this.secondaryAbilities,
       this.bonusHandler
+    )
+
+    this.categorySelector = new CategorySelector(
+      this.developmentPointsShop
     )
 
     this.rules.applyRules(this, 'creator', 'init')
@@ -535,11 +540,7 @@ class CharacterCreator {
    * @param {string} name - the name of category
    */
   selectCategory(name) {
-    this._category = this.rules.applyRules(
-      name,
-      'category',
-      'set'
-    )
+    this.categorySelector.select(name)
     return this
   }
 
@@ -547,10 +548,7 @@ class CharacterCreator {
    * @type {string}
    */
   get category() {
-    if (this._category) {
-      return this._category.name
-    }
-    return undefined
+    return this.categorySelector.selected
   }
 
   /** Enhance a ability
