@@ -1,4 +1,5 @@
 import { required } from '../../utils/classUtils'
+import RulesHandler from '../../rulesHandler/RulesHandler'
 /** Represents a generator of rolls for characteristic points
  * @param {Object} IResultsStore - Store for the history of results
  * @param {string} IResultsStore.type - The type of generator of the actual selection
@@ -12,6 +13,7 @@ export default class GenerateRolls {
   constructor(IResultsStore, IRollsGenerator) {
     this.store = IResultsStore
     this.generator = IRollsGenerator
+    this.rules = new RulesHandler()
   }
 
   /** Select a roll type the selected roll generated values is stored in result store
@@ -19,18 +21,24 @@ export default class GenerateRolls {
    * @returns {GenerateRolls} this
    */
   select(type = required('type')) {
-    if (this.store.generated[type]) {
-      const generated = this.store.generated[type]
-      this.store.mode = generated.mode
-      this.store.type = generated.type
-      this.store.points = generated.points
-      return this
+    this.rules.apply(
+      'select',
+      { type },
+      this.store
+    )
+    let result = this.store.generated[type]
+    if (!result) {
+      result = this.generator.generate(type)
+      this.store.generated[type] = result
     }
-    const result = this.generator.generate(type)
-    this.store.generated[type] = result
     this.store.mode = result.mode
     this.store.type = result.type
     this.store.points = result.points
+    this.rules.apply(
+      'selected',
+      { result },
+      this.store
+    )
     return this
   }
 }

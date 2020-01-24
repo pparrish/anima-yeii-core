@@ -16,5 +16,11 @@ describe('Create a character', () => {
           .length
       ).toBe(8)
     })
+    test('the shop stock have 8 values', () => {
+      expect(
+        newCharacter.data.pointsShop.values.stock
+          .length
+      ).toBe(8)
+    })
   })
 })

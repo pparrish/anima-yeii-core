@@ -71,6 +71,10 @@ class NamedValueColection {
   get length () {
     return this._.storage.size
   }
+
+  get names () {
+    return this._.storage.keys()
+  }
 }
 
 module.exports = NamedValueColection
