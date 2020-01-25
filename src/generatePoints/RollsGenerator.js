@@ -29,16 +29,17 @@ export default class RollsGenerator {
 
   /** Generate a result of giben type
    * @param {number | string} type
-   * @returns {object} result of the generator
+   * @returns {Object} result of the generator
    */
   generate(type) {
     const generator = this.getGenerator(type)
-    const neededValue =
-      generator.need === 'values to generate'
-        ? this.valuesToGenerate
-        : generator.need === 'points to generate'
-        ? this.pointsToGenerate
-        : undefined
+
+    let neededValue
+
+    if (generator.need === 'values to generate')
+      neededValue = this.valuesToGenerate
+    if (generator.need === 'points to generate')
+      neededValue = this.pointsToGenerate
 
     const result = generator.generator(
       neededValue

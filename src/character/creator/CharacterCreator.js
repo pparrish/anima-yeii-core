@@ -4,6 +4,7 @@ import RollsGenerator from '../../generatePoints/RollsGenerator'
 import ValuesShop from '../../shop/ValuesShop'
 import PointsShop from '../../shop/PointsShop'
 import CharacteristicsSelector from '../selectors/CharacteristicSelector'
+import PhysicalAttibutesSelector from '../selectors/PhysicalAttibutesSelector'
 import PhysicalCapacities from '../../physicalCapacities/PhysicalCapacities'
 import RulesHandler from '../../rulesHandler/RulesHandler'
 import SecondaryCharacteristics from '../../secondaryCharacteristics/SecondaryCharacteristics'
@@ -25,6 +26,12 @@ export default class CharacterCreator {
       pointsShop: {
         values: new ValuesShop(),
         points: new PointsShop(),
+      },
+      body: {
+        randomAppearance: d10.roll(),
+        height: undefined,
+        weight: undefined,
+        type: undefined,
       },
       basicInfo: {},
       characteristics: new Characteristics(),
@@ -51,6 +58,16 @@ export default class CharacterCreator {
       this.data.pointsShop.values
     )
 
+    this.physicalAttibutesSelector = new PhysicalAttibutesSelector(
+      this.data.body,
+      this.data.physicalCapacities,
+      this.data.secondaryCharacteristics,
+      this.data.pointsShop,
+      this.data.generatedRolls,
+      this.data.characteristics,
+      this.characteristicsSelection.rules
+    )
+
     this.generateRolls.rules.add(
       'Actualice the shops',
       'selected',
@@ -64,83 +81,5 @@ export default class CharacterCreator {
         ]
       }
     )
-
-    this.characteristicsSelection.rules.add(
-      'agility is movement tyoe',
-      'characteristics/setted/agility',
-      value => {
-        this.data.physicalCapacities.set(
-          'movement type',
-          value
-        )
-      }
-    )
-
-    this.characteristicsSelection.rules.add(
-      'streng is fatigue',
-      'characteristics/setted/physique',
-      value => {
-        this.data.physicalCapacities.set(
-          'fatigue',
-          value
-        )
-      }
-    )
-
-    this.characteristicsSelection.rules.add(
-      'strength is added to physique to size',
-      'characteristics/setted/strength',
-      value => {
-        this._setSize(value, 'physique')
-      }
-    )
-
-    this.characteristicsSelection.rules.add(
-      'physique is added to strength to size',
-      'characteristics/setted/physique',
-      value => {
-        this._setSize(value, 'strength')
-      }
-    )
-
-    // TODO Maibe must be a part of secondaryCharaxteristic selector
-    this.data.rules.add(
-      'Random appearance',
-      'creator/init',
-      () => {
-        this.data.secondaryCharacteristics.set(
-          'appearance',
-          d10.roll()
-        )
-      }
-    )
-
-    this.data.rules.apply(
-      'creator/init',
-      this,
-      this
-    )
-  }
-
-  _setSize(value, complementNameToSearch) {
-    const { mode } = this.data.generatedRolls
-    if (
-      this.data.pointsShop[mode].buyList[
-        complementNameToSearch
-      ]
-    ) {
-      const complementValue = this.data.characteristics.get(
-        complementNameToSearch
-      ).value
-      this.data.secondaryCharacteristics.set(
-        'size',
-        value + complementValue
-      )
-    } else {
-      this.data.secondaryCharacteristics.get(
-        'size',
-        0
-      )
-    }
   }
 }
