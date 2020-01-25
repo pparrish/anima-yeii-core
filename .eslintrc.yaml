@@ -13,7 +13,6 @@ parser:
 rules:
   prettier/prettier:
     - error
-  no-underscore-dangle:
-    - error
-    - "allowAfterThis": true
+  no-underscore-dangle: off
+  class-methods-use-this: off
       
