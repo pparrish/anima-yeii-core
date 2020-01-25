@@ -1,9 +1,15 @@
 ---
+parserOptions:
+  ecmaVersion: 6
+env:
+  node: true
 extends:
   - airbnb-base
   - prettier
 plugins:
   - prettier
+parser: 
+  "babel-eslint"
 rules:
   prettier/prettier:
     - error
