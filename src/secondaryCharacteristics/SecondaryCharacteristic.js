@@ -1,13 +1,27 @@
 const NamedValue = require('../NamedValue/NamedValue')
 
 class SecondaryCharacteristic extends NamedValue {
-  static fromOptions (options) {
-    const { name, value } = options
-    return new SecondaryCharacteristic(name, value)
+  constructor(name, value, linkedTo) {
+    super(name, value)
+    this._.linkedTo = linkedTo
   }
 
-  fromOptions (options) {
-    return SecondaryCharacteristic.fromOptions(options)
+  static fromOptions(options) {
+    const { name, value, linkedTo } = options
+    return new SecondaryCharacteristic(
+      name,
+      value,
+      linkedTo
+    )
+  }
+
+  _promote(changes) {
+    const newChanges = super._promote(changes)
+    return {
+      ...changes,
+      linkedTo:
+        newChanges.linkedTo ?? this.linkedTo,
+    }
   }
 }
 

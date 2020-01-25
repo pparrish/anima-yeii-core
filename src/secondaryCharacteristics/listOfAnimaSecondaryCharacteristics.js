@@ -1,14 +1,17 @@
 const createList = require('../utils/createList')
 const SecondaryCharacteristic = require('./SecondaryCharacteristic')
+
 const list = [
   {
     name: 'appearance',
-    CREATOR: SecondaryCharacteristic
+    linkedTo: 'D10 unselected',
+    CREATOR: SecondaryCharacteristic,
   },
   {
     name: 'size',
-    CREATOR: SecondaryCharacteristic
-  }
+    linkedTo: 'strength physique add',
+    CREATOR: SecondaryCharacteristic,
+  },
 ]
 
 module.exports = createList(list)
