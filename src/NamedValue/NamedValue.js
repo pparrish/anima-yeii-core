@@ -1,13 +1,16 @@
-const { required, readOnly } = require('../utils').classUtils
+const {
+  required,
+  readOnly,
+} = require('../utils').classUtils
 /** Represents a inmutable name asociated with a value.
  * @param {string} name - the name for asociated a value
  * @param {any} value - any value to asociate
  */
 class NamedValue {
-  constructor (name = required('name'), value) {
+  constructor(name = required('name'), value) {
     this._ = {
       name,
-      value
+      value,
     }
   }
 
@@ -15,17 +18,23 @@ class NamedValue {
    * @type {string}
    * @readonly
    */
-  get name () { return this._.name }
+  get name() {
+    return this._.name
+  }
+
   /** the value
    * @type {any}
    * @readonly
    */
-  get value () { return this._.value }
-  set name (_) {
+  get value() {
+    return this._.value
+  }
+
+  set name(_) {
     readOnly('name')
   }
 
-  set value (_) {
+  set value(_) {
     readOnly('value')
   }
 
@@ -33,18 +42,20 @@ class NamedValue {
    * @param {any} value - the value to change
    * @returns { NamedValue } new NammedValue with the new value
    */
-  changeValue (value) {
-    return this.fromOptions(this._promote({ value }))
+  changeValue(value) {
+    return this.fromOptions(
+      this._promote({ value })
+    )
   }
 
   /** Recibe a object and full any non specified value for the NamedValue properties
    * @private
    */
-  _promote (changes = {}) {
+  _promote(changes = {}) {
     return {
       ...changes,
       name: this.name,
-      value: changes.value || this.value
+      value: changes.value || this.value,
     }
   }
 
@@ -52,13 +63,15 @@ class NamedValue {
    * @param {Object} options - a object with the arguments of NamedValueConstructor
    * @returns {NamedValue} a NamedValue make with options
    */
-  static fromOptions (options = required('options')) {
+  static fromOptions(
+    options = required('options')
+  ) {
     const { name, value } = options
     return new NamedValue(name, value)
   }
 
-  fromOptions (options) {
-    return NamedValue.fromOptions(options)
+  fromOptions(options) {
+    return this.constructor.fromOptions(options)
   }
 }
 module.exports = NamedValue
