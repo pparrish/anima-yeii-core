@@ -1,3 +1,5 @@
+import sizeTable from '../../secondaryCharacteristics/sizeTable'
+
 export default class PhysicalAttibutesSelector {
   constructor(
     body,
@@ -76,6 +78,89 @@ export default class PhysicalAttibutesSelector {
       )
     } else {
       this.secondaryCharacteristics.get('size', 0)
+    }
+  }
+
+  selectApareance(value) {
+    this.secondaryCharacteristics.set(
+      'appearance',
+      value
+    )
+    return this
+  }
+
+  discardAppearance() {
+    this.secondaryCharacteristics.set(
+      'appearance',
+      this.body.randomAppearance
+    )
+    return this
+  }
+
+  selectBodyType(type) {
+    this.body.type = type
+    return this
+  }
+
+  discardBodyType() {
+    this.body.type = null
+    return this
+  }
+
+  _isAcetable(value, attribute) {
+    const size = this.secondaryCharacteristics.get(
+      'size'
+    ).value
+    const isSlim = this.body.type === 'slim'
+    const isFromAceptable = sizeTable[
+      attribute
+    ].from.check(size, value, isSlim)
+    const isToAceptable = this.sizeTable[
+      attribute
+    ].to.check(size, value)
+    return isFromAceptable && isToAceptable
+  }
+
+  selectHeight(value) {
+    this.body.height = value
+    return this
+  }
+
+  discardHeight() {
+    this.body.height = null
+    return this
+  }
+
+  selectWeight(value) {
+    this.body.weight = value
+    return this
+  }
+
+  discardWeight() {
+    this.body.weight = null
+    return this
+  }
+
+  get bodyLimits() {
+    const size = this.secondaryCharacteristics.get(
+      'size'
+    ).value
+    const isSlim = this.body.type === 'slim'
+    return {
+      height: {
+        from: sizeTable.height.from.value(
+          size,
+          isSlim
+        ),
+        to: sizeTable.height.to.value(size),
+      },
+      weight: {
+        from: sizeTable.weight.from.value(
+          size,
+          isSlim
+        ),
+        to: sizeTable.weight.to.value(size),
+      },
     }
   }
 }

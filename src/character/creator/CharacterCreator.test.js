@@ -86,6 +86,35 @@ describe('Create a character', () => {
           1
         )
       })
+
+      describe('Select body', () => {
+        let weight
+        let height
+        beforeAll(() => {
+          newCharacter.physicalAttibutesSelector.selectBodyType(
+            'slim'
+          )
+          const limits =
+            newCharacter.physicalAttibutesSelector
+              .bodyLimits
+          weight = limits.weight.from
+          height = limits.height.from
+          newCharacter.physicalAttibutesSelector
+            .selectHeight(height)
+            .selectWeight(weight)
+        })
+
+        test('height must be the minimun slim height', () => {
+          const characterHeight =
+            newCharacter.data.body.height
+          expect(height).toBe(characterHeight)
+        })
+        test('weight must be the minimun slim weight', () => {
+          const characterWeight =
+            newCharacter.data.body.weight
+          expect(weight).toBe(characterWeight)
+        })
+      })
     })
   })
 })
