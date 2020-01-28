@@ -114,6 +114,25 @@ describe('Create a character', () => {
             newCharacter.data.body.weight
           expect(weight).toBe(characterWeight)
         })
+        describe('select category', () => {
+          beforeAll(() => {
+            newCharacter.categorySelector.select(
+              'warrior'
+            )
+          })
+          test('the selected Category is warrior', () => {
+            expect(
+              newCharacter.data.selectedCategory
+                .name
+            ).toBe('warrior')
+          })
+          test('the archetipe is fighter ', () => {
+            expect(
+              newCharacter.data.selectedCategory
+                .archetype
+            ).toBe('fighter')
+          })
+        })
       })
     })
   })

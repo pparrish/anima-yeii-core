@@ -9,6 +9,8 @@ import PhysicalCapacities from '../../physicalCapacities/PhysicalCapacities'
 import RulesHandler from '../../rulesHandler/RulesHandler'
 import SecondaryCharacteristics from '../../secondaryCharacteristics/SecondaryCharacteristics'
 import D10 from '../../dices/d10'
+import categories from '../../categories'
+import CategorySelector from '../selectors/CategorySelector'
 
 const d10 = new D10()
 
@@ -41,6 +43,12 @@ export default class CharacterCreator {
       SupernaturalAbilities: {},
       SecondaryAbilities: {},
       rules: new RulesHandler(),
+      selectedCategory: {
+        name: null,
+        archetype: null,
+        limits: null,
+        abilitiesCosts: null,
+      },
     }
 
     this.rollsGenerator = new RollsGenerator(
@@ -66,6 +74,14 @@ export default class CharacterCreator {
       this.data.generatedRolls,
       this.data.characteristics,
       this.characteristicsSelection.rules
+    )
+
+    // TODO Get this categories in another method
+    this.categories = categories
+
+    this.categorySelector = new CategorySelector(
+      this.data.selectedCategory,
+      this.categories
     )
 
     this.generateRolls.rules.add(

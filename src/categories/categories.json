@@ -1,6 +1,6 @@
 {
   "warrior": {
-    "archetype": "",
+    "archetype": "fighter",
     "pv": 15,
     "turn": 5,
     "martial knowledge": 25,
@@ -21,7 +21,10 @@
         "combat": {
           "attack": 2,
           "stop": 2,
-          "dodge": 2
+          "dodge": 2,
+          "wear armor": 2,
+          "ki": 2,
+          "acumulation multiplied": 20
         },
         "supernatural": {
           "zeon": 2,
