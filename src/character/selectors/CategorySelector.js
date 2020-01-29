@@ -10,9 +10,11 @@ export default class CategorySelector {
   }
 
   select(name) {
-    const aName = this.rules.apply(
-      `category/select/${name}`,
+    const { name: aName } = this.rules.applyRules(
       { name },
+      'category',
+      'select',
+      name,
       this
     )
     const selected = this.categories.find(
@@ -27,9 +29,11 @@ export default class CategorySelector {
     this.storage.abilitiesCosts =
       selected.abilitiesCosts
 
-    this.rules.apply(
-      `category/selected/${aName}`,
+    this.rules.applyRules(
       { category: selected },
+      'category',
+      'selected',
+      aName,
       this
     )
     return this

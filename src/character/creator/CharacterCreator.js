@@ -11,6 +11,7 @@ import SecondaryCharacteristics from '../../secondaryCharacteristics/SecondaryCh
 import D10 from '../../dices/d10'
 import categories from '../../categories'
 import CategorySelector from '../selectors/CategorySelector'
+import Shop from '../../shop/Shop'
 
 const d10 = new D10()
 
@@ -35,6 +36,7 @@ export default class CharacterCreator {
         weight: undefined,
         type: undefined,
       },
+      developmentPointsShop: new Shop(),
       basicInfo: {},
       characteristics: new Characteristics(),
       secondaryCharacteristics: new SecondaryCharacteristics(),
@@ -85,7 +87,7 @@ export default class CharacterCreator {
     )
 
     this.generateRolls.rules.add(
-      'Actualice the shops',
+      'Actualice the points shops',
       'selected',
       ({ result }) => {
         const { mode, points } = result
@@ -95,6 +97,16 @@ export default class CharacterCreator {
         this.characteristicsSelection.shop = this.data.pointsShop[
           mode
         ]
+      }
+    )
+
+    this.categorySelector.rules.add(
+      'Update de development points shop',
+      'category/selected',
+      ({ category }) => {
+        this.data.developmentPointsShop.mergeCatalog(
+          category.abilitiesCosts
+        )
       }
     )
   }
