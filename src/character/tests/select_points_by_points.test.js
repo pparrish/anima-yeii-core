@@ -1,6 +1,6 @@
 /* eslint-env jest */
 const CharacterCreator = require('../CharacterCreator')
-const listOfCharacteristics = require('../../characteristics/listOfAnimaCharacteristics')
+const listOfCharacteristics = require('../../characteristics/listOfAnimaCharacteristics').map(x => x.name)
 
 describe('Select points by points', () => {
   describe('Creator of type 4', () => {

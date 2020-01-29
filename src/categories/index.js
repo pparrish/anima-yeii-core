@@ -1,22 +1,17 @@
-module.exports = [
-  require('./warrior'),
-  require('./tao'),
-  require('./novel'),
-  require('./thief'),
-  require('./ranger'),
-  require('./shadow'),
-  require('./assassin'),
-  require('./paladin'),
-  require('./warlock'),
-  require('./conjurer'),
-  require('./sorcerer'),
-  require('./mentalist'),
-  require('./technician'),
-  require('./darkPaladin'),
-  require('./illusionist'),
-  require('./weaponMaster'),
-  require('./acrobatWarrior'),
-  require('./conjuringWarrior'),
-  require('./mentalistWarrior'),
-  require('./mentalistSorcerer')
+import Category from './Category'
+import categories from './categories.json'
+
+const { warrior } = categories
+export default [
+  new Category(
+    'warrior',
+    warrior.archetype,
+    warrior.pv,
+    warrior.turn,
+    warrior['martial knowledge'],
+    warrior['innate cv'],
+    warrior.limits,
+    warrior.costs,
+    warrior.bonus
+  ),
 ]

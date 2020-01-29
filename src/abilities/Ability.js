@@ -1,5 +1,5 @@
-const required = (name = 'is') => { throw new Error(`Param ${name} missed`) }
-const readOnly = (name) => { throw new Error(`${name} read only`) }
+const { required, readOnly } = require('../utils').classUtils
+const NamedValue = require('../NamedValue/NamedValue')
 /** Class representing a ability
    * @param {string} name - The name of the ability
    * @param { number } points - The points of ability is used with {@link Ability#rate} to get the {@link Ability#base} value
@@ -10,8 +10,9 @@ const readOnly = (name) => { throw new Error(`${name} read only`) }
    * @param { number } bonuses[].value - the bonus value.
    * @param { bolean } bonuses[].baseBonus - the baseBonus convert a unique bonus is not added in the bonuses and aplly on the base value.
    */
-module.exports = class Ability {
-  constructor (name = required('name'), points = 0, dependency = '', rate = 1, bonuses = []) {
+module.exports = class Ability extends NamedValue {
+  constructor (name, points = 0, dependency = '', rate = 1, bonuses = []) {
+    super(name, null)
     let baseBonus = {
       reason: '',
       value: 0,
@@ -27,10 +28,10 @@ module.exports = class Ability {
     })
 
     this._ = {
-      name,
+      ...this._,
       rate,
-      dependency,
       points,
+      dependency,
       bonuses: newBonus,
       baseBonus
     }
@@ -52,16 +53,27 @@ module.exports = class Ability {
     return new Ability(name, points, dependency, rate, bonuses)
   }
 
-  /** the name of Ability
-   * @readonly
-   * @type {string}
-   */
-  get name () {
-    return this._.name
+  fromOptions (options) {
+    return Ability.fromOptions(options)
   }
 
-  set name (_) {
-    readOnly('name')
+  _promote (changes = {}) {
+    changes = super._promote(changes)
+    const bonuses = changes.bonuses || this.bonuses
+    const haveBaseBonus = (bonuses) => bonuses.find(bonus => {
+      if (bonus.baseBonus) {
+        return false
+      }
+      return true
+    })
+    if (!haveBaseBonus) bonuses.push(this._.baseBonus)
+    return {
+      ...changes,
+      points: changes.points || this.points,
+      dependency: changes.dependency || this.dependency,
+      rate: changes.rate || this.rate,
+      bonuses: bonuses
+    }
   }
 
   /** the value of the ability, calculed by the bomusses added to baae.
@@ -157,10 +169,8 @@ module.exports = class Ability {
    */
   enhance (value = required('value')) {
     if (value < 0) throw new Error('The value must be positive')
-    const bonuses = this.bonuses
-    bonuses.push(this._.baseBonus)
-    const newPoints = this.points + value
-    return new Ability(this.name, newPoints, this.dependency, this.rate, bonuses)
+    const points = this.points + value
+    return this.fromOptions(this._promote({ points }))
   }
 
   /** decrease a ability
@@ -169,11 +179,9 @@ module.exports = class Ability {
    */
   decrease (value = required('value')) {
     if (value < 0) throw new Error('The value must be positive')
-    const newPoints = this.points - value
-    if (newPoints < 0) throw new Error('The points cannot be negative')
-    const bonuses = this.bonuses
-    bonuses.push(this._.baseBonus)
-    return new Ability(this.name, newPoints, this.dependency, this.rate, bonuses)
+    const points = this.points - value
+    if (points < 0) throw new Error('The points cannot be negative')
+    return this.fromOptions(this._promote({ points }))
   }
 
   /** add a bonus
@@ -186,12 +194,11 @@ module.exports = class Ability {
   addBonus (bonus = required('bonus')) {
     if (typeof bonus !== 'object') throw new Error('The bonus must be a object')
     if (!bonus.reason) throw new Error('The bonus must have a reason property')
-    if (!bonus.value) throw new Error('The bonus must have a value property')
+    if (bonus.value === null || bonus.value === undefined) throw new Error('The bonus must have a value property')
     if (isNaN(bonus.value)) throw new Error('The bonus must be a number')
-    const newBonuses = this.bonuses
-    newBonuses.push(bonus)
-    if (!bonus.baseBonus) newBonuses.push(this._.baseBonus)
-    return new Ability(this.name, this.points, this.dependency, this.rate, newBonuses)
+    const bonuses = this.bonuses
+    bonuses.push(bonus)
+    return this.fromOptions(this._promote({ bonuses }))
   }
 
   /** Remove all bonus of one reazon
@@ -199,11 +206,11 @@ module.exports = class Ability {
    * returns { Ability } The Ability without the bonus removed.
    */
   removeBonus (reason = required('reason')) {
-    const newBonuses = this.bonuses.filter(bonus => bonus.reason !== reason)
-    if (this._.baseBonus.reason !== reason) {
-      newBonuses.push(this._.baseBonus)
+    const bonuses = this.bonuses.filter(bonus => bonus.reason !== reason)
+    if (this._.baseBonus.reason === reason) {
+      bonuses.push({ reason: '', value: 0, baseBonus: true })
     }
-    return new Ability(this.name, this.points, this.dependency, this.rate, newBonuses)
+    return this.fromOptions(this._promote({ bonuses }))
   }
 
   /** Check the equality of habilities, must be the same name, value, dependency and rate

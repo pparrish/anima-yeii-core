@@ -1,9 +1,17 @@
 const NamedValueColection = require('../NamedValue/NamedValueColection')
-const BasicInfo = require('./BasicInfo')
+const listOfCharacterBasicInfo = require('./listOfCharacterBasicInfo')
+const { required } = require('../utils').classUtils
 
 class CharacterBasicInfo extends NamedValueColection {
-  constructor (infoName, infoContent) {
-    super(infoName, infoContent, BasicInfo)
+  constructor () {
+    super(listOfCharacterBasicInfo)
+  }
+
+  changeValueOf (name, value = required('value')) {
+    const basicInfo = this.get(name)
+    if (!basicInfo) return this
+    this._.storage.set(name, basicInfo.changeValue(value))
+    return this
   }
 }
 

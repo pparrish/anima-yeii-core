@@ -1,24 +1,46 @@
+const { readOnly } = require('../utils').classUtils
+const NamedValue = require('../NamedValue/NamedValue')
 const bonusFunction = require('./bonusValueOfCharacteristics')
-class Characteristic {
-  constructor (name, value) {
-    this._name = name
-    this._value = value
+
+class Characteristic extends NamedValue {
+  constructor (name, value = 0, category = '') {
+    super(name, value)
+    this._.bonus = bonusFunction(this.value)
+    this._.category = category
   }
 
-  set name (val) {
-    throw new Error('Characteristic name is read only')
+  get bonus () {
+    return this._.bonus
   }
 
-  get name () { return this._name }
-  set value (val) {
-    throw new Error('Characteristic value is read only')
+  set bonus (_) {
+    readOnly('bonus')
   }
 
-  get value () { return this._value }
-  set bonusValue (val) {
-    throw new Error('Charactrristic bonusValue is read only')
+  enhance (points) {
+    if (points < 0) throw new Error('The value must be positive')
+    const value = this.value + points
+    return this.fromOptions(this._promote({ value }))
   }
 
-  get bonusValue () { return bonusFunction(this.value) }
+  decrease (points) {
+    if (points < 0) throw new Error('The value must be positive')
+    const value = this.points - points
+    if (points < 0) throw new Error('The points cannot be negative')
+    return this.fromOptions(this._promote({ value }))
+  }
+
+  static fromOptions (options) {
+    const { name, value, category } = options
+    return new Characteristic(name, value, category)
+  }
+
+  fromOptions (options) {
+    return Characteristic.fromOptions(options)
+  }
+
+  isFromCategory (categoryName) {
+    return this._.category === categoryName
+  }
 }
 module.exports = Characteristic

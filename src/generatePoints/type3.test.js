@@ -1,5 +1,5 @@
 /* eslint-env jest */
-const generator = require('./type3.js')
+const generator = require('./type3.js').generator
 describe('type 3 generator', () => {
   test('when use the generator i obtain a points and history', () => {
     const result = generator(8)

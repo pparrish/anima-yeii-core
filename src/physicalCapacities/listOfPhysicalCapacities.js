@@ -1,12 +1,17 @@
-module.exports = [
+const PhysicalCapacity = require('./PhysicalCapacity')
+const createList = require('../utils/createList')
+
+const list = [
   {
     name: 'fatigue',
-    type: 'int',
-    linkedTo: 'characteristics/strength'
+    linkedTo: 'strength',
+    CREATOR: PhysicalCapacity,
   },
   {
     name: 'movement type',
-    type: 'int',
-    linkedTo: 'characteristics/agility'
-  }
+    linkedTo: 'agility',
+    CREATOR: PhysicalCapacity,
+  },
 ]
+
+module.exports = createList(list)

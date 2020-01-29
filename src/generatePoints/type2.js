@@ -3,4 +3,9 @@ const type1RollRule = require('./type2RollRule')
 const dice = new Dice()
 const generatePointsWith = require('./generatePointsWith')
 
-module.exports = (numberOfCharacteristics) => generatePointsWith(dice, type1RollRule, numberOfCharacteristics)
+module.exports = {
+  name: 'type 2',
+  type: 'values',
+  need: 'values to generate',
+  generator: (numberOfCharacteristics) => generatePointsWith(dice, type1RollRule, numberOfCharacteristics)
+}

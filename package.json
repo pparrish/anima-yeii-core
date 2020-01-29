@@ -4,25 +4,40 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "lint": "yarn standard --globals expect",
-    "fix": "yarn lint --fix",
-    "test": "jest --coverage ",
-    "fixAndTest": "yarn fix && yarn test",
-    "documentate": "yarn documentation build src/** -f md -o documentation.md"
+    "lint": "eslint .",
+    "fix": "eslint . --fix",
+    "test": "jest",
+    "doc": "documentation build src/** -f md -o documentation.md",
+    "build": "babel src --out-dir dist"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged -c ./lint-staged.config.js"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@babel/runtime": "^7.8.3"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "core-js": "^3.6.4",
     "documentation": "^12.1.4",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.0.8",
     "jest": "^24.9.0",
-    "jest-cucumber": "^2.0.11",
     "lint-staged": "^9.4.1",
-    "prettier": "^1.18.2",
-    "standard": "^14.3.1"
+    "prettier": "^1.19.1",
+    "regenerator-runtime": "^0.13.3"
   }
 }

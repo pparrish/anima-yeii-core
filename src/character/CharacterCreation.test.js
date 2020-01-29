@@ -1,7 +1,7 @@
 /* eslint-env jest */
 const CharacterCreator = require('./CharacterCreator')
 const listOfBasicInfo = require('../characterBasicInfo/listOfCharacterBasicInfo')
-const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics')
+const listOfCharacteristics = require('../characteristics/listOfAnimaCharacteristics').map(x => x.name)
 describe('Creation of a character', () => {
   const characterCreator = new CharacterCreator()
   const newCreator = () => new CharacterCreator()
@@ -28,7 +28,7 @@ describe('Creation of a character', () => {
   }
 
   test('when the creation begings all the basic info is not seted', () => {
-    expect(characterCreator.nonSetBasicInfo()).toEqual(expect.arrayContaining(listOfBasicInfo))
+    expect(characterCreator.nonSetBasicInfo()).toEqual(expect.arrayContaining(listOfBasicInfo.map(x => x.name)))
   })
   test('before i set the name then i see the name ass null', () => {
     const { name } = characterCreator.settedBasicInfo()
@@ -61,13 +61,13 @@ describe('Creation of a character', () => {
 
   test('when generate points.type 4 i get points less or equal 70', () => {
     const generatedPoints = characterCreator.generatePoints(4)
-    expect(generatedPoints.remainerPoints()).toBeLessThanOrEqual(70)
+    expect(generatedPoints.remainderPoints()).toBeLessThanOrEqual(70)
   })
 
   test('when select 60 points i have 60 points', () => {
     characterCreator.setPoints(60)
     characterCreator.generatePoints(5)
-    expect(characterCreator.remainerPoints()).toBe(60)
+    expect(characterCreator.remainderPoints()).toBe(60)
   })
 
   test('when i generate points again i get the same values', () => {
